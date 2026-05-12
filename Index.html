@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SafeDeal 🛡️ — Монголын луйваас хамгаалах платформ</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#060608;--bg2:#0d0d14;--bg3:#13131e;--bg4:#1a1a28;
+  --red:#ff2d2d;--red2:#ff5533;--orange:#ff8833;
+  --green:#00e87a;--blue:#3d8eff;--purple:#a855f7;
+  --text:#f0ecff;--text2:#a09cc0;--text3:#5a5680;
+  --border:#ffffff0d;--border2:#ffffff18;--border3:#ffffff28;
+  --glow:0 0 40px #ff2d2d22;
+  --card-shadow:0 4px 24px #00000066;
+  --r:14px;--r2:10px;--r3:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none}
+*::selection{background:transparent}
+*::-moz-selection{background:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#ff2d2d44;border-radius:2px}
+.hidden{display:none!important}
+
+/* ── GRID NOISE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.6}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:50;background:#060608ee;backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 24px}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;user-select:none}
+.logo-shield{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 20px #ff2d2d44,inset 0 1px 0 #ffffff22}
+.logo-text{font-weight:700;font-size:18px;letter-spacing:-0.5px}
+.logo-text b{color:var(--red)}
+nav{display:flex;gap:2px}
+.nav-btn{background:none;border:none;cursor:pointer;padding:8px 14px;border-radius:var(--r3);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;color:var(--text3);transition:all .2s;display:flex;align-items:center;gap:6px}
+.nav-btn:hover{background:#ffffff0a;color:var(--text2)}
+.nav-btn.active{background:#ff2d2d18;color:#ff6666}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:var(--red);display:none}
+.nav-btn.active .nav-dot{display:block}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--red2));border:none;color:#fff;padding:9px 20px;border-radius:var(--r2);cursor:pointer;font-weight:600;font-family:'Space Grotesk',sans-serif;font-size:13px;transition:all .2s;box-shadow:0 2px 12px #ff2d2d33}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px #ff2d2d44}
+.btn-primary:active{transform:translateY(0)}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);padding:9px 18px;border-radius:var(--r2);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;transition:all .2s}
+.btn-outline:hover{border-color:#ff2d2d66;color:#ff8888}
+.btn-ghost{background:transparent;border:none;color:var(--text3);padding:6px 12px;border-radius:var(--r3);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;transition:all .2s}
+.btn-ghost:hover{color:var(--text2);background:#ffffff08}
+
+/* ── MAIN ── */
+main{max-width:1100px;margin:0 auto;padding:32px 24px}
+
+/* ── HERO ── */
+.hero{position:relative;padding:56px 32px 48px;text-align:center;overflow:hidden;border-radius:24px;border:1px solid var(--border);background:var(--bg2);margin-bottom:40px}
+.hero-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,#ff2d2d1a 0%,transparent 70%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;opacity:.5}
+.hero-content{position:relative;z-index:1;user-select:none;-webkit-user-select:none}
+.hero-badge{user-select:none;-webkit-user-select:none;display:inline-flex;align-items:center;gap:8px;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff8888;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-size:52px;font-weight:700;line-height:1.08;letter-spacing:-2px;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:transparent;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;background-clip:text}
+.hero-sub{font-size:15px;color:var(--text2);max-width:500px;margin:0 auto 28px;line-height:1.7}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-btns .btn-primary{font-size:14px;padding:12px 24px}
+.hero-btns .btn-outline{font-size:14px;padding:12px 22px}
+
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.stat-card{user-select:none;-webkit-user-select:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;transition:border .3s}
+.stat-card:hover{border-color:var(--border2)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.stat-card:nth-child(1)::before{background:linear-gradient(90deg,var(--red),var(--red2))}
+.stat-card:nth-child(2)::before{background:linear-gradient(90deg,var(--orange),#ffcc33)}
+.stat-card:nth-child(3)::before{background:linear-gradient(90deg,var(--blue),var(--purple))}
+.stat-card:nth-child(4)::before{background:linear-gradient(90deg,var(--green),#00ccff)}
+.stat-icon{font-size:22px;margin-bottom:10px}
+.stat-val{font-size:30px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-1px;margin-bottom:4px}
+.stat-label{font-size:12px;color:var(--text3);font-weight:500}
+.stat-change{font-size:11px;color:var(--green);margin-top:4px}
+
+/* ── SECTION ── */
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{user-select:none;-webkit-user-select:none;font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px}
+.section-title .dot{width:8px;height:8px;border-radius:50%;background:var(--red)}
+
+/* ── REPORT CARD ── */
+.report-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:12px;transition:all .25s;position:relative;overflow:hidden}
+.report-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.report-card.cat-scam::before{background:var(--red)}
+.report-card.cat-quality::before{background:var(--orange)}
+.report-card.cat-delivery::before{background:var(--blue)}
+.report-card.cat-other::before{background:var(--purple)}
+.report-card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:var(--card-shadow)}
+.report-card.pinned{border-color:#ffaa0044;background:#1a1500}
+.pinned-banner{background:linear-gradient(135deg,#ffaa00,#ff6600);color:#000;font-size:10px;font-weight:700;padding:3px 12px;border-radius:0 0 8px 0;position:absolute;top:0;left:3px;letter-spacing:1px}
+
+/* scam score pill */
+.score-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.score-low{background:#00e87a18;color:var(--green);border:1px solid #00e87a44}
+.score-med{background:#ff883318;color:var(--orange);border:1px solid #ff883344}
+.score-high{background:#ff2d2d18;color:#ff6666;border:1px solid #ff2d2d44}
+.score-crit{background:linear-gradient(135deg,#ff2d2d22,#ff000044);color:#ff4444;border:1px solid #ff2d2d88;animation:score-pulse 2s infinite}
+@keyframes score-pulse{0%,100%{box-shadow:0 0 0 0 #ff2d2d22}50%{box-shadow:0 0 0 6px #ff2d2d00}}
+
+.card-row{display:flex;gap:14px;align-items:flex-start}
+.card-cat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid var(--border)}
+.card-cat-icon.cat-scam{background:#ff2d2d14}
+.card-cat-icon.cat-quality{background:#ff881414}
+.card-cat-icon.cat-delivery{background:#3d8eff14}
+.card-cat-icon.cat-other{background:#a855f714}
+.card-body{flex:1;min-width:0}
+.card-title-row{display:flex;align-items:center;gap:7px;margin-bottom:8px;flex-wrap:wrap}
+.card-name{font-weight:700;font-size:15px;font-family:'JetBrains Mono',monospace}
+
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.3px}
+.badge-fb{background:#3d8eff14;color:#6db3ff;border:1px solid #3d8eff33}
+.badge-ig{background:#e1306c14;color:#ff70a0;border:1px solid #e1306c33}
+.badge-tw{background:#1da1f214;color:#60d0ff;border:1px solid #1da1f233}
+.badge-oth{background:#a855f714;color:#c084fc;border:1px solid #a855f733}
+.badge-cat-scam{background:#ff2d2d14;color:#ff7070;border:1px solid #ff2d2d33}
+.badge-cat-quality{background:#ff881414;color:#ffaa66;border:1px solid #ff881433}
+.badge-cat-delivery{background:#3d8eff14;color:#80c0ff;border:1px solid #3d8eff33}
+.badge-cat-other{background:#a855f714;color:#c084fc;border:1px solid #a855f733}
+.badge-verified{background:#00e87a14;color:#00e87a;border:1px solid #00e87a44}
+.badge-network{background:#a855f714;color:#c084fc;border:1px solid #a855f733}
+
+.card-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:12px}
+.card-proof{background:var(--bg3);border-radius:var(--r3);padding:8px 12px;font-size:12px;color:var(--text3);margin-bottom:12px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;line-height:1.5}
+.card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.card-meta{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.meta-amount{font-size:14px;color:#ff6666;font-weight:700;font-family:'JetBrains Mono',monospace}
+.meta-item{font-size:12px;color:var(--text3)}
+.card-actions{display:flex;gap:7px;align-items:center}
+.link-btn{font-size:11px;color:var(--text3);text-decoration:none;padding:5px 11px;border:1px solid var(--border2);border-radius:20px;transition:all .2s;font-weight:500}
+.link-btn:hover{border-color:#ff2d2d66;color:#ff8888}
+.like-btn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 13px;border-radius:20px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:5px}
+.like-btn:hover{border-color:#ff2d2d88;color:#ff8888;background:#ff2d2d0a}
+.like-btn.liked{border-color:var(--red);color:#ff6666;background:#ff2d2d14}
+
+/* warning banner on search */
+.search-warning{background:#1a0800;border:1px solid #ff440044;border-radius:var(--r);padding:16px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:flex-start}
+.search-warning-icon{font-size:28px;flex-shrink:0}
+.search-warning-title{font-size:15px;font-weight:700;color:#ff6666;margin-bottom:4px}
+.search-warning-sub{font-size:13px;color:var(--text2);line-height:1.6}
+.search-clear{background:#0a1800;border:1px solid #00e87a44;border-radius:var(--r);padding:16px 20px;margin-bottom:16px;display:flex;gap:14px;align-items:center}
+.search-clear-icon{font-size:26px}
+.search-clear-text{font-size:14px;font-weight:600;color:var(--green)}
+
+/* ── SCAM SCORE DASHBOARD ── */
+.score-dashboard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.score-dashboard-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px}
+.score-bars{display:flex;flex-direction:column;gap:10px}
+.score-bar-row{display:flex;align-items:center;gap:10px}
+.score-bar-label{font-size:12px;color:var(--text3);width:110px;flex-shrink:0}
+.score-bar-track{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:3px;transition:width 1s ease}
+.score-bar-val{font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--text2);width:40px;text-align:right;flex-shrink:0}
+
+/* ── NETWORK GRAPH ── */
+.network-box{background:var(--bg2);border:1px solid #a855f733;border-radius:var(--r);padding:16px;margin-bottom:12px}
+.network-title{font-size:12px;font-weight:600;color:#c084fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.network-nodes{display:flex;gap:8px;flex-wrap:wrap}
+.network-node{padding:5px 12px;border-radius:20px;font-size:11px;font-family:'JetBrains Mono',monospace;border:1px solid;cursor:pointer;transition:all .2s}
+.network-node.main-node{background:#ff2d2d18;color:#ff7070;border-color:#ff2d2d66;font-weight:700}
+.network-node.linked-node{background:#a855f714;color:#c084fc;border-color:#a855f744}
+.network-node.linked-node:hover{background:#a855f722;border-color:#a855f788}
+
+/* ── FORM ── */
+.input,.textarea,.select{user-select:text;-webkit-user-select:text}
+.input{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Space Grotesk',sans-serif;font-size:14px;width:100%;outline:none;transition:border .2s}
+.input:focus{border-color:#ff2d2d88}
+.input::placeholder{color:var(--text3)}
+.textarea{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Space Grotesk',sans-serif;font-size:14px;width:100%;outline:none;resize:vertical;min-height:80px;transition:border .2s;line-height:1.6}
+.textarea:focus{border-color:#ff2d2d88}
+.textarea::placeholder{color:var(--text3)}
+.select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Space Grotesk',sans-serif;font-size:14px;width:100%;outline:none}
+label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-weight:500}
+.field{margin-bottom:16px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.required-star{color:var(--red)}
+
+/* inline warning inside form */
+.inline-warn{background:#1a0800;border:1px solid #ff440033;border-radius:var(--r3);padding:8px 12px;font-size:12px;color:#ff9966;margin-top:8px;display:none}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:28px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
+.modal-title{font-size:22px;font-weight:700;letter-spacing:-0.5px}
+.modal-sub{font-size:13px;color:var(--text2);margin-top:4px;line-height:1.5}
+.modal-close{background:none;border:1px solid var(--border2);color:var(--text3);width:32px;height:32px;border-radius:var(--r3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;flex-shrink:0}
+.modal-close:hover{border-color:var(--border3);color:var(--text)}
+.modal-btns{display:flex;gap:10px;margin-top:8px}
+.modal-btns .btn-primary,.modal-btns .btn-outline{flex:1}
+.warn-box{background:#1a0800;border-radius:var(--r3);padding:10px 13px;font-size:12px;color:#ff9966;line-height:1.65;margin-bottom:16px;border:1px solid #ff441122}
+.info-box{background:var(--bg3);border-radius:var(--r3);padding:10px 13px;font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:16px;border:1px solid var(--border)}
+
+/* image proof upload */
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--r2);padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg3)}
+.upload-zone:hover{border-color:#ff2d2d66;background:#ff2d2d08}
+.upload-zone p{font-size:13px;color:var(--text3)}
+.upload-zone span{font-size:24px;display:block;margin-bottom:8px}
+.upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.upload-thumb{width:60px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--border)}
+.ai-check-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r3);font-size:12px;margin-top:10px}
+.ai-check-status.checking{background:#3d8eff14;border:1px solid #3d8eff33;color:#80c0ff}
+.ai-check-status.ok{background:#00e87a14;border:1px solid #00e87a44;color:var(--green)}
+.ai-check-status.suspicious{background:#ff881414;border:1px solid #ff883344;color:var(--orange)}
+.ai-check-status.fake{background:#ff2d2d14;border:1px solid #ff2d2d44;color:#ff7070}
+
+/* ── NOTIFICATION ── */
+.notif{position:fixed;top:16px;right:16px;z-index:300;border-radius:var(--r2);padding:12px 18px;max-width:340px;font-size:13px;font-weight:500;box-shadow:0 8px 40px #00000099;transition:all .35s;display:flex;align-items:flex-start;gap:10px}
+.notif-icon{font-size:16px;flex-shrink:0}
+.notif.success{background:#0a1f10;border:1px solid #00e87a55;color:#88ffaa}
+.notif.error{background:#200a0a;border:1px solid #ff2d2d66;color:#ff9999}
+.notif.warning{background:#1f1000;border:1px solid #ff883344;color:#ffcc88}
+.notif.info{background:#0a1020;border:1px solid #3d8eff44;color:#88c0ff}
+
+/* ── AI CHAT ── */
+.chat-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:20px;display:flex;flex-direction:column;height:520px}
+.chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.chat-msg{display:flex}
+.chat-msg.user{justify-content:flex-end}
+.chat-bubble{max-width:78%;padding:12px 15px;border-radius:16px;font-size:13px;line-height:1.7;white-space:pre-wrap}
+.chat-bubble.user{background:linear-gradient(135deg,#ff2d2d,#ff5533);color:#fff;border-radius:16px 16px 4px 16px}
+.chat-bubble.assistant{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:16px 16px 16px 4px}
+.chat-input-row{padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:8px}
+.chat-suggestions{display:flex;flex-direction:column;gap:6px;padding:0 16px 10px}
+.chat-suggest-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:9px 14px;border-radius:var(--r3);cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:500;text-align:left;transition:all .2s}
+.chat-suggest-btn:hover{border-color:#ff2d2d55;color:#ff8888;background:#ff2d2d08}
+.loading-dots{display:flex;gap:5px;padding:4px 0;align-items:center}
+.loading-dots span{width:6px;height:6px;border-radius:50%;background:#ff6666;animation:ldot 1.4s infinite}
+.loading-dots span:nth-child(2){animation-delay:.2s}
+.loading-dots span:nth-child(3){animation-delay:.4s}
+@keyframes ldot{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+/* ── SEARCH ── */
+.search-row{display:flex;gap:10px;margin-bottom:20px}
+.search-input-wrap{flex:1;position:relative}
+.search-input-wrap .input{padding-left:38px}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
+.filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Space Grotesk',sans-serif;transition:all .2s}
+.filter-btn.active{background:#ff2d2d18;border-color:#ff2d2d44;color:#ff7070}
+.filter-btn:hover:not(.active){border-color:var(--border2);color:var(--text2)}
+
+/* ── EMPTY ── */
+.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-icon{font-size:48px;margin-bottom:14px;filter:grayscale(.5)}
+.empty-state p{font-size:14px;line-height:1.6}
+
+/* ── SORT BAR ── */
+.sort-bar{display:flex;gap:6px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.sort-label{font-size:12px;color:var(--text3);margin-right:4px}
+.sort-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:11px;font-family:'Space Grotesk',sans-serif;transition:all .2s}
+.sort-btn.active{background:#ff2d2d18;border-color:#ff2d2d44;color:#ff7070}
+.sort-btn:hover:not(.active){border-color:var(--border2);color:var(--text2)}
+
+/* ── VICTIM CHAT ── */
+.victim-thread{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-top:12px}
+.victim-thread-header{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+.victim-msg{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.victim-avatar{width:28px;height:28px;border-radius:50%;background:var(--bg4);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.victim-bubble{background:var(--bg2);border:1px solid var(--border);border-radius:0 10px 10px 10px;padding:8px 12px;font-size:12px;color:var(--text2);line-height:1.6;flex:1}
+.victim-name{font-weight:600;color:var(--text);font-size:11px;margin-bottom:2px}
+.victim-input-row{display:flex;gap:8px;margin-top:10px}
+.victim-input-row .input{font-size:12px;padding:8px 12px}
+
+/* ── WATERMARK BADGE ── */
+.wm-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:9px;font-family:'JetBrains Mono',monospace;background:#3d8eff14;border:1px solid #3d8eff33;color:#80c0ff;font-weight:700;letter-spacing:.5px;vertical-align:middle}
+
+/* ── TABS ── */
+.tab-row{display:flex;gap:2px;margin-bottom:20px;background:var(--bg2);padding:4px;border-radius:var(--r2);border:1px solid var(--border)}
+.tab-btn{flex:1;background:none;border:none;color:var(--text3);padding:8px;border-radius:8px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;transition:all .2s}
+.tab-btn.active{background:var(--bg4);color:var(--text);border:1px solid var(--border2)}
+
+/* ── TOP SCAMMER CARDS ── */
+.top-scammer-card{user-select:none;-webkit-user-select:none;background:var(--bg2);border:1px solid #ff883322;border-radius:var(--r);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:all .2s;cursor:default}
+.top-scammer-card:hover{border-color:#ff883366;transform:translateY(-1px)}
+.top-scammer-rank{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.rank-1{background:linear-gradient(135deg,#ffcc00,#ff8800);color:#000}
+.rank-2{background:linear-gradient(135deg,#c0c0c0,#888);color:#000}
+.rank-3{background:linear-gradient(135deg,#cd7f32,#8b4513);color:#fff}
+.rank-n{background:var(--bg4);color:var(--text3);border:1px solid var(--border)}
+.top-scammer-info{flex:1;min-width:0}
+.top-scammer-name{font-weight:700;font-size:14px;font-family:'JetBrains Mono',monospace;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-scammer-meta{display:flex;gap:12px;flex-wrap:wrap}
+.top-scammer-meta span{font-size:12px;color:var(--text3)}
+.top-scammer-meta b{color:var(--text2)}
+.top-scammer-amount{font-size:15px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#ff6666;white-space:nowrap}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:var(--text3);font-size:12px;margin-top:40px;line-height:1.8}
+
+@media(max-width:700px){
+  .hero h1{font-size:32px;letter-spacing:-1px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  nav .nav-btn{padding:7px 9px;font-size:12px}
+  .field-row{grid-template-columns:1fr}
+  .hero{padding:36px 20px 32px}
+}
+@media(max-width:460px){
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="notif-container"></div>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="nav-inner">
+    <a class="logo" onclick="showPage('home')">
+      <div class="logo-shield">🛡️</div>
+      <span class="logo-text">Safe<b>Deal</b></span>
+    </a>
+    <nav>
+      <button class="nav-btn active" id="nav-home" onclick="showPage('home')"><span class="nav-dot"></span>Нүүр</button>
+      <button class="nav-btn" id="nav-search" onclick="showPage('search')"><span class="nav-dot"></span>Хайх</button>
+      <button class="nav-btn" id="nav-reports" onclick="showPage('reports')"><span class="nav-dot"></span>Тайлан</button>
+      <button class="nav-btn" id="nav-ai" onclick="showPage('ai')"><span class="nav-dot"></span>AI</button>
+    </nav>
+    <div id="header-right">
+      <button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══ HOME PAGE ══ -->
+  <div id="page-home">
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <div class="hero-badge"><span class="hero-badge-dot"></span>Монголын луйваас хамгаалах платформ</div>
+        <h1>Луйварчдыг<br><em>олон нийтэд</em> мэдээлэл</h1>
+        <p class="hero-sub">Facebook, Instagram дээрх зөрчилтэй акаунтуудыг бүртгэж бусдыг хамгаал.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="onAddReport()">+ Бүртгэл нэмэх</button>
+          <button class="btn-outline" onclick="showPage('search')">🔍 Хайж шалгах</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-val" id="stat-total">0</div>
+        <div class="stat-label">Нийт тайлан</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💸</div>
+        <div class="stat-val" id="stat-loss">0₮</div>
+        <div class="stat-label">Нийт хохирол</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🚨</div>
+        <div class="stat-val" id="stat-scammers">0</div>
+        <div class="stat-label">Зөрчилтэй акаунт</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-val" id="stat-users">0</div>
+        <div class="stat-label">Бүртгэлтэй хэрэглэгч</div>
+      </div>
+    </div>
+
+    <!-- TOP SCAMMERS -->
+    <div class="section-hd" style="margin-bottom:14px">
+      <div class="section-title"><span class="dot" style="background:#ff8833"></span>🏴 Хамгийн их залилсан акаунтууд</div>
+      <button class="btn-ghost" onclick="showPage('search')">Бүгдийг харах →</button>
+    </div>
+    <div id="top-scammers-list" style="margin-bottom:32px"></div>
+
+    <div class="section-hd">
+      <div class="section-title"><span class="dot"></span>🔥 Шилдэг тайлан</div>
+      <button class="btn-ghost" onclick="showPage('reports')">Бүгдийг харах →</button>
+    </div>
+    <div id="home-reports"></div>
+  </div>
+
+  <!-- ══ SEARCH PAGE ══ -->
+  <div id="page-search" class="hidden">
+    <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:6px">🔍 Луйварчдыг хайх</h2>
+    <p style="color:var(--text2);margin-bottom:24px;font-size:14px">Facebook/Instagram холбоос эсвэл нэрээр хайна уу</p>
+
+    <div class="search-row">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="input" id="search-input" placeholder="facebook.com/... эсвэл хэрэглэгчийн нэр..." onkeydown="if(event.key==='Enter')doSearch()" oninput="onSearchInput()"/>
+      </div>
+      <button class="btn-primary" onclick="doSearch()">Хайх</button>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-btn active" data-f="all" onclick="setFilter(this,'all')">Бүгд</button>
+      <button class="filter-btn" data-f="луйвар" onclick="setFilter(this,'луйвар')">🚨 Луйвар</button>
+      <button class="filter-btn" data-f="чанар муу" onclick="setFilter(this,'чанар муу')">📦 Чанар муу</button>
+      <button class="filter-btn" data-f="хүргэлт ирээгүй" onclick="setFilter(this,'хүргэлт ирээгүй')">❌ Хүргэлт</button>
+    </div>
+
+    <div id="search-result-banner" class="hidden"></div>
+    <div id="search-results"></div>
+    <div id="search-empty" class="empty-state">
+      <div class="empty-icon">🔎</div>
+      <p>Луйварчдын холбоос эсвэл нэрийг хайж шалгаарай.<br>Мэдэгдэж байвал шууд анхааруулна.</p>
+    </div>
+  </div>
+
+  <!-- ══ REPORTS PAGE ══ -->
+  <div id="page-reports" class="hidden">
+    <div class="section-hd" style="margin-bottom:20px">
+      <div>
+        <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:4px">📋 Бүх тайлан</h2>
+        <p style="color:var(--text2);font-size:13px">Нийт <b id="reports-count" style="color:var(--text)">0</b> тайлан</p>
+      </div>
+      <button class="btn-primary" onclick="onAddReport()">+ Бүртгэл нэмэх</button>
+    </div>
+
+    <div class="sort-bar">
+      <span class="sort-label">Эрэмбэ:</span>
+      <button class="sort-btn active" id="sort-likes" onclick="setSortMode('likes')">❤️ Лайк</button>
+      <button class="sort-btn" id="sort-amount" onclick="setSortMode('amount')">💸 Хохирол</button>
+      <button class="sort-btn" id="sort-date" onclick="setSortMode('date')">📅 Огноо</button>
+      <button class="sort-btn" id="sort-score" onclick="setSortMode('score')">🎯 Оноо</button>
+    </div>
+
+    <div id="all-reports"></div>
+  </div>
+
+  <!-- ══ AI PAGE ══ -->
+  <div id="page-ai" class="hidden">
+    <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:6px">🤖 AI Туслагч</h2>
+    
+    <div class="chat-wrap">
+      <div class="chat-messages" id="chat-messages">
+        <div id="chat-empty" style="text-align:center;padding:40px 20px;color:var(--text3)">
+          <div style="font-size:44px;margin-bottom:14px">🤖</div>
+          <p style="font-size:14px;color:var(--text2);margin-bottom:6px;font-weight:600">SafeDeal AI Туслагч</p>
+          <p style="font-size:13px;line-height:1.7">Луйвар таних, зөвлөгөө авах, цагдаад мэдүүлэх<br>заавар авахад туслах болно.</p>
+        </div>
+      </div>
+      <div class="chat-suggestions" id="chat-suggestions">
+        <button class="chat-suggest-btn" onclick="setSuggest('Онлайн дэлгүүрийн луйваруудыг хэрхэн таних вэ?')">💡 Онлайн дэлгүүрийн луйваруудыг хэрхэн таних вэ?</button>
+        <button class="chat-suggest-btn" onclick="setSuggest('Луйварчдад хууртвал цагдаад хэрхэн мэдүүлэх вэ?')">🚔 Луйварчдад хууртвал цагдаад хэрхэн мэдүүлэх вэ?</button>
+        <button class="chat-suggest-btn" onclick="setSuggest('Facebook дээрх луйвар бизнесийг хэрхэн илрүүлэх вэ?')">📘 Facebook дээрх луйвар бизнесийг хэрхэн илрүүлэх вэ?</button>
+        <button class="chat-suggest-btn" onclick="setSuggest('Хөрөнгө оруулалтын луйварын шинж тэмдэг юу вэ?')">📈 Хөрөнгө оруулалтын луйварын шинж тэмдэг юу вэ?</button>
+      </div>
+      <div class="chat-input-row">
+        <input class="input" id="chat-input" placeholder="Асуух зүйлээ бичнэ үү..." onkeydown="if(event.key==='Enter')sendChat()" style="font-size:13px"/>
+        <button class="btn-primary" onclick="sendChat()">Илгээх</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══ REGISTER MODAL ══ -->
+<div id="register-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('register-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">👤 Бүртгүүлэх</div>
+        <div class="modal-sub">Бодит нэр болон утасны дугаараар бүртгүүлснээр платформын итгэлцлийг нэмэгдүүлнэ.</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('register-modal')">✕</button>
+    </div>
+    <div class="field"><label>Бүтэн нэр <span class="required-star">*</span></label><input class="input" id="reg-name" placeholder="Жишээ: Б. Мөнхбаяр"/></div>
+    <div class="field"><label>Утасны дугаар <span class="required-star">*</span> (8 оронтой)</label><input class="input" id="reg-phone" placeholder="9900XXXX" maxlength="8" type="tel"/></div>
+    <div class="info-box">🔒 Таны хувийн мэдээлэл нийтэд харагдахгүй. Зөвхөн тайлангийн үнэн зөвийг баталгаажуулахад ашиглана.</div>
+    <div class="modal-btns">
+      <button class="btn-outline" onclick="closeModal('register-modal')">Болих</button>
+      <button class="btn-primary" onclick="doRegister()">✓ Бүртгүүлэх</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REPORT MODAL ══ -->
+<div id="report-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('report-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">+ Бүртгэл нэмэх</div>
+        <div class="modal-sub">Та болон бусдын аюулгүй байдлын төлөө мэдүүлнэ үү.</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('report-modal')">✕</button>
+    </div>
+
+    <div class="field">
+      <label>Луйварчны холбоос <span class="required-star">*</span></label>
+      <input class="input" id="rep-link" placeholder="https://facebook.com/username" oninput="checkLinkRealtime()"/>
+      <div class="inline-warn" id="rep-link-warn"></div>
+    </div>
+
+    <div class="field">
+      <label>Луйварчны нэр <span class="required-star">*</span> <span style="color:var(--text3);font-weight:400">(профайлд харагдах бодит нэр)</span></label>
+      <input class="input" id="rep-displayname" placeholder="Жишээ: Bindy Gan, Мөнх Дэлгэр..."/>
+    </div>
+
+    <div class="field-row field">
+      <div>
+        <label>Платформ</label>
+        <select class="select" id="rep-platform">
+          <option>Facebook</option><option>Instagram</option><option>Twitter/X</option><option>Бусад</option>
+        </select>
+      </div>
+      <div>
+        <label>Гомдлын төрөл</label>
+        <select class="select" id="rep-category">
+          <option value="луйвар">🚨 Луйвар</option>
+          <option value="чанар муу">📦 Чанар муу</option>
+          <option value="хүргэлт ирээгүй">❌ Хүргэлт ирээгүй</option>
+          <option value="бусад">❓ Бусад</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Алдсан мөнгө (₮) <span class="required-star">*</span></label>
+      <input class="input" id="rep-amount" placeholder="150000" type="number" min="0"/>
+    </div>
+
+    <div class="field">
+      <label>Яаж луйварлагдсан — дэлгэрэнгүй тайлбар <span class="required-star">*</span></label>
+      <textarea class="textarea" id="rep-desc" placeholder="Юу захиалсан, хэрхэн төлсөн, юу болсон тайлбарлана уу..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Гүйлгээний дугаар / нотлох баримт</label>
+      <textarea class="textarea" id="rep-proof" placeholder="Гүйлгээний дугаар, огноо, дэлгэцийн зургийн тайлбар..." style="min-height:60px"></textarea>
+      <div class="info-box" style="margin-top:8px;margin-bottom:0">🛡️ Нотлох баримт оруулсан тайлан илүү үнэмшилтэй бөгөөд <b>AI баталгаажуулалт</b>аар шалгагдана.</div>
+    </div>
+
+    <div class="warn-box">🔒 Хуурамч тайлан оруулах нь хуулийн хариуцлага хүлээлгэх болно. Бүх тайланд IP бүртгэл хийгдэнэ.</div>
+    <div class="modal-btns">
+      <button class="btn-outline" onclick="closeModal('report-modal')">Болих</button>
+      <button class="btn-primary" onclick="submitReport()">📤 Тайлан илгээх</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DETAIL MODAL ══ -->
+<div id="detail-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('detail-modal')">
+  <div class="modal" id="detail-modal-content" style="max-width:580px"></div>
+</div>
+
+<footer>🛡️ SafeDeal — Монголын луйваас хамгаалах платформ</footer>
+
+<!-- ══ FIREBASE ══ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, getDocs, doc,
+  updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const cfg = {
+  apiKey:"AIzaSyDfDcqyeOS6Cj3gFdy1A0YJT5wBbJpX7PI",
+  authDomain:"hamgaalalt-6e6f7.firebaseapp.com",
+  projectId:"hamgaalalt-6e6f7",
+  storageBucket:"hamgaalalt-6e6f7.firebasestorage.app",
+  messagingSenderId:"240337708972",
+  appId:"1:240337708972:web:7cbb5865e284b605a97c09"
+};
+const app = initializeApp(cfg);
+const db = getFirestore(app);
+window._db = db;
+window._fs = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
+window.loadReports();
+</script>
+
+<script>
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+let currentUser = null;
+let allReports = [];
+let chatHistory = [];
+let sortMode = 'likes';
+let searchFilter = 'all';
+
+// ─── NAVIGATION ───
+function showPage(p) {
+  ['home','search','reports','ai'].forEach(x => {
+    document.getElementById('page-'+x).classList.toggle('hidden', x!==p);
+    document.getElementById('nav-'+x).classList.toggle('active', x===p);
+  });
+  if(p==='reports'){ renderReports('all-reports', allReports); document.getElementById('reports-count').textContent = allReports.length; }
+  if(p==='home') renderHome();
+}
+window.showPage = showPage;
+
+// ─── MODALS ───
+function openModal(id){ document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id){ document.getElementById(id).classList.add('hidden'); }
+window.openModal = openModal; window.closeModal = closeModal;
+
+// ─── NOTIFY ───
+function notify(msg, type='success', icon=''){
+  const icons = {success:'✅',error:'❌',warning:'⚠️',info:'ℹ️'};
+  const el = document.createElement('div');
+  el.className = 'notif '+type;
+  el.innerHTML = `<span class="notif-icon">${icon||icons[type]}</span><span>${msg}</span>`;
+  document.getElementById('notif-container').appendChild(el);
+  setTimeout(()=>el.remove(), 4000);
+}
+
+// ─── REGISTER ───
+function doRegister(){
+  const name = document.getElementById('reg-name').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  if(!name||!phone){ notify('Нэр болон утасны дугаараа оруулна уу!','error'); return; }
+  if(!/^\d{8}$/.test(phone)){ notify('Утасны дугаар 8 оронтой байх ёстой!','error'); return; }
+  currentUser = {name, phone};
+  localStorage.setItem('ls_user', JSON.stringify(currentUser));
+  updateHeaderUser();
+  closeModal('register-modal');
+  notify(`Тавтай морил, ${name}!`, 'success');
+}
+window.doRegister = doRegister;
+
+function updateHeaderUser(){
+  if(!currentUser) return;
+  document.getElementById('header-right').innerHTML =
+    `<span style="font-size:12px;color:var(--text2);margin-right:10px">👤 <b style="color:var(--text)">${esc(currentUser.name)}</b></span>
+     <button class="btn-primary" onclick="onAddReport()">+ Бүртгэл</button>`;
+}
+
+function onAddReport(){
+  if(!currentUser){ openModal('register-modal'); return; }
+  openModal('report-modal');
+}
+window.onAddReport = onAddReport;
+
+// ─── SCAM SCORE ───
+function calcScore(r, allR){
+  // Count how many reports share this link
+  const sameLink = allR.filter(x=>x.scammerLink===r.scammerLink);
+  const reportCount = sameLink.length;
+  const totalLoss = sameLink.reduce((s,x)=>s+(x.amount||0),0);
+  const likes = r.likes||0;
+  let score = 0;
+  score += Math.min(reportCount * 15, 40); // max 40
+  score += Math.min(totalLoss / 50000, 30); // max 30
+  score += Math.min(likes * 2, 20); // max 20
+  if(r.proof) score += 10;
+  return Math.min(Math.round(score), 100);
+}
+
+function scoreLabel(s){
+  if(s>=80) return {cls:'score-crit',txt:'🔴 КРИТИК '+s};
+  if(s>=55) return {cls:'score-high',txt:'🟠 Өндөр '+s};
+  if(s>=30) return {cls:'score-med',txt:'🟡 Дунд '+s};
+  return {cls:'score-low',txt:'🟢 Бага '+s};
+}
+
+// ─── NETWORK DETECTION ───
+function findLinkedAccounts(r, allR){
+  // Detect accounts with similar names or that appear in same reporter's reports
+  const nameBase = (r.scammerName||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+  const linked = allR.filter(x =>
+    x.id !== r.id &&
+    x.scammerLink !== r.scammerLink &&
+    (
+      // Similar name pattern
+      (nameBase.length>3 && (x.scammerName||'').toLowerCase().includes(nameBase.slice(0,4))) ||
+      // Same reporter found multiple scammers (potential network)
+      x.reporterName === r.reporterName
+    )
+  );
+  // dedupe by link
+  const seen = new Set();
+  return linked.filter(x=>{ if(seen.has(x.scammerLink)) return false; seen.add(x.scammerLink); return true; }).slice(0,4);
+}
+
+// ─── LOAD REPORTS ───
+async function loadReports(){
+  try {
+    const db = window._db;
+    const { collection, getDocs, query, orderBy } = window._fs;
+    const q = query(collection(db,'reports'), orderBy('likes','desc'));
+    const snap = await getDocs(q);
+    allReports = snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderHome();
+    if(!document.getElementById('page-reports').classList.contains('hidden'))
+      renderReports('all-reports', allReports);
+  } catch(e){ console.error(e); }
+}
+window.loadReports = loadReports;
+
+// ─── SUBMIT ───
+async function submitReport(){
+  if(!currentUser){ notify('Эхлээд бүртгүүлнэ үү!','error'); return; }
+  const link = document.getElementById('rep-link').value.trim();
+  const amount = parseInt(document.getElementById('rep-amount').value)||0;
+  const desc = document.getElementById('rep-desc').value.trim();
+  const platform = document.getElementById('rep-platform').value;
+  const category = document.getElementById('rep-category').value;
+  const proof = document.getElementById('rep-proof').value.trim();
+  const displayName = document.getElementById('rep-displayname').value.trim();
+  if(!link||!displayName||!desc){ notify('Холбоос, нэр болон тайлбарыг оруулна уу!','error'); return; }
+  if(amount===0){ notify('Алдсан мөнгөний дүнг оруулна уу!','error'); return; }
+
+  const existing = allReports.filter(r=>r.scammerLink===link);
+  try {
+    const db = window._db;
+    const { collection, addDoc, serverTimestamp } = window._fs;
+    await addDoc(collection(db,'reports'),{
+      scammerLink: link,
+      platform, category,
+      scammerName: document.getElementById('rep-displayname').value.trim() || extractUsername(link),
+      scammerUsername: extractUsername(link),
+      reporterName: currentUser.name,
+      reporterPhone: currentUser.phone,
+      amount, desc, proof,
+      likes:0, likedBy:[],
+      verified: proof.length > 20,
+      createdAt: serverTimestamp(),
+    });
+    closeModal('report-modal');
+    ['rep-link','rep-displayname','rep-amount','rep-desc','rep-proof'].forEach(id=>document.getElementById(id).value='');
+    await loadReports();
+    if(existing.length>0)
+      notify(`⚠️ Энэ луйварчид өмнө нь ${existing.length} удаа мэдүүлэгдсэн байна!`, 'warning');
+    else
+      notify('✅ Тайлан амжилттай бүртгэгдлээ!', 'success');
+  } catch(e){ notify('Алдаа: '+e.message, 'error'); }
+}
+window.submitReport = submitReport;
+
+// ─── USERNAME EXTRACTOR ───
+function extractUsername(link){
+  try {
+    // Handle full URLs
+    const url = link.includes('://') ? new URL(link) : new URL('https://'+link);
+    // Remove trailing slash, get last path segment
+    const parts = url.pathname.replace(/\/+$/,'').split('/').filter(Boolean);
+    // Skip known non-username segments
+    const skip = new Set(['profile.php','p','reel','stories','groups','pages','watch','share','posts']);
+    // For fb: /profile.php?id=xxx -> use query id
+    if(url.searchParams.get('id')) return 'id:'+url.searchParams.get('id');
+    const name = parts.filter(p=>!skip.has(p)).pop();
+    return name || parts.pop() || 'Тодорхойгүй';
+  } catch {
+    // Not a valid URL — could be plain username typed directly
+    return link.trim().replace(/^@/,'') || 'Тодорхойгүй';
+  }
+}
+window.extractUsername = extractUsername;
+
+// ─── REAL-TIME LINK CHECK ───
+function checkLinkRealtime(){
+  const val = document.getElementById('rep-link').value.trim();
+  const warn = document.getElementById('rep-link-warn');
+  if(!val){ warn.style.display='none'; return; }
+  const username = extractUsername(val).toLowerCase();
+  const q = val.toLowerCase();
+  const found = allReports.filter(r=>
+    (r.scammerLink||'').toLowerCase().includes(q) ||
+    (r.scammerName||'').toLowerCase().includes(q) ||
+    (r.scammerUsername||'').toLowerCase().includes(username) ||
+    (username.length>2 && (r.scammerName||'').toLowerCase().includes(username))
+  );
+  if(found.length){
+    const total = found.reduce((s,r)=>s+(r.amount||0),0);
+    warn.style.display='block';
+    warn.textContent = `⚠️ Анхааруулга! Энэ акаунт дээр ${found.length} тайлан байна. Нийт ${total.toLocaleString()}₮ хохирол бүртгэгдсэн.`;
+  } else {
+    warn.style.display='none';
+  }
+}
+window.checkLinkRealtime = checkLinkRealtime;
+
+// ─── LIKE ───
+async function likeReport(id){
+  if(!currentUser){ notify('Лайк дарахын тулд бүртгүүлнэ үү!','error'); return; }
+  const r = allReports.find(x=>x.id===id);
+  if(!r) return;
+  if(r.likedBy&&r.likedBy.includes(currentUser.phone)){ notify('Та аль хэдийн лайк дарсан байна','warning'); return; }
+  try {
+    const db = window._db;
+    const { doc, updateDoc, increment, arrayUnion } = window._fs;
+    await updateDoc(doc(db,'reports',id),{ likes:increment(1), likedBy:arrayUnion(currentUser.phone) });
+    await loadReports();
+  } catch(e){ notify('Алдаа: '+e.message,'error'); }
+}
+window.likeReport = likeReport;
+
+// ─── SORT ───
+function setSortMode(m){
+  sortMode=m;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sort-'+m).classList.add('active');
+  renderReports('all-reports', allReports);
+}
+window.setSortMode = setSortMode;
+
+function sortedReports(arr){
+  const a = [...arr];
+  if(sortMode==='likes') a.sort((x,y)=>(y.likes||0)-(x.likes||0));
+  else if(sortMode==='amount') a.sort((x,y)=>(y.amount||0)-(x.amount||0));
+  else if(sortMode==='score') a.sort((x,y)=>calcScore(y,allReports)-calcScore(x,allReports));
+  else a.sort((x,y)=>{
+    const ta = x.createdAt?.toDate?x.createdAt.toDate():new Date(0);
+    const tb = y.createdAt?.toDate?y.createdAt.toDate():new Date(0);
+    return tb-ta;
+  });
+  return a;
+}
+
+// ─── RENDER HOME ───
+function renderHome(){
+  updateStats();
+  renderTopScammers();
+  const top = [...allReports].sort((a,b)=>(b.likes||0)-(a.likes||0)).slice(0,3);
+  renderReports('home-reports', top);
+}
+
+function renderTopScammers(){
+  const el = document.getElementById('top-scammers-list');
+  if(!el) return;
+  // Group by scammerLink, sum amount, count reports
+  const map = {};
+  allReports.forEach(r=>{
+    const key = r.scammerLink||'';
+    if(!map[key]) map[key]={link:key, name:r.scammerName||(r.scammerUsername||extractUsername(key)), platform:r.platform, totalAmount:0, reportCount:0, likes:0};
+    map[key].totalAmount += r.amount||0;
+    map[key].reportCount++;
+    map[key].likes += r.likes||0;
+  });
+  const sorted = Object.values(map).sort((a,b)=>b.totalAmount-a.totalAmount).slice(0,5);
+  if(!sorted.length){ el.innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-icon" style="font-size:32px">📭</div><p>Бүртгэлтэй акаунт байхгүй</p></div>'; return; }
+  const rankIcons=['1','2','3'];
+  el.innerHTML = sorted.map((s,i)=>{
+    const rankClass = i<3?`rank-${i+1}`:'rank-n';
+    const rankLabel = i<3?['🥇','🥈','🥉'][i]:`${i+1}`;
+    const pfIcon = s.platform==='Facebook'?'📘':s.platform==='Instagram'?'📸':'🌐';
+    return `<div class="top-scammer-card">
+      <div class="top-scammer-rank ${rankClass}">${rankLabel}</div>
+      <div class="top-scammer-info">
+        <div class="top-scammer-name">${esc(s.name)}</div>
+        <div class="top-scammer-meta">
+          <span>${pfIcon} ${esc(s.platform||'')}</span>
+          <span>⚠️ <b>${s.reportCount}</b> тайлан</span>
+          <span>❤️ <b>${s.likes}</b> лайк</span>
+        </div>
+      </div>
+      <div class="top-scammer-amount">${s.totalAmount>=1000000?(s.totalAmount/1000000).toFixed(1)+'сая':s.totalAmount.toLocaleString()}₮</div>
+    </div>`;
+  }).join('');
+}
+
+function updateStats(){
+  const total = allReports.length;
+  const loss = allReports.reduce((s,r)=>s+(r.amount||0),0);
+  const unique = new Set(allReports.map(r=>r.scammerLink)).size;
+  const reporters = new Set(allReports.map(r=>r.reporterPhone)).size;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-loss').textContent = loss>=1000000?(loss/1000000).toFixed(1)+'сая₮':loss.toLocaleString()+'₮';
+  document.getElementById('stat-scammers').textContent = unique;
+  document.getElementById('stat-users').textContent = reporters;
+}
+
+function renderReports(containerId, reports){
+  const el = document.getElementById(containerId);
+  if(!reports||!reports.length){
+    el.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><p>Тайлан байхгүй байна</p></div>';
+    return;
+  }
+  const sorted = sortedReports(reports);
+  el.innerHTML = sorted.map((r,i)=>reportCardHTML(r,i,containerId==='home-reports')).join('');
+}
+
+function reportCardHTML(r, rank, isHome){
+  const isTop = rank===0 && isHome;
+  const isLiked = currentUser&&r.likedBy&&r.likedBy.includes(currentUser.phone);
+  const score = calcScore(r, allReports);
+  const sl = scoreLabel(score);
+
+  // platform badge
+  const pfMap = {
+    'Facebook':['badge-fb','📘'],
+    'Instagram':['badge-ig','📸'],
+    'Twitter/X':['badge-tw','𝕏'],
+    'Бусад':['badge-oth','🌐']
+  };
+  const [pfClass, pfIcon] = pfMap[r.platform]||['badge-oth','🌐'];
+
+  // category
+  const catMap = {
+    'луйвар':['cat-scam','🚨','badge-cat-scam'],
+    'чанар муу':['cat-quality','📦','badge-cat-quality'],
+    'хүргэлт ирээгүй':['cat-delivery','❌','badge-cat-delivery'],
+    'бусад':['cat-other','❓','badge-cat-other']
+  };
+  const [catClass, catIcon, catBadge] = catMap[r.category||'луйвар']||['cat-other','❓','badge-cat-other'];
+
+  const proofHTML = r.proof
+    ? `<div class="card-proof">📎 ${esc(r.proof)}</div>`:'';
+
+  const verifiedBadge = r.verified
+    ? `<span class="badge badge-verified">✓ Баталгаажсан</span>`:'';
+
+  // same-link count
+  const dupeCount = allReports.filter(x=>x.scammerLink===r.scammerLink).length;
+  const dupeBadge = dupeCount>1
+    ? `<span class="badge badge-network">👥 ${dupeCount} мэдүүлэг</span>`:'';
+
+  const date = r.createdAt?.toDate
+    ? r.createdAt.toDate().toLocaleDateString('mn-MN') : '';
+
+  return `
+  <div class="report-card ${catClass}${isTop?' pinned':''}">
+    ${isTop?`<div class="pinned-banner">🏆 #1 ШИЛДЭГ</div>`:''}
+    <div class="card-row">
+      <div class="card-cat-icon ${catClass}">${catIcon}</div>
+      <div class="card-body">
+        <div class="card-title-row">
+          <span class="card-name">${esc(r.scammerName||'')}</span>
+          <span class="badge ${pfClass}">${pfIcon} ${esc(r.platform)}</span>
+          <span class="badge ${catBadge}">${esc(r.category)}</span>
+          ${verifiedBadge}${dupeBadge}
+          <span class="score-pill ${sl.cls}">${sl.txt}</span>
+        </div>
+        <p class="card-desc">${esc(r.desc||r.description||'')}</p>
+        ${proofHTML}
+        <div class="card-footer">
+          <div class="card-meta">
+            <span class="meta-amount">💸 ${(r.amount||0).toLocaleString()}₮</span>
+            <span class="meta-item">👤 ${esc(r.reporterName||'')}</span>
+            ${date?`<span class="meta-item">📅 ${date}</span>`:''}
+          </div>
+          <div class="card-actions">
+            <a class="link-btn" href="${esc(r.scammerLink||'')}" target="_blank" rel="noreferrer noopener">🔗 Профайл</a>
+            <button class="like-btn ${isLiked?'liked':''}" onclick="likeReport('${r.id}')">
+              ${isLiked?'❤️':'🤍'} ${r.likes||0}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── SEARCH ───
+let activeFilter = 'all';
+function setFilter(btn, f){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = f;
+  const q = document.getElementById('search-input').value.trim();
+  if(q) doSearch();
+}
+window.setFilter = setFilter;
+
+function onSearchInput(){
+  // real-time hint (debounced inline check)
+  const q = document.getElementById('search-input').value.trim().toLowerCase();
+  if(!q){ document.getElementById('search-result-banner').classList.add('hidden'); return; }
+}
+window.onSearchInput = onSearchInput;
+
+function doSearch(){
+  const raw = document.getElementById('search-input').value.trim();
+  const q = raw.toLowerCase();
+  if(!q) return;
+  // Extract username if it looks like a URL, otherwise treat as plain name
+  const isUrl = q.includes('facebook.com') || q.includes('instagram.com') || q.includes('http');
+  const inputUsername = extractUsername(raw).toLowerCase();
+
+  let found = allReports.filter(r=>{
+    const link = (r.scammerLink||'').toLowerCase();
+    const name = (r.scammerName||'').toLowerCase();
+    const storedUsername = extractUsername(r.scammerLink||'').toLowerCase();
+    const storedDisplayUsername = (r.scammerUsername||'').toLowerCase();
+    if(isUrl){
+      return link.includes(q) || storedUsername === inputUsername || storedDisplayUsername === inputUsername;
+    } else {
+      // Plain name search: match against display name, extracted username, or link
+      return name.includes(q) ||
+             storedUsername.includes(q) ||
+             storedDisplayUsername.includes(q) ||
+             link.includes(q);
+    }
+  });
+  if(activeFilter!=='all') found = found.filter(r=>r.category===activeFilter);
+
+  const banner = document.getElementById('search-result-banner');
+  const res = document.getElementById('search-results');
+  const emp = document.getElementById('search-empty');
+  banner.classList.remove('hidden');
+  emp.classList.add('hidden');
+
+  if(found.length){
+    const totalLoss = found.reduce((s,r)=>s+(r.amount||0),0);
+    const uniqueAccs = new Set(found.map(r=>r.scammerLink)).size;
+    banner.innerHTML = `
+      <div class="search-warning">
+        <div class="search-warning-icon">⚠️</div>
+        <div>
+          <div class="search-warning-title">Энэ акаунт дээр мэдүүлэг байна!</div>
+          <div class="search-warning-sub">
+            "<b>${esc(q)}</b>" — <b>${found.length}</b> тайлан, <b>${uniqueAccs}</b> акаунт илэрлээ.<br>
+            Нийт хохирол: <b style="color:#ff6666">${totalLoss.toLocaleString()}₮</b>
+          </div>
+        </div>
+      </div>`;
+    res.innerHTML = sortedReports(found).map((r,i)=>reportCardHTML(r,i,false)).join('');
+  } else {
+    banner.innerHTML = `
+      <div class="search-clear">
+        <div class="search-clear-icon">✅</div>
+        <div class="search-clear-text">"${esc(q)}" — Тайлан олдсонгүй. Гэвч болгоомжтой байгаарай!</div>
+      </div>`;
+    res.innerHTML='';
+  }
+}
+window.doSearch = doSearch;
+
+// ─── AI CHAT ───
+function setSuggest(txt){
+  document.getElementById('chat-input').value=txt;
+  document.getElementById('chat-suggestions').classList.add('hidden');
+  document.getElementById('chat-input').focus();
+}
+window.setSuggest = setSuggest;
+
+async function sendChat(){
+  const inp = document.getElementById('chat-input');
+  const msg = inp.value.trim();
+  if(!msg) return;
+  inp.value='';
+  const ce = document.getElementById('chat-empty');
+  if(ce) ce.remove();
+  document.getElementById('chat-suggestions').classList.add('hidden');
+  chatHistory.push({role:'user',content:msg});
+  appendMsg('user', msg);
+  const dotId = appendLoading();
+
+  // include platform context
+  const reportSummary = allReports.length
+    ? `Одоогоор платформд ${allReports.length} тайлан, ${new Set(allReports.map(r=>r.scammerLink)).size} зөрчилтэй акаунт бүртгэгдсэн. Нийт хохирол: ${allReports.reduce((s,r)=>s+(r.amount||0),0).toLocaleString()}₮.`
+    : '';
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`Та "SafeDeal" платформын AI туслагч юм. Монгол хэлний луйвар, хуурамч онлайн дэлгүүр, хуурамч хөрөнгө оруулалтаас хамгаалах мэргэжилтэн. ${reportSummary}
+Дараах чиглэлээр тусална:
+- Луйварын төрлийг таних, тайлбарлах
+- Аюулын түвшин үнэлэх (бага/дунд/өндөр/критик)
+- Цагдаад мэдүүлэх заавар (Монгол Улсын 1800-1234 дугаарлуу залгах)
+- Мөнгөө буцааж авах боломж, банкаар нэхэмжлэл гаргах
+- Нотлох баримт хэрхэн цуглуулах
+Монголоор товч тодорхой хариулна. Хэт урт бичгүй байна.`,
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.map(b=>b.text||'').join('')||'Хариу авах боломжгүй байна.';
+    removeLoading(dotId);
+    chatHistory.push({role:'assistant',content:reply});
+    appendMsg('assistant', reply);
+  } catch(e){
+    removeLoading(dotId);
+    appendMsg('assistant','Алдаа гарлаа. Дахин оролдоно уу.');
+  }
+}
+window.sendChat = sendChat;
+
+function appendMsg(role, text){
+  const el = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className='chat-msg '+role;
+  div.innerHTML=`<div class="chat-bubble ${role}">${esc(text).replace(/\n/g,'<br>')}</div>`;
+  el.appendChild(div);
+  el.scrollTop=el.scrollHeight;
+}
+
+function appendLoading(){
+  const id='ld-'+Date.now();
+  const el = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className='chat-msg assistant'; div.id=id;
+  div.innerHTML=`<div class="chat-bubble assistant"><div class="loading-dots"><span></span><span></span><span></span></div></div>`;
+  el.appendChild(div); el.scrollTop=el.scrollHeight;
+  return id;
+}
+function removeLoading(id){ document.getElementById(id)?.remove(); }
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ─── INIT ───
+const saved = localStorage.getItem('ls_user');
+if(saved){ currentUser=JSON.parse(saved); updateHeaderUser(); }
+</script>
+</body>
+</html>
