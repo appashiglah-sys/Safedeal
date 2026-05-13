@@ -17,6 +17,8 @@
   --r:14px;--r2:10px;--r3:8px;
 }
 *{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none}
+.input,.textarea,.select{user-select:text;-webkit-user-select:text}
+label{user-select:none;-webkit-user-select:none}
 *::selection{background:transparent}
 *::-moz-selection{background:transparent}
 html{scroll-behavior:smooth}
@@ -186,7 +188,7 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 .inline-warn{background:#1a0800;border:1px solid #ff440033;border-radius:var(--r3);padding:8px 12px;font-size:12px;color:#ff9966;margin-top:8px;display:none}
 
 /* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
+.modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:28px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
 .modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px}
 .modal-title{font-size:22px;font-weight:700;letter-spacing:-0.5px}
@@ -199,8 +201,9 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 .info-box{background:var(--bg3);border-radius:var(--r3);padding:10px 13px;font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:16px;border:1px solid var(--border)}
 
 /* нотолгоо зургийн оруулах хэсэг */
-.upload-zone{border:2px dashed var(--border2);border-radius:var(--r2);padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg3)}
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--r2);padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg3);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .upload-zone:hover{border-color:#ff2d2d66;background:#ff2d2d08}
+.upload-zone:active{background:#ff2d2d12;border-color:#ff2d2d88}
 .upload-zone p{font-size:13px;color:var(--text3)}
 .upload-zone span{font-size:24px;display:block;margin-bottom:8px}
 .upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
@@ -291,7 +294,7 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 .tab-btn.active{background:var(--bg4);color:var(--text);border:1px solid var(--border2)}
 
 /* ── TOP SCAMMER CARDS ── */
-.top-scammer-card{user-select:none;-webkit-user-select:none;background:var(--bg2);border:1px solid #ff883322;border-radius:var(--r);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:all .2s;cursor:default}
+.top-scammer-card{user-select:none;-webkit-user-select:none;background:var(--bg2);border:1px solid #ff883322;border-radius:var(--r);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;transition:all .2s;cursor:pointer}
 .top-scammer-card:hover{border-color:#ff883366;transform:translateY(-1px)}
 .top-scammer-rank{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0}
 .rank-1{background:linear-gradient(135deg,#ffcc00,#ff8800);color:#000}
@@ -304,6 +307,49 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 .top-scammer-meta span{font-size:12px;color:var(--text3)}
 .top-scammer-meta b{color:var(--text2)}
 .top-scammer-amount{font-size:15px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#ff6666;white-space:nowrap}
+
+/* ── SCAMMER GROUP CARD ── */
+.scammer-group{background:var(--bg2);border:1px solid #ff883322;border-radius:var(--r);margin-bottom:12px;overflow:hidden;transition:border .2s}
+.scammer-group:hover{border-color:#ff883366}
+.scammer-group-header{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;-webkit-tap-highlight-color:rgba(255,136,51,0.15)}
+.scammer-group-header:active{background:#ff88330a}
+.scammer-group-body{border-top:1px solid var(--border);padding:12px 14px;display:none}
+.scammer-group-body.open{display:block}
+.scammer-group-rank{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.scammer-group-info{flex:1;min-width:0}
+.scammer-group-name{font-weight:700;font-size:15px;font-family:'JetBrains Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px}
+.scammer-group-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.scammer-group-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.scammer-group-amount{font-size:16px;font-weight:700;font-family:'JetBrains Mono',monospace;color:#ff6666}
+.scammer-group-toggle{font-size:10px;color:var(--orange)}
+
+/* complaint inside group */
+.complaint-item{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:14px;margin-bottom:8px}
+.complaint-item:last-child{margin-bottom:0}
+.complaint-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+
+/* ── DETAIL MODAL ── */
+.detail-complaint{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.detail-complaint-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.detail-images{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.detail-img{width:80px;height:80px;border-radius:8px;object-fit:cover;border:1px solid var(--border2);cursor:pointer;transition:all .2s}
+.detail-img:hover{transform:scale(1.05);border-color:#ff2d2d66}
+.img-lightbox{position:fixed;inset:0;background:#000000ee;z-index:3000;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.img-lightbox img{max-width:90vw;max-height:90vh;border-radius:12px;box-shadow:0 0 60px #00000099}
+
+/* ── EVIDENCE LOCKER ── */
+.evidence-tab-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.evidence-tab{background:var(--bg4);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text3);transition:all .2s}
+.evidence-tab.active{background:#ff2d2d18;border-color:#ff2d2d44;color:#ff8888}
+.evidence-slot{background:var(--bg3);border:1px dashed var(--border2);border-radius:var(--r2);padding:14px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:8px}
+.evidence-slot:hover{border-color:#ff2d2d66;background:#ff2d2d06}
+.evidence-slot-filled{border-style:solid;border-color:#00e87a44;background:#00e87a06;cursor:default}
+.upload-thumb{width:72px;height:72px;border-radius:8px;object-fit:cover;border:1px solid var(--border2)}
+.upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+/* ── PATTERN ALERT ── */
+.pattern-alert{background:#a855f714;border:1px solid #a855f744;border-radius:var(--r2);padding:12px 14px;margin-bottom:12px;font-size:12px;color:#c084fc;display:flex;gap:10px;align-items:flex-start}
+.pattern-alert b{color:#d8b4fe}
 
 footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:var(--text3);font-size:12px;margin-top:40px;line-height:1.8}
 
@@ -419,9 +465,13 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
     <div id="search-result-banner" class="hidden"></div>
     <div id="search-results"></div>
-    <div id="search-empty" class="empty-state">
-      <div class="empty-icon">🔎</div>
-      <p>Луйварчдын холбоос эсвэл нэрийг хайж шалгаарай.<br>Мэдэгдэж байвал шууд анхааруулна.</p>
+    <div id="search-empty">
+      <div style="background:#ff2d2d0a;border:1px solid #ff2d2d22;border-radius:var(--r);padding:20px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px">
+          🏴 Хамгийн их гомдол гарсан акаунтууд
+        </div>
+        <div id="search-top-list"></div>
+      </div>
     </div>
   </div>
 
@@ -429,20 +479,11 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
   <div id="page-reports" class="hidden">
     <div class="section-hd" style="margin-bottom:20px">
       <div>
-        <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:4px">📋 Бүх гомдол</h2>
-        <p style="color:var(--text2);font-size:13px">Нийт <b id="reports-count" style="color:var(--text)">0</b> гомдол</p>
+        <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:4px">📋 Бүх акаунт</h2>
+        <p style="color:var(--text2);font-size:13px">Нийт <b id="reports-count" style="color:var(--text)">0</b> акаунт · хохирлоор эрэмбэлэгдсэн</p>
       </div>
       <button class="btn-primary" onclick="onAddReport()">+ Гомдол нэмэх</button>
     </div>
-
-    <div class="sort-bar">
-      <span class="sort-label">Эрэмбэ:</span>
-      <button class="sort-btn active" id="sort-likes" onclick="setSortMode('likes')">❤️ Дэмжсэн</button>
-      <button class="sort-btn" id="sort-amount" onclick="setSortMode('amount')">💸 Хохирол</button>
-      <button class="sort-btn" id="sort-date" onclick="setSortMode('date')">📅 Огноо</button>
-      <button class="sort-btn" id="sort-score" onclick="setSortMode('score')">🎯 Үнэлгээ</button>
-    </div>
-
     <div id="all-reports"></div>
   </div>
 
@@ -582,7 +623,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
     <div class="field">
       <label>Луйварчны нэр <span class="required-star">*</span> <span style="color:var(--text3);font-weight:400">(профайлд харагдах бодит нэр)</span></label>
-      <input class="input" id="rep-displayname" placeholder="Жишээ: Bindy Gan, Мөнх Дэлгэр..."/>
+      <input class="input" id="rep-displayname" placeholder="Жишээ: Мөнх Дэлгэр, Б. Батбаяр..."/>
     </div>
 
     <div class="field-row field">
@@ -610,13 +651,44 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
     <div class="field">
       <label>Яаж луйварлагдсан — дэлгэрэнгүй тайлбар <span class="required-star">*</span></label>
-      <textarea class="textarea" id="rep-desc" placeholder="Юу захиалсан, хэрхэн төлсөн, юу болсон тайлбарлана уу..."></textarea>
+      <textarea class="textarea" id="rep-desc" placeholder="Юу захиалсан, хэрхэн төлсөн, юу болсон тайлбарлана уу..." oninput="analyzeDescPattern()"></textarea>
     </div>
 
+    <!-- 🔐 EVIDENCE LOCKER -->
     <div class="field">
-      <label>Гүйлгээний дугаар / нотлох баримт</label>
-      <textarea class="textarea" id="rep-proof" placeholder="Гүйлгээний дугаар, огноо, дэлгэцийн зургийн тайлбар..." style="min-height:60px"></textarea>
-      <div class="info-box" style="margin-top:8px;margin-bottom:0">🛡️ Нотлох баримт оруулсан тайлан илүү үнэмшилтэй бөгөөд <b>AI баталгаажуулалт</b>аар шалгагдана.</div>
+      <label>🔐 Нотлох баримтын сейф</label>
+      <div class="evidence-tab-row">
+        <button class="evidence-tab active" onclick="switchEvTab(this,'screenshot')">📸 Дэлгэцийн агшин</button>
+        <button class="evidence-tab" onclick="switchEvTab(this,'bank')">🏦 Гүйлгээний баримт</button>
+        <button class="evidence-tab" onclick="switchEvTab(this,'chat')">💬 Чат</button>
+      </div>
+
+      <div id="ev-screenshot" class="ev-panel">
+        <label for="ev-img-screenshot" class="upload-zone" style="display:block">
+          <span>📸</span><p>Дэлгэцийн агшин оруулах<br><small style="color:var(--text3)">Макс 3 зураг</small></p>
+        </label>
+        <input type="file" id="ev-img-screenshot" accept="image/*" multiple style="display:none" onchange="handleEvidenceUpload(event,'screenshot')"/>
+        <div class="upload-preview" id="ev-preview-screenshot"></div>
+      </div>
+
+      <div id="ev-bank" class="ev-panel hidden">
+        <label for="ev-img-bank" class="upload-zone" style="display:block">
+          <span>🏦</span><p>Гүйлгээний баримтын зураг<br><small style="color:var(--text3)">Банкны апп-н screenshot</small></p>
+        </label>
+        <input type="file" id="ev-img-bank" accept="image/*" multiple style="display:none" onchange="handleEvidenceUpload(event,'bank')"/>
+        <div class="upload-preview" id="ev-preview-bank"></div>
+        <input class="input" id="ev-txn" placeholder="Гүйлгээний дугаар (сонголтоор)" style="margin-top:8px"/>
+      </div>
+
+      <div id="ev-chat" class="ev-panel hidden">
+        <label for="ev-img-chat" class="upload-zone" style="display:block">
+          <span>💬</span><p>Чатны screenshot оруулах<br><small style="color:var(--text3)">Messenger, Viber, WhatsApp гэх мэт</small></p>
+        </label>
+        <input type="file" id="ev-img-chat" accept="image/*" multiple style="display:none" onchange="handleEvidenceUpload(event,'chat')"/>
+        <div class="upload-preview" id="ev-preview-chat"></div>
+      </div>
+
+      <div id="pattern-alert-box"></div>
     </div>
 
     <div class="warn-box">🔒 Хуурамч тайлан оруулах нь хуулийн хариуцлага хүлээлгэх болно. Бүх тайланд IP бүртгэл хийгдэнэ.</div>
@@ -634,7 +706,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
 <footer>🛡️ SafeDeal — Монгол дахь луйвраас хамгаалах платформ</footer>
 
-<!-- ══ FIREBASE ══ -->
+<!-- ══ FIREBASE + APP ══ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 import {
@@ -654,6 +726,8 @@ const app = initializeApp(cfg);
 const db = getFirestore(app);
 window._db = db;
 window._fs = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
+
+// Firebase бэлэн болсон, шууд эхлүүлнэ
 window.loadReports();
 </script>
 
@@ -672,7 +746,8 @@ function showPage(p) {
     document.getElementById('page-'+x).classList.toggle('hidden', x!==p);
     document.getElementById('nav-'+x).classList.toggle('active', x===p);
   });
-  if(p==='reports'){ renderReports('all-reports', allReports); document.getElementById('reports-count').textContent = allReports.length; }
+  if(p==='reports'){ renderScammerGroups(); }
+  if(p==='search'){ renderSearchTopList(); }
   if(p==='home') renderHome();
   if(p==='feedback') loadFeedbacks();
 }
@@ -680,7 +755,10 @@ window.showPage = showPage;
 
 // ─── MODALS ───
 function openModal(id){ document.getElementById(id).classList.remove('hidden'); }
-function closeModal(id){ document.getElementById(id).classList.add('hidden'); }
+function closeModal(id){ 
+  document.getElementById(id).classList.add('hidden'); 
+  if(id==='report-modal') resetEvidence();
+}
 window.openModal = openModal; window.closeModal = closeModal;
 
 // ─── NOTIFY ───
@@ -693,17 +771,76 @@ function notify(msg, type='success', icon=''){
   setTimeout(()=>el.remove(), 4000);
 }
 
+// ─── DEVICE FINGERPRINT ───
+function getDeviceFingerprint(){
+  const nav = window.navigator;
+  const screen = window.screen;
+  const parts = [
+    nav.userAgent,
+    nav.language,
+    screen.colorDepth,
+    screen.width + 'x' + screen.height,
+    new Date().getTimezoneOffset(),
+    nav.hardwareConcurrency || '',
+    nav.platform || ''
+  ];
+  // simple hash
+  let hash = 0;
+  const str = parts.join('|');
+  for(let i=0;i<str.length;i++){
+    hash = ((hash<<5)-hash)+str.charCodeAt(i);
+    hash |= 0;
+  }
+  return 'fp_' + Math.abs(hash).toString(36);
+}
+
+function checkDeviceAccount(){
+  const fp = getDeviceFingerprint();
+  const stored = localStorage.getItem('device_fp');
+  const storedUser = localStorage.getItem('ls_user');
+  // If this device already has a registered user
+  if(stored && stored === fp && storedUser){
+    try{
+      const u = JSON.parse(storedUser);
+      // Auto-login with existing account
+      return { blocked: false, autoLogin: u };
+    } catch(e){}
+  }
+  // Check if device_fp exists but points to a different registration attempt
+  if(stored && stored !== fp && storedUser){
+    // Different fingerprint but same localStorage (unlikely, but handle)
+    return { blocked: false, autoLogin: null };
+  }
+  return { blocked: false, autoLogin: null };
+}
+
 // ─── REGISTER ───
 function doRegister(){
   const name = document.getElementById('reg-name').value.trim();
   const phone = document.getElementById('reg-phone').value.trim();
   if(!name||!phone){ notify('Нэр болон утасны дугаараа оруулна уу!','error'); return; }
   if(!/^\d{8}$/.test(phone)){ notify('Утасны дугаар 8 оронтой байх ёстой!','error'); return; }
-  currentUser = {name, phone};
+
+  // Device fingerprint check — нэг device = нэг аккаунт
+  const fp = getDeviceFingerprint();
+  const existingFp = localStorage.getItem('device_fp');
+  const existingUser = localStorage.getItem('ls_user');
+  if(existingFp && existingUser){
+    try{
+      const eu = JSON.parse(existingUser);
+      if(eu.phone !== phone){
+        notify(`⛔ Энэ төхөөрөмж дээр "${eu.name}" аккаунт аль хэдийн бүртгэлтэй байна. Нэг device-аас зөвхөн нэг аккаунт нээх боломжтой.`, 'error');
+        return;
+      }
+    } catch(e){}
+  }
+
+  currentUser = {name, phone, fp};
   localStorage.setItem('ls_user', JSON.stringify(currentUser));
+  localStorage.setItem('device_fp', fp);
   updateHeaderUser();
   closeModal('register-modal');
-  notify(`Тавтай морил, ${name}!`, 'success');
+  notify(`✅ Тавтай морил, ${name}! 📱 Энэ device бүртгэгдлээ.`, 'success');
 }
 window.doRegister = doRegister;
 
@@ -763,18 +900,246 @@ function findLinkedAccounts(r, allR){
 
 // ─── LOAD REPORTS ───
 async function loadReports(){
+
   try {
     const db = window._db;
-    const { collection, getDocs, query, orderBy } = window._fs;
-    const q = query(collection(db,'reports'), orderBy('likes','desc'));
-    const snap = await getDocs(q);
+    if(!db){ setTimeout(loadReports, 500); return; }
+    const { collection, getDocs } = window._fs;
+    const snap = await getDocs(collection(db,'reports'));
     allReports = snap.docs.map(d=>({id:d.id,...d.data()}));
+    console.log('Loaded reports:', allReports.length);
     renderHome();
     if(!document.getElementById('page-reports').classList.contains('hidden'))
-      renderReports('all-reports', allReports);
-  } catch(e){ console.error(e); }
+      renderScammerGroups();
+    if(!document.getElementById('page-search').classList.contains('hidden'))
+      renderSearchTopList();
+  } catch(e){
+    console.error('loadReports error:', e.code, e.message);
+    const errBox = document.getElementById('home-reports');
+    if(errBox) errBox.innerHTML = `<div style="background:#ff2d2d22;border:1px solid #ff2d2d44;border-radius:12px;padding:16px;color:#ff8888;font-size:13px">
+      ⚠️ Firebase алдаа: <b>${e.code||e.message}</b><br><br>
+      <b>Засах арга:</b><br>
+      1. <a href="https://console.firebase.google.com" target="_blank" style="color:#ff6666">Firebase Console</a> нээнэ үү<br>
+      2. Firestore → Rules → доорхыг хуулна:<br>
+      <code style="display:block;background:#0a0a14;padding:8px;border-radius:6px;margin-top:6px;font-size:11px;color:#aaa">allow read, write: if true;</code>
+    </div>`;
+  }
 }
 window.loadReports = loadReports;
+
+// ─── EVIDENCE LOCKER ───
+const evidenceData = { screenshot: [], bank: [], chat: [] };
+let activeTxn = '';
+
+function switchEvTab(btn, type){
+  document.querySelectorAll('.evidence-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.ev-panel').forEach(p=>p.classList.add('hidden'));
+  document.getElementById('ev-'+type).classList.remove('hidden');
+}
+window.switchEvTab = switchEvTab;
+
+async function handleEvidenceUpload(event, type){
+  const files = Array.from(event.target.files);
+  const remaining = 3 - evidenceData[type].length;
+  if(remaining <= 0){ notify('Энэ төрөлд хамгийн ихдээ 3 зураг','warning'); return; }
+  const toAdd = files.slice(0, remaining);
+  notify('Зураг боловсруулж байна...','info');
+  for(const file of toAdd){
+    try {
+      let compressed = await compressImage(file);
+      // Firestore-д багтаахын тулд 150KB-аас бага болгох
+      if(compressed.length > 150000){
+        const img2 = new Image();
+        await new Promise(res=>{ img2.onload=res; img2.src=compressed; });
+        const canvas = document.createElement('canvas');
+        const maxW = 500;
+        let w=img2.width, h=img2.height;
+        if(w>maxW){ h=Math.round(h*maxW/w); w=maxW; }
+        canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img2,0,0,w,h);
+        compressed = canvas.toDataURL('image/jpeg', 0.3);
+      }
+      // Хэрэв дахиад их байвал бүр жижигрүүл
+      if(compressed.length > 150000){
+        const img3 = new Image();
+        await new Promise(res=>{ img3.onload=res; img3.src=compressed; });
+        const canvas2 = document.createElement('canvas');
+        canvas2.width=300; canvas2.height=Math.round(img3.height*300/img3.width);
+        canvas2.getContext('2d').drawImage(img3,0,0,canvas2.width,canvas2.height);
+        compressed = canvas2.toDataURL('image/jpeg', 0.25);
+      }
+      evidenceData[type].push(compressed);
+      renderEvPreview(type);
+    } catch(err){ notify('Зураг боловсруулахад алдаа гарлаа','error'); }
+  }
+  event.target.value = '';
+  analyzeDescPattern();
+}
+window.handleEvidenceUpload = handleEvidenceUpload;
+
+function renderEvPreview(type){
+  const el = document.getElementById('ev-preview-'+type);
+  el.innerHTML = evidenceData[type].map((src,i)=>`
+    <div style="position:relative;display:inline-block">
+      <img src="${src}" class="upload-thumb"/>
+      <button onclick="removeEvImage('${type}',${i})" style="position:absolute;top:-6px;right:-6px;background:var(--red);border:none;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;line-height:18px;text-align:center">✕</button>
+    </div>`).join('');
+}
+window.renderEvPreview = renderEvPreview;
+
+function removeEvImage(type, i){
+  evidenceData[type].splice(i,1);
+  renderEvPreview(type);
+}
+window.removeEvImage = removeEvImage;
+
+function getEvidenceSummary(){
+  const sc = evidenceData.screenshot.length;
+  const bk = evidenceData.bank.length;
+  const ch = evidenceData.chat.length;
+  return { screenshot: sc, bank: bk, chat: ch, total: sc+bk+ch, allImages: [...evidenceData.screenshot, ...evidenceData.bank, ...evidenceData.chat] };
+}
+
+// Reset evidence on modal close
+function resetEvidence(){
+  evidenceData.screenshot = [];
+  evidenceData.bank = [];
+  evidenceData.chat = [];
+  ['screenshot','bank','chat'].forEach(t=>{ document.getElementById('ev-preview-'+t).innerHTML=''; });
+  document.getElementById('pattern-alert-box').innerHTML='';
+}
+window.resetEvidence = resetEvidence;
+
+// ─── AI PATTERN ANALYZER ───
+// Тайлбарын бичлэгийн хэв маяг, үг хэллэгийн ижил төстэй байдлыг шалгана
+function analyzeDescPattern(){
+  const desc = (document.getElementById('rep-desc').value||'').trim();
+  const link = (document.getElementById('rep-link').value||'').trim();
+  if(!desc || desc.length < 20) return;
+
+  const alertBox = document.getElementById('pattern-alert-box');
+  const matches = findSimilarPatternReports(desc, link);
+
+  if(matches.length === 0){ alertBox.innerHTML=''; return; }
+
+  const names = [...new Set(matches.map(r=>r.scammerName||r.scammerUsername||extractUsername(r.scammerLink||'')))];
+  const phones = [...new Set(matches.map(r=>r.reporterPhone).filter(Boolean))];
+  const sameReporter = matches.filter(r=>r.reporterPhone===currentUser?.phone);
+
+  let alertHTML = `<div class="pattern-alert">
+    <span style="font-size:20px;flex-shrink:0">🧠</span>
+    <div>
+      <b>AI Pattern Analysis — Ижил бичлэгийн хэв маяг илэрлээ!</b><br>`;
+
+  if(sameReporter.length > 0){
+    alertHTML += `<span style="color:#ffaaaa">⚠️ Та өөрөө өмнө нь ижил загварчлалтай ${sameReporter.length} гомдол оруулсан байна.</span><br>`;
+  }
+
+  alertHTML += `<span>📝 ${matches.length} гомдолтой ижил үг хэллэг, бичлэгийн хэв маяг илэрлээ.</span><br>
+    <span style="color:#d8b4fe">👤 Холбогдох акаунтууд: <b>${names.slice(0,3).join(', ')}</b>${names.length>3?' болон бусад':''}</span>`;
+
+  if(phones.length > 0 && matches.some(r=>r.reporterPhone===matches[0].reporterPhone && matches.filter(x=>x.reporterPhone===r.reporterPhone).length > 1)){
+    alertHTML += `<br><span style="color:#fca5a5">🔗 Нэг хэрэглэгч олон акаунт дээр гомдол гаргасан байж магадгүй.</span>`;
+  }
+
+  alertHTML += `</div></div>`;
+  alertBox.innerHTML = alertHTML;
+}
+window.analyzeDescPattern = analyzeDescPattern;
+
+function findSimilarPatternReports(desc, currentLink){
+  if(!allReports.length) return [];
+  const words = extractKeywords(desc);
+  if(words.length < 3) return [];
+
+  return allReports.filter(r=>{
+    if(r.scammerLink === currentLink) return false; // same account, skip
+    const rWords = extractKeywords(r.desc||r.description||'');
+    const overlap = words.filter(w=>rWords.includes(w));
+    const similarity = overlap.length / Math.max(words.length, rWords.length, 1);
+    return similarity > 0.35; // 35%+ overlap = suspicious pattern
+  });
+}
+
+function extractKeywords(text){
+  // Mongolian-friendly keyword extraction
+  return text.toLowerCase()
+    .replace(/[.,!?;:()«»""'']/g,'')
+    .split(/\s+/)
+    .filter(w=>w.length>2)
+    .filter(w=>!['байна','байсан','гэж','болон','өөрт','надад','миний','таны','хийсэн','авсан','өгсөн','явсан','хэлсэн','гэхэд','учир','тул','учраас'].includes(w));
+}
+
+// ─── IMAGE UPLOAD ───
+let uploadedImages = []; // array of compressed base64 strings
+
+function compressImage(file, maxWidth=800, quality=0.6){
+  return new Promise((resolve)=>{
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if(w > maxWidth){ h = Math.round(h * maxWidth / w); w = maxWidth; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleImageUpload(event){
+  const files = Array.from(event.target.files);
+  const remaining = 3 - uploadedImages.length;
+  if(remaining <= 0){ notify('Хамгийн ихдээ 3 зураг оруулах боломжтой','warning'); return; }
+  const toAdd = files.slice(0, remaining);
+  notify('Зураг боловсруулж байна...','info');
+  for(const file of toAdd){
+    try {
+      const compressed = await compressImage(file);
+      // Check size after compression (~200KB limit per image for Firestore)
+      if(compressed.length > 250000){
+        // compress more aggressively
+        const img = new Image();
+        await new Promise(res=>{ img.onload=res; img.src=compressed; });
+        const canvas = document.createElement('canvas');
+        const maxW = 400;
+        let w=img.width, h=img.height;
+        if(w>maxW){ h=Math.round(h*maxW/w); w=maxW; }
+        canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        uploadedImages.push(canvas.toDataURL('image/jpeg',0.4));
+      } else {
+        uploadedImages.push(compressed);
+      }
+      renderImagePreviews();
+    } catch(err){ notify('Зураг боловсруулахад алдаа гарлаа','error'); }
+  }
+  event.target.value = '';
+}
+window.handleImageUpload = handleImageUpload;
+
+function renderImagePreviews(){
+  const el = document.getElementById('rep-image-preview');
+  el.innerHTML = uploadedImages.map((src,i)=>`
+    <div style="position:relative;display:inline-block">
+      <img src="${src}" class="upload-thumb"/>
+      <button onclick="removeUploadedImage(${i})" style="position:absolute;top:-6px;right:-6px;background:var(--red);border:none;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;line-height:18px;text-align:center">✕</button>
+    </div>
+  `).join('');
+}
+window.renderImagePreviews = renderImagePreviews;
+
+function removeUploadedImage(i){
+  uploadedImages.splice(i,1);
+  renderImagePreviews();
+}
+window.removeUploadedImage = removeUploadedImage;
 
 // ─── SUBMIT ───
 async function submitReport(){
@@ -784,7 +1149,7 @@ async function submitReport(){
   const desc = document.getElementById('rep-desc').value.trim();
   const platform = document.getElementById('rep-platform').value;
   const category = document.getElementById('rep-category').value;
-  const proof = document.getElementById('rep-proof').value.trim();
+  const proof = (document.getElementById('rep-proof')||{value:''}).value.trim();
   const displayName = document.getElementById('rep-displayname').value.trim();
   if(!link||!displayName||!desc){ notify('Холбоос, нэр болон тайлбарыг оруулна уу!','error'); return; }
   if(amount===0){ notify('Алдсан мөнгөний дүнг оруулна уу!','error'); return; }
@@ -793,6 +1158,23 @@ async function submitReport(){
   try {
     const db = window._db;
     const { collection, addDoc, serverTimestamp } = window._fs;
+
+    // Collect all evidence images
+    const ev = getEvidenceSummary();
+    const txn = (document.getElementById('ev-txn')||{value:''}).value.trim();
+    const allImages = ev.allImages;
+
+    // Check total images size (Firestore doc limit ~1MB, зөвхөн 600KB-аас бага байх ёстой)
+    let imagesToSave = [...allImages];
+    while(imagesToSave.reduce((s,img)=>s+img.length,0) > 600000 && imagesToSave.length > 0){
+      imagesToSave.pop(); // хэтэрвэл сүүлийн зургийг хасна
+    }
+    if(imagesToSave.length < allImages.length && allImages.length > 0){
+      notify(`⚠️ Зургийн хэмжээ их байсан тул ${allImages.length - imagesToSave.length} зураг хасагдлаа`, 'warning');
+    }
+
+    const fp = getDeviceFingerprint();
+
     await addDoc(collection(db,'reports'),{
       scammerLink: link,
       platform, category,
@@ -800,19 +1182,31 @@ async function submitReport(){
       scammerUsername: extractUsername(link),
       reporterName: currentUser.name,
       reporterPhone: currentUser.phone,
+      reporterFP: fp,
       amount, desc, proof,
+      images: imagesToSave,
+      evidenceMeta: { screenshot: ev.screenshot, bank: ev.bank, chat: ev.chat, txn },
       likes:0, likedBy:[],
-      verified: proof.length > 20,
+      verified: allImages.length > 0 || proof.length > 20,
       createdAt: serverTimestamp(),
     });
     closeModal('report-modal');
-    ['rep-link','rep-displayname','rep-amount','rep-desc','rep-proof'].forEach(id=>document.getElementById(id).value='');
+    ['rep-link','rep-displayname','rep-amount','rep-desc'].forEach(id=>document.getElementById(id).value='');
+    const proofEl = document.getElementById('rep-proof'); if(proofEl) proofEl.value='';
+    resetEvidence();
     await loadReports();
     if(existing.length>0)
       notify(`⚠️ Энэ луйварчид өмнө нь ${existing.length} удаа гомдол гаргагдсан байна!`, 'warning');
     else
       notify('✅ Гомдол амжилттай бүртгэгдлээ!', 'success');
-  } catch(e){ notify('Алдаа: '+e.message, 'error'); }
+  } catch(e){ 
+    console.error('submitReport error:', e);
+    if(e.code==='permission-denied'){
+      notify('❌ Firestore зөвшөөрөл байхгүй. Rules шалгана уу.', 'error');
+    } else {
+      notify('❌ Алдаа: ' + (e.message||e.code||'Тодорхойгүй'), 'error');
+    }
+  }
 }
 window.submitReport = submitReport;
 
@@ -911,19 +1305,18 @@ function renderTopScammers(){
   const map = {};
   allReports.forEach(r=>{
     const key = r.scammerLink||'';
-    if(!map[key]) map[key]={link:key, name:r.scammerName||(r.scammerUsername||extractUsername(key)), platform:r.platform, totalAmount:0, reportCount:0, likes:0};
+    if(!map[key]) map[key]={link:key, name:r.scammerName||r.scammerUsername||extractUsername(key)||key, platform:r.platform, totalAmount:0, reportCount:0, likes:0, firstId:r.id};
     map[key].totalAmount += r.amount||0;
     map[key].reportCount++;
     map[key].likes += r.likes||0;
   });
   const sorted = Object.values(map).sort((a,b)=>b.totalAmount-a.totalAmount).slice(0,5);
   if(!sorted.length){ el.innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-icon" style="font-size:32px">📭</div><p>Бүртгэлтэй акаунт байхгүй</p></div>'; return; }
-  const rankIcons=['1','2','3'];
   el.innerHTML = sorted.map((s,i)=>{
     const rankClass = i<3?`rank-${i+1}`:'rank-n';
     const rankLabel = i<3?['🥇','🥈','🥉'][i]:`${i+1}`;
     const pfIcon = s.platform==='Facebook'?'📘':s.platform==='Instagram'?'📸':'🌐';
-    return `<div class="top-scammer-card">
+    return `<div class="top-scammer-card ts-clickable" data-id="${esc(s.firstId)}" style="cursor:pointer;-webkit-tap-highlight-color:rgba(255,136,51,0.2)">
       <div class="top-scammer-rank ${rankClass}">${rankLabel}</div>
       <div class="top-scammer-info">
         <div class="top-scammer-name">${esc(s.name)}</div>
@@ -933,10 +1326,147 @@ function renderTopScammers(){
           <span>❤️ <b>${s.likes}</b> дэмжсэн</span>
         </div>
       </div>
-      <div class="top-scammer-amount">${s.totalAmount>=1000000?(s.totalAmount/1000000).toFixed(1)+'сая':s.totalAmount.toLocaleString()}₮</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+        <div class="top-scammer-amount">${s.totalAmount>=1000000?(s.totalAmount/1000000).toFixed(1)+'сая':s.totalAmount.toLocaleString()}₮</div>
+        <span style="font-size:10px;color:var(--orange)">👆 Дэлгэрэнгүй →</span>
+      </div>
     </div>`;
   }).join('');
+
+  // Attach click listeners after render
+  document.querySelectorAll('.ts-clickable').forEach(card=>{
+    card.addEventListener('click', function(){
+      openDetailModal(this.dataset.id);
+    });
+  });
 }
+
+// ─── RENDER SCAMMER GROUPS (Reports Page) ───
+function renderScammerGroups(){
+  const el = document.getElementById('all-reports');
+  if(!el) return;
+
+  // Group by scammerLink
+  const map = {};
+  allReports.forEach(r=>{
+    const key = r.scammerLink||'unknown';
+    if(!map[key]) map[key]={
+      link:key,
+      name:r.scammerName||(r.scammerUsername||extractUsername(key)),
+      platform:r.platform,
+      totalAmount:0,
+      totalLikes:0,
+      reportCount:0,
+      firstId:r.id,
+      reports:[]
+    };
+    map[key].totalAmount += r.amount||0;
+    map[key].totalLikes += r.likes||0;
+    map[key].reportCount++;
+    map[key].reports.push(r);
+  });
+
+  // Sort groups by totalAmount desc
+  const groups = Object.values(map).sort((a,b)=>b.totalAmount-a.totalAmount);
+  document.getElementById('reports-count').textContent = groups.length;
+
+  if(!groups.length){
+    el.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><p>Гомдол байхгүй байна</p></div>';
+    return;
+  }
+
+  const pfMap={'Facebook':'📘','Instagram':'📸','Twitter/X':'𝕏','Бусад':'🌐'};
+  const rankLabels=['🥇','🥈','🥉'];
+  const rankClasses=['rank-1','rank-2','rank-3'];
+
+  el.innerHTML = groups.map((g,i)=>{
+    const rankLabel = i<3 ? rankLabels[i] : `${i+1}`;
+    const rankCls = i<3 ? rankClasses[i] : 'rank-n';
+    const pfIcon = pfMap[g.platform]||'🌐';
+    const amountStr = g.totalAmount>=1000000?(g.totalAmount/1000000).toFixed(1)+'сая':g.totalAmount.toLocaleString();
+
+    // Sort complaints by likes desc
+    const sortedComplaints = [...g.reports].sort((a,b)=>(b.likes||0)-(a.likes||0));
+    const catIcons={'луйвар':'🚨','чанар муу':'📦','хүргэлт ирээгүй':'❌','бусад':'❓'};
+
+    // 🧠 Pattern: detect if multiple complaints share same reporter fingerprint
+    const fpGroups = {};
+    g.reports.forEach(r=>{ if(r.reporterFP){ fpGroups[r.reporterFP]=(fpGroups[r.reporterFP]||0)+1; } });
+    const suspiciousFP = Object.values(fpGroups).some(v=>v>1);
+    const phoneGroups = {};
+    g.reports.forEach(r=>{ if(r.reporterPhone){ phoneGroups[r.reporterPhone]=(phoneGroups[r.reporterPhone]||0)+1; } });
+    const suspiciousPhone = Object.values(phoneGroups).some(v=>v>1);
+    const patternBadge = (suspiciousFP||suspiciousPhone)
+      ? `<span style="background:#a855f714;border:1px solid #a855f744;color:#c084fc;font-size:10px;padding:2px 10px;border-radius:10px;font-weight:700">🧠 Нэг хүн байж магадгүй</span>` : '';
+
+    const complaintsHTML = sortedComplaints.map(c=>{
+      const date = c.createdAt?.toDate ? c.createdAt.toDate().toLocaleDateString('mn-MN') : '';
+      const isLiked = currentUser&&c.likedBy&&c.likedBy.includes(currentUser.phone);
+      const imgsHTML = (c.images||[]).length
+        ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${(c.images).map(src=>`<img src="${src}" style="width:64px;height:64px;border-radius:8px;object-fit:cover;border:1px solid var(--border2)"/>`).join('')}</div>`
+        : '';
+      const proofHTML = c.proof ? `<div style="font-size:11px;color:var(--text3);margin-top:6px;font-family:'JetBrains Mono',monospace">📎 ${esc(c.proof)}</div>` : '';
+      return `<div class="complaint-item">
+        <div class="complaint-item-header">
+          <span style="font-size:12px;font-weight:700">${catIcons[c.category]||'❓'} ${esc(c.category||'')} · <span style="color:#ff6666">${(c.amount||0).toLocaleString()}₮</span></span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="like-btn ${isLiked?'liked':''}" data-id="${esc(c.id)}" style="padding:3px 10px;font-size:11px">
+              ${isLiked?'❤️':'🤍'} ${c.likes||0}
+            </button>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:4px">${esc(c.desc||'')}</div>
+        ${proofHTML}${imgsHTML}
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">👤 ${esc(c.reporterName||'')} ${date?'· 📅 '+date:''}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="scammer-group" data-groupid="${esc(g.firstId)}">
+      <div class="scammer-group-header sg-toggle">
+        <div class="scammer-group-rank ${rankCls}">${rankLabel}</div>
+        <div class="scammer-group-info">
+          <div class="scammer-group-name">${esc(g.name)}</div>
+          <div class="scammer-group-meta">
+            <span style="font-size:12px;color:var(--text3)">${pfIcon} ${esc(g.platform||'')}</span>
+            <span style="font-size:12px;color:var(--text3)">⚠️ <b style="color:var(--text2)">${g.reportCount}</b> гомдол</span>
+            <span style="font-size:12px;color:var(--text3)">❤️ <b style="color:var(--text2)">${g.totalLikes}</b> дэмжсэн</span>
+            ${patternBadge}
+          </div>
+        </div>
+        <div class="scammer-group-right">
+          <div class="scammer-group-amount">${amountStr}₮</div>
+          <span class="scammer-group-toggle">▼ нээх</span>
+        </div>
+      </div>
+      <div class="scammer-group-body">
+        <div style="margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <span style="font-size:12px;color:var(--text3)">Like-ын эрэмбээр · ${g.reportCount} гомдол</span>
+          <a href="${esc(g.link)}" target="_blank" rel="noreferrer noopener" class="link-btn">🔗 Профайл</a>
+        </div>
+        ${complaintsHTML}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Toggle open/close
+  el.querySelectorAll('.sg-toggle').forEach(hdr=>{
+    hdr.addEventListener('click', function(){
+      const body = this.parentElement.querySelector('.scammer-group-body');
+      const toggle = this.querySelector('.scammer-group-toggle');
+      const isOpen = body.classList.toggle('open');
+      toggle.textContent = isOpen ? '▲ хаах' : '▼ нээх';
+    });
+  });
+
+  // Like buttons inside groups
+  el.querySelectorAll('.like-btn').forEach(btn=>{
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      likeReport(this.dataset.id);
+    });
+  });
+}
+window.renderScammerGroups = renderScammerGroups;
 
 function updateStats(){
   const total = allReports.length;
@@ -957,6 +1487,13 @@ function renderReports(containerId, reports){
   }
   const sorted = sortedReports(reports);
   el.innerHTML = sorted.map((r,i)=>reportCardHTML(r,i,containerId==='home-reports')).join('');
+  // Attach click listeners
+  el.querySelectorAll('.rc-clickable').forEach(card=>{
+    card.addEventListener('click', function(e){
+      if(e.target.closest('.like-btn')||e.target.closest('.link-btn')) return;
+      openDetailModal(this.dataset.id);
+    });
+  });
 }
 
 function reportCardHTML(r, rank, isHome){
@@ -986,8 +1523,7 @@ function reportCardHTML(r, rank, isHome){
   const proofHTML = r.proof
     ? `<div class="card-proof">📎 ${esc(r.proof)}</div>`:'';
 
-  const verifiedBadge = r.verified
-    ? `<span class="badge badge-verified">✓ Нотлогдсон</span>`:'';
+  const verifiedBadge = '';
 
   // same-link count
   const dupeCount = allReports.filter(x=>x.scammerLink===r.scammerLink).length;
@@ -998,17 +1534,16 @@ function reportCardHTML(r, rank, isHome){
     ? r.createdAt.toDate().toLocaleDateString('mn-MN') : '';
 
   return `
-  <div class="report-card ${catClass}${isTop?' pinned':''}">
+  <div class="report-card ${catClass}${isTop?' pinned':''} rc-clickable" data-id="${esc(r.id)}" style="cursor:pointer">
     ${isTop?`<div class="pinned-banner">🏆 #1 ШИЛДЭГ ГОМДОЛ</div>`:''}
     <div class="card-row">
       <div class="card-cat-icon ${catClass}">${catIcon}</div>
       <div class="card-body">
         <div class="card-title-row">
-          <span class="card-name">${esc(r.scammerName||'')}</span>
+          <span class="card-name">${esc(r.scammerName||r.scammerUsername||extractUsername(r.scammerLink||''))}</span>
           <span class="badge ${pfClass}">${pfIcon} ${esc(r.platform)}</span>
           <span class="badge ${catBadge}">${esc(r.category)}</span>
           ${verifiedBadge}${dupeBadge}
-          <span class="score-pill ${sl.cls}">${sl.txt}</span>
         </div>
         <p class="card-desc">${esc(r.desc||r.description||'')}</p>
         ${proofHTML}
@@ -1019,8 +1554,8 @@ function reportCardHTML(r, rank, isHome){
             ${date?`<span class="meta-item">📅 ${date}</span>`:''}
           </div>
           <div class="card-actions">
-            <a class="link-btn" href="${esc(r.scammerLink||'')}" target="_blank" rel="noreferrer noopener">🔗 Профайл</a>
-            <button class="like-btn ${isLiked?'liked':''}" onclick="likeReport('${r.id}')">
+            <a class="link-btn" href="${esc(r.scammerLink||'')}" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation()">🔗 Профайл</a>
+            <button class="like-btn ${isLiked?'liked':''}" onclick="event.stopPropagation();likeReport('${r.id}')">
               ${isLiked?'❤️':'🤍'} ${r.likes||0} дэмжсэн
             </button>
           </div>
@@ -1030,6 +1565,143 @@ function reportCardHTML(r, rank, isHome){
   </div>`;
 }
 
+// ─── DETAIL MODAL ───
+function openDetailModal(reportId){
+  console.log('openDetailModal called:', reportId);
+  const r = allReports.find(x=>x.id===reportId);
+  console.log('found report:', r);
+  if(!r) { console.log('report not found in allReports, length:', allReports.length); return; }
+
+  // All complaints for the same scammer link
+  const sameLink = allReports.filter(x=>x.scammerLink===r.scammerLink);
+  const totalLoss = sameLink.reduce((s,x)=>s+(x.amount||0),0);
+  const score = calcScore(r, allReports);
+  const sl = scoreLabel(score);
+
+  const pfMap = {'Facebook':['badge-fb','📘'],'Instagram':['badge-ig','📸'],'Twitter/X':['badge-tw','𝕏'],'Бусад':['badge-oth','🌐']};
+  const [pfClass, pfIcon] = pfMap[r.platform]||['badge-oth','🌐'];
+
+  const complaintsHTML = sameLink.map((c,i)=>{
+    const date = c.createdAt?.toDate ? c.createdAt.toDate().toLocaleDateString('mn-MN') : '';
+    const catIcons = {'луйвар':'🚨','чанар муу':'📦','хүргэлт ирээгүй':'❌','бусад':'❓'};
+    const imgsHTML = (c.images||[]).length ? `
+      <div class="detail-images">
+        ${(c.images).map((src,ii)=>`<img src="${src}" class="detail-img" onclick="event.stopPropagation();showLightbox('${reportId}_${i}_${ii}')" id="dimg_${reportId}_${i}_${ii}"/>`).join('')}
+      </div>` : '';
+    const proofTxt = c.proof ? `<div style="font-size:12px;color:var(--text3);margin-top:6px;font-family:'JetBrains Mono',monospace">📎 ${esc(c.proof)}</div>` : '';
+    const evMeta = c.evidenceMeta;
+    const evBadges = evMeta ? [
+      evMeta.screenshot>0?`<span style="background:#3d8eff14;border:1px solid #3d8eff33;color:#80c0ff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700">📸 ${evMeta.screenshot}</span>`:'',
+      evMeta.bank>0?`<span style="background:#00e87a14;border:1px solid #00e87a44;color:#00e87a;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700">🏦 ${evMeta.bank}</span>`:'',
+      evMeta.chat>0?`<span style="background:#a855f714;border:1px solid #a855f744;color:#c084fc;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700">💬 ${evMeta.chat}</span>`:'',
+      evMeta.txn?`<span style="background:#ff881414;border:1px solid #ff883344;color:#ffaa66;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700">💳 ${esc(evMeta.txn)}</span>`:''
+    ].filter(Boolean).join(' ') : '';
+    return `<div class="detail-complaint">
+      <div class="detail-complaint-header">
+        <span style="font-weight:700;font-size:13px">${catIcons[c.category]||'❓'} ${esc(c.category||'')} — <span style="color:#ff6666">${(c.amount||0).toLocaleString()}₮</span></span>
+        <span style="font-size:11px;color:var(--text3)">${date} · 👤 ${esc(c.reporterName||'')}</span>
+      </div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6">${esc(c.desc||'')}</div>
+      ${proofTxt}${imgsHTML}
+      ${evBadges?`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${evBadges}</div>`:''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('detail-modal-content').innerHTML = `
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" style="font-size:18px;font-family:'JetBrains Mono',monospace">${esc(r.scammerName||r.scammerUsername||extractUsername(r.scammerLink||''))}</div>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center">
+          <span class="badge ${pfClass}">${pfIcon} ${esc(r.platform||'')}</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal('detail-modal')">✕</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:12px;text-align:center">
+        <div style="font-size:20px;font-weight:700;color:#ff6666;font-family:'JetBrains Mono',monospace">${sameLink.length}</div>
+        <div style="font-size:11px;color:var(--text3)">Нийт гомдол</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:12px;text-align:center">
+        <div style="font-size:16px;font-weight:700;color:#ff6666;font-family:'JetBrains Mono',monospace">${totalLoss>=1000000?(totalLoss/1000000).toFixed(1)+'сая':totalLoss.toLocaleString()}₮</div>
+        <div style="font-size:11px;color:var(--text3)">Нийт хохирол</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:12px;text-align:center">
+        <div style="font-size:20px;font-weight:700;color:var(--text);font-family:'JetBrains Mono',monospace">${r.likes||0}</div>
+        <div style="font-size:11px;color:var(--text3)">Дэмжсэн</div>
+      </div>
+    </div>
+
+    <a href="${esc(r.scammerLink||'')}" target="_blank" rel="noreferrer noopener" style="display:block;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:10px 14px;font-size:12px;color:var(--text2);text-decoration:none;margin-bottom:16px;word-break:break-all">🔗 ${esc(r.scammerLink||'')}</a>
+
+    <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px">📋 Гомдлын жагсаалт</div>
+    ${complaintsHTML}
+  `;
+
+  // Store images for lightbox
+  window._detailImages = {};
+  sameLink.forEach((c,i)=>{
+    (c.images||[]).forEach((src,ii)=>{
+      window._detailImages[`${reportId}_${i}_${ii}`] = src;
+    });
+  });
+
+  openModal('detail-modal');
+}
+window.openDetailModal = openDetailModal;
+
+function showLightbox(key){
+  const src = window._detailImages[key];
+  if(!src) return;
+  const lb = document.createElement('div');
+  lb.className='img-lightbox';
+  lb.innerHTML=`<img src="${src}"/>`;
+  lb.onclick=()=>lb.remove();
+  document.body.appendChild(lb);
+}
+window.showLightbox = showLightbox;
+
+// ─── SEARCH PAGE TOP LIST ───
+function renderSearchTopList(){
+  const el = document.getElementById('search-top-list');
+  if(!el) return;
+  if(!allReports.length){
+    el.innerHTML='<div style="color:var(--text3);font-size:13px;text-align:center;padding:20px">Одоогоор гомдол байхгүй байна</div>';
+    return;
+  }
+  const map = {};
+  allReports.forEach(r=>{
+    const key = r.scammerLink||'';
+    if(!map[key]) map[key]={link:key, name:r.scammerName||r.scammerUsername||extractUsername(key)||key, platform:r.platform, totalAmount:0, reportCount:0, firstId:r.id};
+    map[key].totalAmount += r.amount||0;
+    map[key].reportCount++;
+  });
+  const top = Object.values(map).sort((a,b)=>b.reportCount-a.reportCount).slice(0,10);
+  const pfMap={'Facebook':'📘','Instagram':'📸','Twitter/X':'𝕏','Бусад':'🌐'};
+
+  el.innerHTML = top.map((s,i)=>`
+    <div class="sg-search-item" data-id="${esc(s.firstId)}" style="display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:rgba(255,40,40,0.1)">
+      <div style="width:28px;height:28px;border-radius:8px;background:#ff2d2d22;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#ff6666;flex-shrink:0">${i+1}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(s.name)}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${pfMap[s.platform]||'🌐'} ${esc(s.platform||'')} · ⚠️ ${s.reportCount} гомдол</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:13px;font-weight:700;color:#ff6666;font-family:'JetBrains Mono',monospace">${s.totalAmount>=1000000?(s.totalAmount/1000000).toFixed(1)+'сая':s.totalAmount.toLocaleString()}₮</div>
+        <div style="font-size:10px;color:var(--orange)">дэлгэрэнгүй →</div>
+      </div>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('.sg-search-item').forEach(item=>{
+    item.addEventListener('click', function(){
+      openDetailModal(this.dataset.id);
+    });
+  });
+}
+window.renderSearchTopList = renderSearchTopList;
+
 // ─── SEARCH ───
 let activeFilter = 'all';
 function setFilter(btn, f){
@@ -1037,14 +1709,24 @@ function setFilter(btn, f){
   btn.classList.add('active');
   activeFilter = f;
   const q = document.getElementById('search-input').value.trim();
-  if(q) doSearch();
+  if(q){
+    doSearch();
+  } else {
+    renderSearchTopList();
+  }
 }
 window.setFilter = setFilter;
 
 function onSearchInput(){
-  // real-time hint (debounced inline check)
-  const q = document.getElementById('search-input').value.trim().toLowerCase();
-  if(!q){ document.getElementById('search-result-banner').classList.add('hidden'); return; }
+  const q = document.getElementById('search-input').value.trim();
+  if(!q){
+    document.getElementById('search-result-banner').classList.add('hidden');
+    document.getElementById('search-results').innerHTML = '';
+    document.getElementById('search-empty').classList.remove('hidden');
+    renderSearchTopList();
+    return;
+  }
+  doSearch();
 }
 window.onSearchInput = onSearchInput;
 
@@ -1056,19 +1738,28 @@ function doSearch(){
   const isUrl = q.includes('facebook.com') || q.includes('instagram.com') || q.includes('http');
   const inputUsername = extractUsername(raw).toLowerCase();
 
+  // Normalize: remove dots, spaces, underscores for fuzzy match
+  function norm(s){ return (s||'').toLowerCase().replace(/[\s._\-]+/g,''); }
+  const qNorm = norm(raw);
+  const inputUsernameNorm = norm(extractUsername(raw));
+
   let found = allReports.filter(r=>{
     const link = (r.scammerLink||'').toLowerCase();
-    const name = (r.scammerName||'').toLowerCase();
-    const storedUsername = extractUsername(r.scammerLink||'').toLowerCase();
-    const storedDisplayUsername = (r.scammerUsername||'').toLowerCase();
+    const name = norm(r.scammerName);
+    const username = norm(r.scammerUsername);
+    const extracted = norm(extractUsername(r.scammerLink||''));
+    const linkNorm = norm(r.scammerLink);
+
     if(isUrl){
-      return link.includes(q) || storedUsername === inputUsername || storedDisplayUsername === inputUsername;
+      return link.includes(q) || extracted===inputUsernameNorm || username===inputUsernameNorm;
     } else {
-      // Plain name search: match against display name, extracted username, or link
-      return name.includes(q) ||
-             storedUsername.includes(q) ||
-             storedDisplayUsername.includes(q) ||
-             link.includes(q);
+      // Flexible: match normalized name, username, extracted username, or link
+      return name.includes(qNorm) ||
+             username.includes(qNorm) ||
+             extracted.includes(qNorm) ||
+             linkNorm.includes(qNorm) ||
+             // Also check each word separately
+             qNorm.split('').length>2 && (name.includes(norm(raw.split(' ')[0])) || username.includes(norm(raw.split(' ')[0])));
     }
   });
   if(activeFilter!=='all') found = found.filter(r=>r.category===activeFilter);
@@ -1094,6 +1785,12 @@ function doSearch(){
         </div>
       </div>`;
     res.innerHTML = sortedReports(found).map((r,i)=>reportCardHTML(r,i,false)).join('');
+    res.querySelectorAll('.rc-clickable').forEach(card=>{
+      card.addEventListener('click', function(e){
+        if(e.target.closest('.like-btn')||e.target.closest('.link-btn')) return;
+        openDetailModal(this.dataset.id);
+      });
+    });
   } else {
     banner.innerHTML = `
       <div class="search-clear">
@@ -1225,7 +1922,32 @@ function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
 
 // ─── INIT ───
 const saved = localStorage.getItem('ls_user');
-if(saved){ currentUser=JSON.parse(saved); updateHeaderUser(); }
+if(saved){ 
+  try{ 
+    currentUser=JSON.parse(saved); 
+    // Update fingerprint silently
+    localStorage.setItem('device_fp', getDeviceFingerprint());
+    updateHeaderUser(); 
+  }catch(e){} 
+}
+
+// Show device lock notice in register modal
+document.addEventListener('DOMContentLoaded',()=>{
+  const fp = getDeviceFingerprint();
+  const existingUser = localStorage.getItem('ls_user');
+  if(existingUser){
+    try{
+      const eu = JSON.parse(existingUser);
+      const regModal = document.getElementById('register-modal');
+      if(regModal){
+        const infoBox = regModal.querySelector('.info-box');
+        if(infoBox) infoBox.innerHTML += `<br>📱 <b>Device lock:</b> Энэ төхөөрөмж дээр "${eu.name}" аккаунт бүртгэлтэй байна.`;
+      }
+    } catch(e){}
+  }
+});
+
+// loadReports is called directly from firebase module above
 </script>
 </body>
 </html>
