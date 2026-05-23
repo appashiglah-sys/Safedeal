@@ -839,9 +839,16 @@ let searchFilter = 'all';
 
 // ─── NAVIGATION ───
 function showPage(p) {
-  ['home','search','reports','feedback'].forEach(x => {
-    document.getElementById('page-'+x).classList.toggle('hidden', x!==p);
-    document.getElementById('nav-'+x).classList.toggle('active', x===p);
+  // All pages and their nav buttons
+  const pages = ['home','search','reports','feedback','bookmarklet'];
+  const navPages = ['home','search','reports','feedback','bookmarklet'];
+  pages.forEach(x => {
+    const pg = document.getElementById('page-'+x);
+    if(pg) pg.classList.toggle('hidden', x!==p);
+  });
+  navPages.forEach(x => {
+    const nb = document.getElementById('nav-'+x);
+    if(nb) nb.classList.toggle('active', x===p);
   });
   if(p==='reports'){ renderScammerGroups(); }
   if(p==='search'){ renderSearchTopList(); }
@@ -2139,7 +2146,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-// loadReports is called directly from firebase module above
+loadReports();
 </script>
 </body>
 </html>
