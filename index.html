@@ -381,6 +381,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
       <button class="nav-btn" id="nav-search" onclick="showPage('search')"><span class="nav-dot"></span>Хайх</button>
       <button class="nav-btn" id="nav-reports" onclick="showPage('reports')"><span class="nav-dot"></span>Гомдол</button>
       <button class="nav-btn" id="nav-feedback" onclick="showPage('feedback')"><span class="nav-dot"></span>Санал</button>
+      <button class="nav-btn" id="nav-bookmarklet" onclick="showPage('bookmarklet')"><span class="nav-dot"></span>🔖 Шалгах</button>
     </nav>
     <div id="header-right">
       <button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
@@ -582,7 +583,125 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     </div>
   </div>
 
+
+  <!-- ══ BOOKMARKLET PAGE ══ -->
+  <div id="page-bookmarklet" class="hidden">
+    <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:6px">🔖 Facebook шалгагч</h2>
+    <p style="color:var(--text2);margin-bottom:24px;font-size:14px">Facebook/Instagram профайл дээр шууд шалгах товч нэмэх</p>
+
+    <div class="score-dashboard" style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🛡️</div>
+        <div>
+          <div style="font-weight:700;font-size:15px">Check Scam товч</div>
+          <div style="font-size:13px;color:var(--text2)">Facebook/Instagram дээр профайл нээхэд шалгана</div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff6666;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">1</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;margin-bottom:3px">Доорх товчийг bookmark-т нэмнэ</div>
+            <div style="font-size:12px;color:var(--text2)">Товч дээр удаан дараад → "Add bookmark" сонгоно</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff6666;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">2</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;margin-bottom:3px">Facebook/Instagram нээ</div>
+            <div style="font-size:12px;color:var(--text2)">Шалгахыг хүсэж буй профайл руу ор</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff6666;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">3</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;margin-bottom:3px">Bookmark-аа дар</div>
+            <div style="font-size:12px;color:var(--text2)">SafelyDeal-аас шууд шалгаад үр дүн гарна</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The bookmarklet button -->
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:10px">👇 Энэ товчийг удаан дараад bookmark нэм</div>
+        <a id="bookmarklet-anchor" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff2d2d,#ff5533);color:#fff;padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 20px #ff2d2d44;cursor:pointer">
+          🛡️ Check Scam — SafelyDeal
+        </a>
+      </div>
+
+      <div class="warn-box" style="margin-bottom:0">
+        📱 <b>Android Chrome дээр:</b> Товч дээр удаан дар → "Add to bookmarks" → Нэрийг өөрчлөхгүйгээр хадгал.<br>
+        Дараа нь Facebook нээгээд address bar-д bookmark-аа хайж дар.
+      </div>
+    </div>
+
+    <!-- Live test -->
+    <div class="score-dashboard">
+      <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px">🧪 Эндээс туршиж үзэх</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <input class="input" id="bm-test-input" placeholder="facebook.com/username эсвэл нэр..." style="flex:1;font-size:13px"/>
+        <button class="btn-primary" onclick="bmTest()" style="white-space:nowrap">Шалгах</button>
+      </div>
+      <div id="bm-test-result"></div>
+    </div>
+  </div>
+
 </main>
+
+
+<!-- ══ WELCOME MODAL ══ -->
+<div id="welcome-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeWelcome()">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header" style="margin-bottom:18px">
+      <div>
+        <div class="modal-title">🛡️ SafelyDeal-д тавтай морил!</div>
+        <div class="modal-sub">Монголын луйваас хамгаалах платформ</div>
+      </div>
+    </div>
+
+    <!-- How it works steps -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+      <div style="display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:12px">
+        <div style="font-size:22px;flex-shrink:0">🔍</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:3px">Луйварч хайх</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5">Facebook/Instagram холбоос эсвэл нэрээр хайж шалгана. Бүртгэлтэй байвал шууд анхааруулна.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:12px">
+        <div style="font-size:22px;flex-shrink:0">📋</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:3px">Гомдол нэмэх</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5">Луйварчны холбоос, нэр, хохирлын дүн, тайлбараа оруулна. Бүртгэлгүйгээр зочноор гомдол гаргаж болно.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:12px">
+        <div style="font-size:22px;flex-shrink:0">🎯</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:3px">Scam Score</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5">Гомдлын тоо, хохирол, нотлох баримтаар автоматаар эрсдэлийн оноо тооцно. 0–100 оноо.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:12px">
+        <div style="font-size:22px;flex-shrink:0">🔖</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:3px">Facebook дээр шалгах</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5">"Шалгах" хэсгээс bookmark нэмээд Facebook профайл дээр шууд шалгаарай.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-bottom:16px">
+      💡 <b>Зочноор гомдол нэмэх боломжтой</b> — бүртгүүлэх шаардлагагүй. Бүртгүүлсэн хэрэглэгчид лайк дарах эрхтэй.
+    </div>
+
+    <button class="btn-primary" onclick="closeWelcome()" style="width:100%;padding:12px;font-size:14px">
+      Ойлголоо, эхлэх →
+    </button>
+  </div>
+</div>
 
 <!-- ══ REGISTER MODAL ══ -->
 <div id="register-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('register-modal')">
@@ -707,29 +826,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 <footer>🛡️ SafeDeal — Монгол дахь луйвраас хамгаалах платформ</footer>
 
 <!-- ══ FIREBASE + APP ══ -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import {
-  getFirestore, collection, addDoc, getDocs, doc,
-  updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
-const cfg = {
-  apiKey:"AIzaSyDfDcqyeOS6Cj3gFdy1A0YJT5wBbJpX7PI",
-  authDomain:"hamgaalalt-6e6f7.firebaseapp.com",
-  projectId:"hamgaalalt-6e6f7",
-  storageBucket:"hamgaalalt-6e6f7.firebasestorage.app",
-  messagingSenderId:"240337708972",
-  appId:"1:240337708972:web:7cbb5865e284b605a97c09"
-};
-const app = initializeApp(cfg);
-const db = getFirestore(app);
-window._db = db;
-window._fs = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
-
-// Firebase бэлэн болсон, шууд эхлүүлнэ
-window.loadReports();
-</script>
 
 <script>
 // ═══════════════════════════════════════
@@ -749,6 +846,7 @@ function showPage(p) {
   if(p==='reports'){ renderScammerGroups(); }
   if(p==='search'){ renderSearchTopList(); }
   if(p==='home') renderHome();
+  if(p==='bookmarklet') setupBookmarklet();
   if(p==='feedback') loadFeedbacks();
 }
 window.showPage = showPage;
@@ -852,7 +950,6 @@ function updateHeaderUser(){
 }
 
 function onAddReport(){
-  if(!currentUser){ openModal('register-modal'); return; }
   openModal('report-modal');
 }
 window.onAddReport = onAddReport;
@@ -898,32 +995,15 @@ function findLinkedAccounts(r, allR){
   return linked.filter(x=>{ if(seen.has(x.scammerLink)) return false; seen.add(x.scammerLink); return true; }).slice(0,4);
 }
 
-// ─── LOAD REPORTS ───
-async function loadReports(){
-
+// ─── LOAD REPORTS (localStorage) ───
+function loadReports(){
   try {
-    const db = window._db;
-    if(!db){ setTimeout(loadReports, 500); return; }
-    const { collection, getDocs } = window._fs;
-    const snap = await getDocs(collection(db,'reports'));
-    allReports = snap.docs.map(d=>({id:d.id,...d.data()}));
-    console.log('Loaded reports:', allReports.length);
-    renderHome();
-    if(!document.getElementById('page-reports').classList.contains('hidden'))
-      renderScammerGroups();
-    if(!document.getElementById('page-search').classList.contains('hidden'))
-      renderSearchTopList();
-  } catch(e){
-    console.error('loadReports error:', e.code, e.message);
-    const errBox = document.getElementById('home-reports');
-    if(errBox) errBox.innerHTML = `<div style="background:#ff2d2d22;border:1px solid #ff2d2d44;border-radius:12px;padding:16px;color:#ff8888;font-size:13px">
-      ⚠️ Firebase алдаа: <b>${e.code||e.message}</b><br><br>
-      <b>Засах арга:</b><br>
-      1. <a href="https://console.firebase.google.com" target="_blank" style="color:#ff6666">Firebase Console</a> нээнэ үү<br>
-      2. Firestore → Rules → доорхыг хуулна:<br>
-      <code style="display:block;background:#0a0a14;padding:8px;border-radius:6px;margin-top:6px;font-size:11px;color:#aaa">allow read, write: if true;</code>
-    </div>`;
-  }
+    const raw = localStorage.getItem('sd_reports');
+    allReports = raw ? JSON.parse(raw) : [];
+  } catch(e){ allReports = []; }
+  renderHome();
+  if(!document.getElementById('page-reports').classList.contains('hidden'))
+    renderReports('all-reports', allReports);
 }
 window.loadReports = loadReports;
 
@@ -1093,6 +1173,50 @@ function compressImage(file, maxWidth=800, quality=0.6){
   });
 }
 
+// ─── IMAGE HASH (duplicate detection) ───
+async function getImageHash(dataUrl){
+  // Simple perceptual hash: resize to 8x8 and get brightness signature
+  return new Promise(resolve=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const c = document.createElement('canvas');
+      c.width = 8; c.height = 8;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, 8, 8);
+      const d = ctx.getImageData(0,0,8,8).data;
+      let hash = '';
+      for(let i=0;i<d.length;i+=4){
+        const brightness = (d[i]+d[i+1]+d[i+2])/3;
+        hash += brightness > 128 ? '1' : '0';
+      }
+      resolve(hash);
+    };
+    img.onerror = ()=>resolve('');
+    img.src = dataUrl;
+  });
+}
+
+function hammingDistance(a, b){
+  if(a.length !== b.length) return 999;
+  let dist = 0;
+  for(let i=0;i<a.length;i++) if(a[i]!==b[i]) dist++;
+  return dist;
+}
+
+async function isDuplicateImageGlobal(newHash){
+  // Check across ALL reports in localStorage
+  const reports = allReports;
+  for(const r of reports){
+    if(!r.images || !r.imageHashes) continue;
+    for(const existingHash of r.imageHashes){
+      if(hammingDistance(newHash, existingHash) < 10){
+        return true; // very similar image found
+      }
+    }
+  }
+  return false;
+}
+
 async function handleImageUpload(event){
   const files = Array.from(event.target.files);
   const remaining = 3 - uploadedImages.length;
@@ -1102,6 +1226,16 @@ async function handleImageUpload(event){
   for(const file of toAdd){
     try {
       const compressed = await compressImage(file);
+      // Duplicate check
+      const hash = await getImageHash(compressed);
+      const isDup = await isDuplicateImageGlobal(hash);
+      if(isDup){
+        notify('⚠️ Уучлаарай, энэ зураг өмнө нь оруулсан гомдолд орсон байна.', 'warning');
+        continue;
+      }
+      // Store hash alongside image
+      if(!window._pendingImageHashes) window._pendingImageHashes = [];
+      window._pendingImageHashes.push(hash);
       // Check size after compression (~200KB limit per image for Firestore)
       if(compressed.length > 250000){
         // compress more aggressively
@@ -1143,7 +1277,7 @@ window.removeUploadedImage = removeUploadedImage;
 
 // ─── SUBMIT ───
 async function submitReport(){
-  if(!currentUser){ notify('Эхлээд бүртгүүлнэ үү!','error'); return; }
+  // Guest allowed — no login required
   const link = document.getElementById('rep-link').value.trim();
   const amount = parseInt(document.getElementById('rep-amount').value)||0;
   const desc = document.getElementById('rep-desc').value.trim();
@@ -1156,8 +1290,6 @@ async function submitReport(){
 
   const existing = allReports.filter(r=>r.scammerLink===link);
   try {
-    const db = window._db;
-    const { collection, addDoc, serverTimestamp } = window._fs;
 
     // Collect all evidence images
     const ev = getEvidenceSummary();
@@ -1175,26 +1307,31 @@ async function submitReport(){
 
     const fp = getDeviceFingerprint();
 
-    await addDoc(collection(db,'reports'),{
+    const newReport = {
+      id: 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
       scammerLink: link,
       platform, category,
       scammerName: document.getElementById('rep-displayname').value.trim() || extractUsername(link),
       scammerUsername: extractUsername(link),
-      reporterName: currentUser.name,
-      reporterPhone: currentUser.phone,
+      reporterName: currentUser ? currentUser.name : 'Зочин',
+      reporterPhone: currentUser ? currentUser.phone : 'guest_'+Date.now(),
       reporterFP: fp,
       amount, desc, proof,
       images: imagesToSave,
+      imageHashes: window._pendingImageHashes||[],
       evidenceMeta: { screenshot: ev.screenshot, bank: ev.bank, chat: ev.chat, txn },
       likes:0, likedBy:[],
       verified: allImages.length > 0 || proof.length > 20,
-      createdAt: serverTimestamp(),
-    });
+      createdAt: { _local: true, ts: Date.now() }
+    };
+    allReports.push(newReport);
+    localStorage.setItem('sd_reports', JSON.stringify(allReports));
     closeModal('report-modal');
     ['rep-link','rep-displayname','rep-amount','rep-desc'].forEach(id=>document.getElementById(id).value='');
     const proofEl = document.getElementById('rep-proof'); if(proofEl) proofEl.value='';
     resetEvidence();
-    await loadReports();
+    window._pendingImageHashes=[];
+    loadReports();
     if(existing.length>0)
       notify(`⚠️ Энэ луйварчид өмнө нь ${existing.length} удаа гомдол гаргагдсан байна!`, 'warning');
     else
@@ -1260,10 +1397,13 @@ async function likeReport(id){
   if(!r) return;
   if(r.likedBy&&r.likedBy.includes(currentUser.phone)){ notify('Та аль хэдийн дэмжсэн байна','warning'); return; }
   try {
-    const db = window._db;
-    const { doc, updateDoc, increment, arrayUnion } = window._fs;
-    await updateDoc(doc(db,'reports',id),{ likes:increment(1), likedBy:arrayUnion(currentUser.phone) });
-    await loadReports();
+    const idx = allReports.findIndex(x=>x.id===id);
+    if(idx>=0){
+      allReports[idx].likes = (allReports[idx].likes||0)+1;
+      allReports[idx].likedBy = [...(allReports[idx].likedBy||[]), currentUser.phone];
+      localStorage.setItem('sd_reports', JSON.stringify(allReports));
+      loadReports();
+    }
   } catch(e){ notify('Алдаа: '+e.message,'error'); }
 }
 window.likeReport = likeReport;
@@ -1839,15 +1979,15 @@ async function submitFeedback(){
   if(!msg){ notify('Тайлбар оруулна уу!','error'); return; }
   const authorName = currentUser ? currentUser.name : 'Зочин';
   try {
-    const db = window._db;
-    const { collection, addDoc, serverTimestamp } = window._fs;
-    await addDoc(collection(db,'feedbacks'),{
-      type: selectedFbType,
-      stars: selectedStar,
-      title, msg, contact,
-      author: authorName,
-      createdAt: serverTimestamp()
-    });
+    const newFb = {
+      id: 'fb_' + Date.now(),
+      type: selectedFbType, stars: selectedStar,
+      title, msg, contact, author: authorName,
+      createdAt: { _local: true, ts: Date.now() }
+    };
+    const fbs = JSON.parse(localStorage.getItem('sd_feedbacks')||'[]');
+    fbs.unshift(newFb);
+    localStorage.setItem('sd_feedbacks', JSON.stringify(fbs));
     // reset
     document.getElementById('fb-title').value='';
     document.getElementById('fb-msg').value='';
@@ -1866,11 +2006,7 @@ window.submitFeedback = submitFeedback;
 
 async function loadFeedbacks(){
   try {
-    const db = window._db;
-    const { collection, getDocs, query, orderBy } = window._fs;
-    const q = query(collection(db,'feedbacks'), orderBy('createdAt','desc'));
-    const snap = await getDocs(q);
-    const items = snap.docs.map(d=>({id:d.id,...d.data()}));
+    const items = JSON.parse(localStorage.getItem('sd_feedbacks')||'[]');
     renderFeedbacks(items);
   } catch(e){ console.error('Feedback load error',e); }
 }
@@ -1919,6 +2055,62 @@ function renderFeedbacks(items){
 }
 
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+
+// ─── BOOKMARKLET SETUP ───
+function setupBookmarklet(){
+  var anchor = document.getElementById('bookmarklet-anchor');
+  if(!anchor) return;
+  // Build the href
+  var code = 'javascript:(function(){ var SD_KEY=\'sd_reports\'; function esc(s){return String(s||\'\').replace(/&/g,\'&amp;\').replace(/</g,\'&lt;\').replace(/>/g,\'&gt;\');} function extractUsername(link){  try{   var url=link.includes(\'://\')?new URL(link):new URL(\'https://\'+link);   var parts=url.pathname.replace(/\\/+$/,\'\').split(\'/\').filter(Boolean);   var skip=[\'profile.php\',\'p\',\'reel\',\'stories\',\'groups\',\'pages\',\'watch\',\'share\',\'posts\'];   if(url.searchParams.get(\'id\')) return \'id:\'+url.searchParams.get(\'id\');   var name=parts.filter(function(p){return skip.indexOf(p)<0;}).pop();   return name||parts.pop()||\'\';  }catch(e){return link.trim().replace(/^@/,\'\')||\'\';} } function calcScore(reports){  var total=reports.length;  var loss=reports.reduce(function(s,r){return s+(r.amount||0);},0);  var likes=reports.reduce(function(s,r){return s+(r.likes||0);},0);  var hasProof=reports.some(function(r){return r.proof&&r.proof.length>10;});  var score=0;  score+=Math.min(total*15,40);  score+=Math.min(loss/50000,30);  score+=Math.min(likes*2,20);  if(hasProof)score+=10;  return Math.min(Math.round(score),100); } var reports=[]; try{reports=JSON.parse(localStorage.getItem(SD_KEY)||\'[]\');}catch(e){} var url=window.location.href; var uname=extractUsername(url).toLowerCase(); var matched=reports.filter(function(r){  var rLink=(r.scammerLink||\'\').toLowerCase();  var rName=(r.scammerName||\'\').toLowerCase();  var rU=extractUsername(r.scammerLink||\'\').toLowerCase();  return rLink.includes(uname)||rName.includes(uname)||rU===uname||url.toLowerCase().includes(rU); }); var score=calcScore(matched); var total=matched.length; var loss=matched.reduce(function(s,r){return s+(r.amount||0);},0); var status,color,bg,icon; if(total===0){status=\'Тайлан байхгүй\';color=\'#00e87a\';bg=\'#001a0d\';icon=\'🟢\';} else if(score>=70){status=\'СКАМ — Болгоомжил!\';color=\'#ff4444\';bg=\'#200000\';icon=\'🔴\';} else if(score>=35){status=\'Сэжигтэй\';color=\'#ff8833\';bg=\'#1a0d00\';icon=\'⚠️\';} else{status=\'Бага эрсдэл\';color=\'#ffcc00\';bg=\'#1a1500\';icon=\'🟡\';} var old=document.getElementById(\'__sd_overlay\'); if(old)old.remove(); var bar=score>=70?\'#ff4444\':score>=35?\'#ff8833\':score>=15?\'#ffcc00\':\'#00e87a\'; var reports_html=matched.slice(0,3).map(function(r){  return \'<div style="background:#ffffff08;border-left:3px solid #ff2d2d;border-radius:8px;padding:10px 12px;margin-bottom:8px">\'+   \'<div style="font-weight:700;font-size:13px;margin-bottom:4px">\'+esc(r.scammerName||uname)+\'</div>\'+   \'<div style="font-size:11px;color:#888;margin-bottom:4px">💸 \'+(r.amount||0).toLocaleString()+\'₮ · 👤 \'+esc(r.reporterName||\'\')+\'</div>\'+   \'<div style="font-size:12px;color:#aaa">\'+esc((r.desc||\'\').slice(0,80))+(r.desc&&r.desc.length>80?\'...\':\'\')+\'</div>\'+  \'</div>\'; }).join(\'\'); var d=document.createElement(\'div\'); d.id=\'__sd_overlay\'; d.style.cssText=\'position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;padding:16px;font-family:-apple-system,sans-serif;backdrop-filter:blur(6px)\'; d.innerHTML=\'<div style="background:#0d0d14;border:1px solid #ffffff1a;border-radius:20px;padding:22px;width:100%;max-width:340px;max-height:90vh;overflow-y:auto;color:#f0ecff">\'+  \'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">\'+   \'<div style="font-size:15px;font-weight:700">🛡️ Safe<span style=color:#ff5533>Deal</span></div>\'+   \'<button onclick="document.getElementById(\'__sd_overlay\').remove()" style="background:#ffffff12;border:1px solid #ffffff22;color:#aaa;width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:13px">✕</button>\'+  \'</div>\'+  \'<div style="background:\'+bg+\';border:1px solid \'+color+\'44;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:14px">\'+   \'<div style="font-size:28px">\'+icon+\'</div>\'+   \'<div><div style="color:\'+color+\';font-weight:700;font-size:15px">\'+status+\'</div>\'+   \'<div style="font-size:12px;color:#5a5680;font-family:monospace">@\'+esc(uname)+\'</div></div>\'+  \'</div>\'+  (total>0?   \'<div style="margin-bottom:14px">\'+    \'<div style="display:flex;justify-content:space-between;font-size:12px;color:#a09cc0;margin-bottom:6px"><span>Эрсдэлийн оноо</span><span style=color:\'+bar+\';font-weight:700>\'+score+\'/100</span></div>\'+    \'<div style="height:6px;background:#ffffff0d;border-radius:3px;overflow:hidden"><div style="height:100%;width:\'+score+\'%;background:\'+bar+\';border-radius:3px"></div></div>\'+   \'</div>\'+   \'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">\'+    \'<div style="background:#ffffff06;border:1px solid #ffffff0d;border-radius:10px;padding:10px;text-align:center">\'+     \'<div style="font-size:18px;font-weight:700;color:#ff6666;font-family:monospace">\'+total+\'</div>\'+     \'<div style="font-size:11px;color:#5a5680">Мэдүүлэг</div></div>\'+    \'<div style="background:#ffffff06;border:1px solid #ffffff0d;border-radius:10px;padding:10px;text-align:center">\'+     \'<div style="font-size:14px;font-weight:700;color:#ff8833;font-family:monospace">\'+(loss>=1000000?(loss/1000000).toFixed(1)+\'сая\':loss.toLocaleString())+\'₮</div>\'+     \'<div style="font-size:11px;color:#5a5680">Нийт хохирол</div></div>\'+   \'</div>\'+   (reports_html?\'<div style="font-size:11px;color:#5a5680;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 Мэдүүлгүүд</div>\'+reports_html:\'\')  :   \'<div style="background:#00e87a0d;border:1px solid #00e87a33;border-radius:10px;padding:14px;font-size:13px;color:#a09cc0;line-height:1.65;text-align:center">✅ Энэ акаунт дээр мэдүүлэг бүртгэгдээгүй байна.<br>Гэсэн ч болгоомжтой байгаарай!</div>\')+  \'<div style="text-align:center;padding-top:12px;border-top:1px solid #ffffff0d;margin-top:12px">\'+   \'<div style="font-size:11px;color:#5a5680">SafelyDeal — Монголын луйваас хамгаалах платформ</div>\'+  \'</div>\'+ \'</div>\'; document.body.appendChild(d); d.addEventListener(\'click\',function(e){if(e.target===d)d.remove();});})();';
+  anchor.href = code;
+}
+window.setupBookmarklet = setupBookmarklet;
+
+// ─── BOOKMARKLET TEST ───
+function bmTest(){
+  var q = document.getElementById('bm-test-input').value.trim();
+  var res = document.getElementById('bm-test-result');
+  if(!q){ res.innerHTML=''; return; }
+  var reports = allReports;
+  var uname = extractUsername(q).toLowerCase();
+  var ql = q.toLowerCase();
+  var matched = reports.filter(function(r){
+    var rLink=(r.scammerLink||'').toLowerCase();
+    var rName=(r.scammerName||'').toLowerCase();
+    var rU=extractUsername(r.scammerLink||'').toLowerCase();
+    return rLink.includes(ql)||rName.includes(ql)||rU===uname||ql.includes(rU);
+  });
+  var score = calcScore(matched, reports);
+  var total = matched.length;
+  var loss = matched.reduce(function(s,r){return s+(r.amount||0);},0);
+  var status,color,bg,icon;
+  if(total===0){status='Тайлан байхгүй';color='var(--green)';bg='#001a0d';icon='🟢';}
+  else if(score>=70){status='СКАМ — Болгоомжил!';color='#ff4444';bg='#200000';icon='🔴';}
+  else if(score>=35){status='Сэжигтэй';color='var(--orange)';bg='#1a0d00';icon='⚠️';}
+  else{status='Бага эрсдэл';color='#ffcc00';bg='#1a1500';icon='🟡';}
+  res.innerHTML = '<div style="background:'+bg+';border:1px solid '+color+'44;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:'+( total>0?'10':'0')+'px">'+
+    '<div style="font-size:26px">'+icon+'</div>'+
+    '<div><div style="color:'+color+';font-weight:700;font-size:14px">'+status+'</div>'+
+    (total>0?'<div style="font-size:12px;color:var(--text2)">'+total+' мэдүүлэг · '+(loss>=1000000?(loss/1000000).toFixed(1)+'сая':loss.toLocaleString())+'₮ хохирол</div>':'')+
+    '</div></div>'+
+    (matched.length>0?matched.slice(0,2).map(function(r){return '<div class="report-card cat-scam" style="margin-bottom:8px;cursor:default">'+reportCardHTML(r,0,false)+'</div>';}).join(''):'');
+}
+window.bmTest = bmTest;
+
+
+// ─── WELCOME / FIRST VISIT ───
+function closeWelcome(){
+  closeModal('welcome-modal');
+  localStorage.setItem('sd_visited','1');
+}
+window.closeWelcome = closeWelcome;
+
+function checkFirstVisit(){
+  if(!localStorage.getItem('sd_visited')){
+    setTimeout(()=>openModal('welcome-modal'), 600);
+  }
+}
 
 // ─── INIT ───
 const saved = localStorage.getItem('ls_user');
