@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mn"> 
+<html lang="mn">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -364,6 +364,22 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
   .stats-grid{grid-template-columns:1fr}
 }
 </style>
+<link rel="manifest" href="data:application/json,{
+  %22name%22:%22SafelyDeal%22,
+  %22short_name%22:%22SafelyDeal%22,
+  %22start_url%22:%22/%22,
+  %22display%22:%22standalone%22,
+  %22background_color%22:%22%23060608%22,
+  %22theme_color%22:%22%23ff2d2d%22,
+  %22share_target%22:{
+    %22action%22:%22/share%22,
+    %22method%22:%22GET%22,
+    %22params%22:{%22url%22:%22url%22,%22text%22:%22text%22}
+  }
+}"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" content="#ff2d2d"/>
 </head>
 <body>
 
@@ -381,7 +397,6 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
       <button class="nav-btn" id="nav-search" onclick="showPage('search')"><span class="nav-dot"></span>Хайх</button>
       <button class="nav-btn" id="nav-reports" onclick="showPage('reports')"><span class="nav-dot"></span>Гомдол</button>
       <button class="nav-btn" id="nav-feedback" onclick="showPage('feedback')"><span class="nav-dot"></span>Санал</button>
-      <button class="nav-btn" id="nav-bookmarklet" onclick="showPage('bookmarklet')"><span class="nav-dot"></span>🔖 Шалгах</button>
     </nav>
     <div id="header-right">
       <button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
@@ -585,68 +600,6 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
 
   <!-- ══ BOOKMARKLET PAGE ══ -->
-  <div id="page-bookmarklet" class="hidden">
-    <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:6px">🔖 Facebook шалгагч</h2>
-    <p style="color:var(--text2);margin-bottom:24px;font-size:14px">Facebook/Instagram профайл дээр шууд шалгах товч нэмэх</p>
-
-    <div class="score-dashboard" style="margin-bottom:16px">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
-        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🛡️</div>
-        <div>
-          <div style="font-weight:700;font-size:15px">Check Scam товч</div>
-          <div style="font-size:13px;color:var(--text2)">Facebook/Instagram дээр профайл нээхэд шалгана</div>
-        </div>
-      </div>
-
-      <!-- Steps -->
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
-        <div style="display:flex;gap:12px;align-items:flex-start">
-          <div style="width:28px;height:28px;border-radius:50%;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff6666;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">1</div>
-          <div>
-            <div style="font-weight:600;font-size:13px;margin-bottom:3px">Доорх товчийг bookmark-т нэмнэ</div>
-            <div style="font-size:12px;color:var(--text2)">Товч дээр удаан дараад → "Add bookmark" сонгоно</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start">
-          <div style="width:28px;height:28px;border-radius:50%;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff6666;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">2</div>
-          <div>
-            <div style="font-weight:600;font-size:13px;margin-bottom:3px">Facebook/Instagram нээ</div>
-            <div style="font-size:12px;color:var(--text2)">Шалгахыг хүсэж буй профайл руу ор</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start">
-          <div style="width:28px;height:28px;border-radius:50%;background:#ff2d2d18;border:1px solid #ff2d2d44;color:#ff6666;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0">3</div>
-          <div>
-            <div style="font-weight:600;font-size:13px;margin-bottom:3px">Bookmark-аа дар</div>
-            <div style="font-size:12px;color:var(--text2)">SafelyDeal-аас шууд шалгаад үр дүн гарна</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- The bookmarklet button -->
-      <div style="text-align:center;margin-bottom:16px">
-        <div style="font-size:12px;color:var(--text2);margin-bottom:10px">👇 Энэ товчийг удаан дараад bookmark нэм</div>
-        <a id="bookmarklet-anchor" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff2d2d,#ff5533);color:#fff;padding:12px 24px;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 20px #ff2d2d44;cursor:pointer">
-          🛡️ Check Scam — SafelyDeal
-        </a>
-      </div>
-
-      <div class="warn-box" style="margin-bottom:0">
-        📱 <b>Android Chrome дээр:</b> Товч дээр удаан дар → "Add to bookmarks" → Нэрийг өөрчлөхгүйгээр хадгал.<br>
-        Дараа нь Facebook нээгээд address bar-д bookmark-аа хайж дар.
-      </div>
-    </div>
-
-    <!-- Live test -->
-    <div class="score-dashboard">
-      <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px">🧪 Эндээс туршиж үзэх</div>
-      <div style="display:flex;gap:8px;margin-bottom:12px">
-        <input class="input" id="bm-test-input" placeholder="facebook.com/username эсвэл нэр..." style="flex:1;font-size:13px"/>
-        <button class="btn-primary" onclick="bmTest()" style="white-space:nowrap">Шалгах</button>
-      </div>
-      <div id="bm-test-result"></div>
-    </div>
-  </div>
 
 </main>
 
@@ -840,8 +793,8 @@ let searchFilter = 'all';
 // ─── NAVIGATION ───
 function showPage(p) {
   // All pages and their nav buttons
-  const pages = ['home','search','reports','feedback','bookmarklet'];
-  const navPages = ['home','search','reports','feedback','bookmarklet'];
+  const pages = ['home','search','reports','feedback'];
+  const navPages = ['home','search','reports','feedback'];
   pages.forEach(x => {
     const pg = document.getElementById('page-'+x);
     if(pg) pg.classList.toggle('hidden', x!==p);
@@ -853,7 +806,7 @@ function showPage(p) {
   if(p==='reports'){ renderScammerGroups(); }
   if(p==='search'){ renderSearchTopList(); }
   if(p==='home') renderHome();
-  if(p==='bookmarklet') setupBookmarklet();
+
   if(p==='feedback') loadFeedbacks();
 }
 window.showPage = showPage;
@@ -1003,13 +956,46 @@ function findLinkedAccounts(r, allR){
 }
 
 // ─── LOAD REPORTS (localStorage) ───
+// ─── LOAD FROM FIREBASE ───
+async function loadReportsFromFirebase(){
+  try {
+    const db = window._db;
+    const { collection, getDocs, query, orderBy } = window._fsOps;
+    const q = query(collection(db,'reports'), orderBy('likes','desc'));
+    const snap = await getDocs(q);
+    const fbReports = snap.docs.map(d=>({id:d.id,...d.data()}));
+    // Merge with localStorage (local-only reports)
+    const localRaw = localStorage.getItem('sd_reports_local');
+    const localReports = localRaw ? JSON.parse(localRaw) : [];
+    // Firebase reports take priority, add local ones that aren't in firebase
+    const fbIds = new Set(fbReports.map(r=>r.id));
+    const onlyLocal = localReports.filter(r=>!fbIds.has(r.id));
+    allReports = [...fbReports, ...onlyLocal];
+    // Cache in localStorage
+    localStorage.setItem('sd_reports', JSON.stringify(allReports));
+    renderHome();
+    const rPage = document.getElementById('page-reports');
+    if(rPage && !rPage.classList.contains('hidden'))
+      renderReports('all-reports', allReports);
+  } catch(e){
+    console.warn('Firebase error, using localStorage:', e);
+    loadReports();
+  }
+}
+window.loadReportsFromFirebase = loadReportsFromFirebase;
+
+// ─── LOAD FROM LOCALSTORAGE (fallback) ───
 function loadReports(){
   try {
-    const raw = localStorage.getItem('sd_reports');
+    const raw = localStorage.getItem('sd_reports') ||
+                localStorage.getItem('sd_reports_local') ||
+                localStorage.getItem('ls_reports');
     allReports = raw ? JSON.parse(raw) : [];
+    allReports = allReports.filter(r => r && r.scammerLink);
   } catch(e){ allReports = []; }
   renderHome();
-  if(!document.getElementById('page-reports').classList.contains('hidden'))
+  const rPage = document.getElementById('page-reports');
+  if(rPage && !rPage.classList.contains('hidden'))
     renderReports('all-reports', allReports);
 }
 window.loadReports = loadReports;
@@ -1314,6 +1300,35 @@ async function submitReport(){
 
     const fp = getDeviceFingerprint();
 
+    // Try Firebase first, fallback to localStorage
+    if(window._db && window._fsOps){
+      try {
+        const { collection, addDoc, serverTimestamp } = window._fsOps;
+        await addDoc(collection(window._db,'reports'),{
+          scammerLink: link,
+          platform, category,
+          scammerName: displayName,
+          scammerUsername: extractUsername(link),
+          reporterName: currentUser ? currentUser.name : 'Зочин',
+          reporterPhone: currentUser ? currentUser.phone : 'guest_'+Date.now(),
+          amount, desc, proof,
+          likes:0, likedBy:[],
+          verified: proof.length > 20,
+          createdAt: serverTimestamp(),
+        });
+        closeModal('report-modal');
+        ['rep-link','rep-displayname','rep-amount','rep-desc','rep-proof'].forEach(id=>document.getElementById(id).value='');
+        resetEvidence();
+        window._pendingImageHashes=[];
+        await loadReportsFromFirebase();
+        if(existing.length>0)
+          notify('⚠️ Энэ акаунт өмнө нь '+existing.length+' удаа мэдүүлэгдсэн байна!','warning');
+        else
+          notify('✅ Гомдол амжилттай бүртгэгдлээ!','success');
+        return;
+      } catch(fbErr){ console.warn('Firebase save failed, using localStorage:', fbErr); }
+    }
+    // localStorage fallback
     const newReport = {
       id: 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
       scammerLink: link,
@@ -1405,12 +1420,24 @@ async function likeReport(id){
   if(r.likedBy&&r.likedBy.includes(currentUser.phone)){ notify('Та аль хэдийн дэмжсэн байна','warning'); return; }
   try {
     const idx = allReports.findIndex(x=>x.id===id);
-    if(idx>=0){
-      allReports[idx].likes = (allReports[idx].likes||0)+1;
-      allReports[idx].likedBy = [...(allReports[idx].likedBy||[]), currentUser.phone];
-      localStorage.setItem('sd_reports', JSON.stringify(allReports));
-      loadReports();
+    if(idx<0) return;
+    // Try Firebase
+    if(window._db && window._fsOps && !id.startsWith('r_')){
+      try {
+        const { doc, updateDoc, increment, arrayUnion } = window._fsOps;
+        await updateDoc(doc(window._db,'reports',id),{
+          likes: increment(1),
+          likedBy: arrayUnion(currentUser.phone)
+        });
+        await loadReportsFromFirebase();
+        return;
+      } catch(e){ console.warn('Firebase like failed:', e); }
     }
+    // localStorage fallback
+    allReports[idx].likes = (allReports[idx].likes||0)+1;
+    allReports[idx].likedBy = [...(allReports[idx].likedBy||[]), currentUser.phone];
+    localStorage.setItem('sd_reports', JSON.stringify(allReports));
+    loadReports();
   } catch(e){ notify('Алдаа: '+e.message,'error'); }
 }
 window.likeReport = likeReport;
@@ -2074,6 +2101,66 @@ function setupBookmarklet(){
 }
 window.setupBookmarklet = setupBookmarklet;
 
+
+// ─── COPY BOOKMARKLET CODE ───
+function copyBmCode(){
+  const ta = document.getElementById('bm-code-area');
+  if(!ta) return;
+  ta.select();
+  try {
+    navigator.clipboard.writeText(ta.value).then(()=>{
+      document.getElementById('bm-copy-confirm').style.display='block';
+      setTimeout(()=>{const el=document.getElementById('bm-copy-confirm');if(el)el.style.display='none';},4000);
+    }).catch(()=>{
+      document.execCommand('copy');
+      document.getElementById('bm-copy-confirm').style.display='block';
+    });
+  } catch(e){
+    document.execCommand('copy');
+    document.getElementById('bm-copy-confirm').style.display='block';
+  }
+}
+window.copyBmCode = copyBmCode;
+
+// ─── EXPORT REPORTS ───
+function exportReports(){
+  const reports = JSON.parse(localStorage.getItem('sd_reports')||'[]');
+  if(!reports.length){ notify('Экспортлох гомдол байхгүй байна','warning'); return; }
+  const blob = new Blob([JSON.stringify(reports, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'safedeal-reports-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  notify('✅ '+reports.length+' гомдол экспортлогдлоо!','success');
+}
+window.exportReports = exportReports;
+
+// ─── IMPORT REPORTS ───
+function importReports(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if(!Array.isArray(imported)){ notify('Буруу файл формат','error'); return; }
+      const existing = JSON.parse(localStorage.getItem('sd_reports')||'[]');
+      // Merge — deduplicate by id
+      const existingIds = new Set(existing.map(r=>r.id));
+      const newOnes = imported.filter(r=>!existingIds.has(r.id));
+      const merged = [...existing, ...newOnes];
+      localStorage.setItem('sd_reports', JSON.stringify(merged));
+      loadReports();
+      notify('✅ '+newOnes.length+' шинэ гомдол импортлогдлоо! (Нийт: '+merged.length+')', 'success');
+    } catch(err){ notify('Файл унших алдаа: '+err.message,'error'); }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+window.importReports = importReports;
+
 // ─── BOOKMARKLET TEST ───
 function bmTest(){
   var q = document.getElementById('bm-test-input').value.trim();
@@ -2147,6 +2234,137 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 loadReports();
+handleShareIntent();
+setTimeout(checkClipboard, 1000);
+
+
+// ─── SHARE INTENT HANDLER ───
+function handleShareIntent(){
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const sharedUrl = params.get('url') || params.get('text') || params.get('link');
+    if(!sharedUrl) return;
+    const isSocial = sharedUrl.includes('facebook.com') || sharedUrl.includes('instagram.com') || sharedUrl.includes('fb.com');
+    if(!isSocial) return;
+    // Small delay to let data load
+    setTimeout(()=>showClipboardResult(sharedUrl), 800);
+  } catch(e){}
+}
+window.handleShareIntent = handleShareIntent;
+
+// ─── CLIPBOARD AUTO CHECK ───
+async function checkClipboard(){
+  try {
+    const text = await navigator.clipboard.readText();
+    if(!text) return;
+    const t = text.trim();
+    // Only check if it looks like a Facebook/Instagram link or profile name
+    const isSocial = t.includes('facebook.com') || t.includes('instagram.com') || t.includes('fb.com');
+    if(!isSocial) return;
+    // Don't show if same as last checked
+    if(localStorage.getItem('sd_last_clip') === t) return;
+    localStorage.setItem('sd_last_clip', t);
+    // Run the check
+    showClipboardResult(t);
+  } catch(e){ /* Permission denied — skip silently */ }
+}
+
+function showClipboardResult(profileUrl){
+  const reports = allReports;
+  const uname = extractUsername(profileUrl).toLowerCase();
+  const ql = profileUrl.toLowerCase();
+
+  const matched = reports.filter(r=>{
+    const rl=(r.scammerLink||'').toLowerCase();
+    const rn=(r.scammerName||'').toLowerCase();
+    const ru=extractUsername(r.scammerLink||'').toLowerCase();
+    return rl.includes(uname)||rn.includes(uname)||ru===uname||ql.includes(ru);
+  });
+
+  // Show popup for any Facebook/Instagram link - safe or not
+
+  const score = calcScore({scammerLink: profileUrl}, allReports);
+  const total = matched.length;
+  const loss = matched.reduce((s,r)=>s+(r.amount||0),0);
+  const scoreVal = (() => {
+    let s=0;
+    s+=Math.min(total*15,40);
+    s+=Math.min(loss/50000,30);
+    s+=Math.min(matched.reduce((x,r)=>x+(r.likes||0),0)*2,20);
+    if(matched.some(r=>r.proof&&r.proof.length>10)) s+=10;
+    return Math.min(Math.round(s),100);
+  })();
+
+  let status,color,bg,icon;
+  if(total===0){status='Аюулгүй — тайлан байхгүй';color='#00e87a';bg='#001a0d';icon='🟢';}
+  else if(scoreVal>=70){status='СКАМ — Болгоомжил!';color='#ff4444';bg='#200000';icon='🔴';}
+  else if(scoreVal>=35){status='Сэжигтэй';color='#ff8833';bg='#1a0d00';icon='⚠️';}
+  else{status='Бага эрсдэл';color='#ffcc00';bg='#1a1500';icon='🟡';}
+
+  // Remove existing
+  document.getElementById('__clip_popup')?.remove();
+
+  const popup = document.createElement('div');
+  popup.id = '__clip_popup';
+  popup.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;width:calc(100% - 32px);max-width:400px;background:#0d0d14;border:1px solid '+color+'66;border-radius:16px;padding:16px;box-shadow:0 8px 40px #00000099;animation:slideUp .3s ease';
+
+  popup.innerHTML = `
+    <style>@keyframes slideUp{from{transform:translateX(-50%) translateY(20px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}</style>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:28px;flex-shrink:0">${icon}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;font-size:14px;color:${color};margin-bottom:2px">${status}</div>
+        <div style="font-size:11px;color:#5a5680;font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">@${esc(uname)}</div>
+        <div style="font-size:12px;color:#a09cc0;margin-top:4px">${total>0 ? total+' мэдүүлэг · '+(loss>=1000000?(loss/1000000).toFixed(1)+'сая':loss.toLocaleString())+'₮ хохирол' : 'Гомдол бүртгэлгүй'}</div>
+      </div>
+      <button onclick="document.getElementById('__clip_popup').remove()" style="background:#ffffff10;border:1px solid #ffffff20;color:#888;width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:13px;flex-shrink:0">✕</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button onclick="document.getElementById('search-input').value='${esc(uname)}';doSearch();showPage('search');document.getElementById('__clip_popup').remove()" 
+        style="flex:1;background:linear-gradient(135deg,#ff2d2d,#ff5533);border:none;color:#fff;padding:9px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600">
+        🔍 Дэлгэрэнгүй харах
+      </button>
+      <button onclick="document.getElementById('__clip_popup').remove()" 
+        style="background:#ffffff0a;border:1px solid #ffffff18;color:#a09cc0;padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px">
+        Хаах
+      </button>
+    </div>
+  `;
+  document.body.appendChild(popup);
+  // Auto remove after 8 seconds
+  setTimeout(()=>popup?.remove(), 8000);
+}
+window.checkClipboard = checkClipboard;
+
+// Check on page load and when user returns to the tab
+window.addEventListener('focus', checkClipboard);
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) checkClipboard(); });
+
 </script>
+
+<!-- ══ FIREBASE — өгөгдөл унших ══ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const cfg = {
+  apiKey:"AIzaSyDfDcqyeOS6Cj3gFdy1A0YJT5wBbJpX7PI",
+  authDomain:"hamgaalalt-6e6f7.firebaseapp.com",
+  projectId:"hamgaalalt-6e6f7",
+  storageBucket:"hamgaalalt-6e6f7.firebasestorage.app",
+  messagingSenderId:"240337708972",
+  appId:"1:240337708972:web:7cbb5865e284b605a97c09"
+};
+
+const app = initializeApp(cfg);
+const db = getFirestore(app);
+window._db = db;
+window._fsOps = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
+window._firebaseReady = true;
+
+// Firebase бэлэн болмогц татна
+window.loadReportsFromFirebase();
+</script>
+
 </body>
 </html>
