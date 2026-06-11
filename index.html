@@ -405,7 +405,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
         <button class="nav-btn" id="nav-feedback" onclick="showPage('feedback')"><span class="nav-dot"></span>Санал</button>
       </nav>
       <div id="header-right">
-        <button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
+        <button class="btn-outline" onclick="openModal('login-modal')" style="margin-right:6px">Нэвтрэх</button><button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
       </div>
     </div>
   </div>
@@ -663,6 +663,32 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
   </div>
 </div>
 
+<!-- ══ LOGIN MODAL ══ -->
+<div id="login-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('login-modal')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🔑 Нэвтрэх</div>
+        <div class="modal-sub">Бүртгүүлсэн утасны дугаараараа нэвтэрнэ үү.</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('login-modal')">✕</button>
+    </div>
+    <div class="field">
+      <label>Утасны дугаар <span class="required-star">*</span></label>
+      <input class="input" id="login-phone" placeholder="9900XXXX" maxlength="8" type="tel"/>
+    </div>
+    <div id="login-error" style="display:none;background:#200a0a;border:1px solid #ff2d2d44;border-radius:var(--r3);padding:10px 14px;font-size:13px;color:#ff9999;margin-bottom:14px"></div>
+    <div class="modal-btns">
+      <button class="btn-outline" onclick="closeModal('login-modal')">Болих</button>
+      <button class="btn-primary" onclick="doLogin()">✓ Нэвтрэх</button>
+    </div>
+    <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text3)">
+      Бүртгэлгүй юу? 
+      <button onclick="closeModal('login-modal');openModal('register-modal')" style="background:none;border:none;color:#ff8888;cursor:pointer;font-size:13px;font-family:'Geologica',sans-serif;font-weight:600;padding:0">Бүртгүүлэх →</button>
+    </div>
+  </div>
+</div>
+
 <!-- ══ REGISTER MODAL ══ -->
 <div id="register-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('register-modal')">
   <div class="modal">
@@ -679,6 +705,10 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     <div class="modal-btns">
       <button class="btn-outline" onclick="closeModal('register-modal')">Болих</button>
       <button class="btn-primary" onclick="doRegister()">✓ Бүртгүүлэх</button>
+    </div>
+    <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text3)">
+      Аль хэдийн бүртгэлтэй юу? 
+      <button onclick="closeModal('register-modal');openModal('login-modal')" style="background:none;border:none;color:#ff8888;cursor:pointer;font-size:13px;font-family:'Geologica',sans-serif;font-weight:600;padding:0">Нэвтрэх →</button>
     </div>
   </div>
 </div>
@@ -917,11 +947,36 @@ function updateHeaderUser(){
      <button class="btn-outline" onclick="doLogout()" style="padding:8px 14px;font-size:12px">Гарах</button>`;
 }
 
-function doLogout(){
+function doLogin(){
+  const phone = document.getElementById('login-phone').value.trim();
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  if(!phone){ errEl.textContent='Утасны дугаараа оруулна уу!'; errEl.style.display='block'; return; }
+  if(!/^\d{8}$/.test(phone)){ errEl.textContent='Утасны дугаар 8 оронтой байх ёстой!'; errEl.style.display='block'; return; }
+  const storedUser = localStorage.getItem('ls_user');
+  if(storedUser){
+    try{
+      const u = JSON.parse(storedUser);
+      if(u.phone === phone){
+        currentUser = u;
+        updateHeaderUser();
+        closeModal('login-modal');
+        document.getElementById('login-phone').value = '';
+        notify(`✅ Тавтай морил, ${u.name}!`, 'success');
+        return;
+      }
+    } catch(e){}
+  }
+  errEl.textContent = '❌ Энэ утасны дугаартай бүртгэл олдсонгүй. Эхлээд бүртгүүлнэ үү.';
+  errEl.style.display = 'block';
+}
+window.doLogin = doLogin;
+
+
   currentUser = null;
   localStorage.removeItem('ls_user');
   document.getElementById('header-right').innerHTML =
-    `<button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>`;
+    `<button class="btn-outline" onclick="openModal('login-modal')" style="margin-right:6px">Нэвтрэх</button><button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>`;
   notify('Амжилттай гарлаа','success');
 }
 window.doLogout = doLogout;
