@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="mn">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SafeDeal 🛡️ — Монгол дахь луйвраас хамгаалах платформ</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#060608;--bg2:#0d0d14;--bg3:#13131e;--bg4:#1a1a28;
@@ -22,7 +22,7 @@ label{user-select:none;-webkit-user-select:none}
 *::selection{background:transparent}
 *::-moz-selection{background:transparent}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Geologica',sans-serif;min-height:100vh;overflow-x:hidden}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#ff2d2d44;border-radius:2px}
 .hidden{display:none!important}
 
@@ -30,24 +30,26 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.6}
 
 /* ── HEADER ── */
-header{position:sticky;top:0;z-index:50;background:#060608ee;backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 24px}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+header{position:sticky;top:0;z-index:50;background:#060608ee;backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:0;padding:0 24px}
+.nav-top{width:100%;display:flex;align-items:center;justify-content:center;padding:12px 0 6px}
+.nav-bottom{width:100%;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 0 10px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;user-select:none}
 .logo-shield{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 20px #ff2d2d44,inset 0 1px 0 #ffffff22}
 .logo-text{font-weight:700;font-size:18px;letter-spacing:-0.5px}
 .logo-text b{color:var(--red)}
 nav{display:flex;gap:2px}
-.nav-btn{background:none;border:none;cursor:pointer;padding:8px 14px;border-radius:var(--r3);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;color:var(--text3);transition:all .2s;display:flex;align-items:center;gap:6px}
+.nav-btn{background:none;border:none;cursor:pointer;padding:8px 14px;border-radius:var(--r3);font-family:'Geologica',sans-serif;font-size:13px;font-weight:500;color:var(--text3);transition:all .2s;display:flex;align-items:center;gap:6px}
 .nav-btn:hover{background:#ffffff0a;color:var(--text2)}
 .nav-btn.active{background:#ff2d2d18;color:#ff6666}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--red);display:none}
 .nav-btn.active .nav-dot{display:block}
-.btn-primary{background:linear-gradient(135deg,var(--red),var(--red2));border:none;color:#fff;padding:9px 20px;border-radius:var(--r2);cursor:pointer;font-weight:600;font-family:'Space Grotesk',sans-serif;font-size:13px;transition:all .2s;box-shadow:0 2px 12px #ff2d2d33}
+.btn-primary{background:linear-gradient(135deg,var(--red),var(--red2));border:none;color:#fff;padding:9px 20px;border-radius:var(--r2);cursor:pointer;font-weight:600;font-family:'Geologica',sans-serif;font-size:13px;transition:all .2s;box-shadow:0 2px 12px #ff2d2d33}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px #ff2d2d44}
 .btn-primary:active{transform:translateY(0)}
-.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);padding:9px 18px;border-radius:var(--r2);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;transition:all .2s}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);padding:9px 18px;border-radius:var(--r2);cursor:pointer;font-family:'Geologica',sans-serif;font-size:13px;font-weight:500;transition:all .2s}
 .btn-outline:hover{border-color:#ff2d2d66;color:#ff8888}
-.btn-ghost{background:transparent;border:none;color:var(--text3);padding:6px 12px;border-radius:var(--r3);cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;transition:all .2s}
+.btn-ghost{background:transparent;border:none;color:var(--text3);padding:6px 12px;border-radius:var(--r3);cursor:pointer;font-family:'Geologica',sans-serif;font-size:12px;transition:all .2s}
 .btn-ghost:hover{color:var(--text2);background:#ffffff08}
 
 /* ── MAIN ── */
@@ -138,7 +140,7 @@ main{max-width:1100px;margin:0 auto;padding:32px 24px}
 .card-actions{display:flex;gap:7px;align-items:center}
 .link-btn{font-size:11px;color:var(--text3);text-decoration:none;padding:5px 11px;border:1px solid var(--border2);border-radius:20px;transition:all .2s;font-weight:500}
 .link-btn:hover{border-color:#ff2d2d66;color:#ff8888}
-.like-btn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 13px;border-radius:20px;cursor:pointer;font-size:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:5px}
+.like-btn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 13px;border-radius:20px;cursor:pointer;font-size:12px;font-family:'Geologica',sans-serif;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:5px}
 .like-btn:hover{border-color:#ff2d2d88;color:#ff8888;background:#ff2d2d0a}
 .like-btn.liked{border-color:var(--red);color:#ff6666;background:#ff2d2d14}
 
@@ -172,13 +174,13 @@ main{max-width:1100px;margin:0 auto;padding:32px 24px}
 
 /* ── FORM ── */
 .input,.textarea,.select{user-select:text;-webkit-user-select:text}
-.input{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Space Grotesk',sans-serif;font-size:14px;width:100%;outline:none;transition:border .2s}
+.input{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Geologica',sans-serif;font-size:14px;width:100%;outline:none;transition:border .2s}
 .input:focus{border-color:#ff2d2d88}
 .input::placeholder{color:var(--text3)}
-.textarea{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Space Grotesk',sans-serif;font-size:14px;width:100%;outline:none;resize:vertical;min-height:80px;transition:border .2s;line-height:1.6}
+.textarea{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Geologica',sans-serif;font-size:14px;width:100%;outline:none;resize:vertical;min-height:80px;transition:border .2s;line-height:1.6}
 .textarea:focus{border-color:#ff2d2d88}
 .textarea::placeholder{color:var(--text3)}
-.select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Space Grotesk',sans-serif;font-size:14px;width:100%;outline:none}
+.select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:'Geologica',sans-serif;font-size:14px;width:100%;outline:none}
 label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-weight:500}
 .field{margin-bottom:16px}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -227,7 +229,7 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 .feedback-form-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:28px}
 .feedback-type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
 @media(max-width:500px){.feedback-type-grid{grid-template-columns:1fr}}
-.feedback-type-btn{background:var(--bg3);border:2px solid var(--border);border-radius:var(--r);padding:14px 12px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Space Grotesk',sans-serif}
+.feedback-type-btn{background:var(--bg3);border:2px solid var(--border);border-radius:var(--r);padding:14px 12px;cursor:pointer;text-align:center;transition:all .2s;font-family:'Geologica',sans-serif}
 .feedback-type-btn:hover{border-color:var(--border2);background:var(--bg4)}
 .feedback-type-btn.selected{border-color:#ff2d2d88;background:#ff2d2d0d}
 .feedback-type-icon{font-size:24px;display:block;margin-bottom:6px}
@@ -259,7 +261,7 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 .search-input-wrap .input{padding-left:38px}
 .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
 .filter-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Space Grotesk',sans-serif;transition:all .2s}
+.filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:500;font-family:'Geologica',sans-serif;transition:all .2s}
 .filter-btn.active{background:#ff2d2d18;border-color:#ff2d2d44;color:#ff7070}
 .filter-btn:hover:not(.active){border-color:var(--border2);color:var(--text2)}
 
@@ -271,7 +273,7 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 /* ── SORT BAR ── */
 .sort-bar{display:flex;gap:6px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
 .sort-label{font-size:12px;color:var(--text3);margin-right:4px}
-.sort-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:11px;font-family:'Space Grotesk',sans-serif;transition:all .2s}
+.sort-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text3);padding:5px 12px;border-radius:20px;cursor:pointer;font-size:11px;font-family:'Geologica',sans-serif;transition:all .2s}
 .sort-btn.active{background:#ff2d2d18;border-color:#ff2d2d44;color:#ff7070}
 .sort-btn:hover:not(.active){border-color:var(--border2);color:var(--text2)}
 
@@ -290,7 +292,7 @@ label{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;font-wei
 
 /* ── TABS ── */
 .tab-row{display:flex;gap:2px;margin-bottom:20px;background:var(--bg2);padding:4px;border-radius:var(--r2);border:1px solid var(--border)}
-.tab-btn{flex:1;background:none;border:none;color:var(--text3);padding:8px;border-radius:8px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;transition:all .2s}
+.tab-btn{flex:1;background:none;border:none;color:var(--text3);padding:8px;border-radius:8px;cursor:pointer;font-family:'Geologica',sans-serif;font-size:12px;font-weight:600;transition:all .2s}
 .tab-btn.active{background:var(--bg4);color:var(--text);border:1px solid var(--border2)}
 
 /* ── TOP SCAMMER CARDS ── */
@@ -359,6 +361,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
   nav .nav-btn{padding:7px 9px;font-size:12px}
   .field-row{grid-template-columns:1fr}
   .hero{padding:36px 20px 32px}
+  .nav-bottom{gap:2px}
 }
 @media(max-width:460px){
   .stats-grid{grid-template-columns:1fr}
@@ -388,18 +391,22 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 <!-- ══ HEADER ══ -->
 <header>
   <div class="nav-inner">
-    <a class="logo" onclick="showPage('home')">
-      <div class="logo-shield">🛡️</div>
-      <span class="logo-text">Safe<b>Deal</b></span>
-    </a>
-    <nav>
-      <button class="nav-btn active" id="nav-home" onclick="showPage('home')"><span class="nav-dot"></span>Нүүр</button>
-      <button class="nav-btn" id="nav-search" onclick="showPage('search')"><span class="nav-dot"></span>Хайх</button>
-      <button class="nav-btn" id="nav-reports" onclick="showPage('reports')"><span class="nav-dot"></span>Гомдол</button>
-      <button class="nav-btn" id="nav-feedback" onclick="showPage('feedback')"><span class="nav-dot"></span>Санал</button>
-    </nav>
-    <div id="header-right">
-      <button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
+    <div class="nav-top">
+      <a class="logo" onclick="showPage('home')">
+        <div class="logo-shield">🛡️</div>
+        <span class="logo-text">Safe<b>Deal</b></span>
+      </a>
+    </div>
+    <div class="nav-bottom">
+      <nav>
+        <button class="nav-btn active" id="nav-home" onclick="showPage('home')"><span class="nav-dot"></span>Нүүр</button>
+        <button class="nav-btn" id="nav-search" onclick="showPage('search')"><span class="nav-dot"></span>Хайх</button>
+        <button class="nav-btn" id="nav-reports" onclick="showPage('reports')"><span class="nav-dot"></span>Гомдол</button>
+        <button class="nav-btn" id="nav-feedback" onclick="showPage('feedback')"><span class="nav-dot"></span>Санал</button>
+      </nav>
+      <div id="header-right">
+        <button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
+      </div>
     </div>
   </div>
 </header>
@@ -414,7 +421,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
       <div class="hero-content">
         <div class="hero-badge"><span class="hero-badge-dot"></span>Монгол дахь луйвраас хамгаалах платформ</div>
         <h1>Луйварчдыг<br><em>олон нийтэд</em> мэдээлэл</h1>
-        <p class="hero-sub">Facebook, Instagram дээрх зөрчилтэй акаунтуудыг бүртгэж бусдыг хамгаал.</p>
+        <p class="hero-sub">Facebook, Instagram дээрх зөрчилтэй account бүртгэж бусдыг хамгаал.</p>
         <div class="hero-btns">
           <button class="btn-primary" onclick="onAddReport()">+ Гомдол нэмэх</button>
           <button class="btn-outline" onclick="showPage('search')">🔍 Хайж шалгах</button>
@@ -436,7 +443,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
       <div class="stat-card">
         <div class="stat-icon">🚨</div>
         <div class="stat-val" id="stat-scammers">0</div>
-        <div class="stat-label">Зөрчилтэй акаунт</div>
+        <div class="stat-label">Зөрчилтэй account</div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">👥</div>
@@ -447,7 +454,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
     <!-- TOP SCAMMERS -->
     <div class="section-hd" style="margin-bottom:14px">
-      <div class="section-title"><span class="dot" style="background:#ff8833"></span>🏴 Хамгийн их гомдол гарсан акаунтууд</div>
+      <div class="section-title"><span class="dot" style="background:#ff8833"></span>🏴 Хамгийн их гомдол гарсан account</div>
       <button class="btn-ghost" onclick="showPage('search')">Бүгдийг харах →</button>
     </div>
     <div id="top-scammers-list" style="margin-bottom:32px"></div>
@@ -484,7 +491,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     <div id="search-empty">
       <div style="background:#ff2d2d0a;border:1px solid #ff2d2d22;border-radius:var(--r);padding:20px;margin-bottom:20px">
         <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px">
-          🏴 Хамгийн их гомдол гарсан акаунтууд
+          🏴 Хамгийн их гомдол гарсан account
         </div>
         <div id="search-top-list"></div>
       </div>
@@ -495,8 +502,8 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
   <div id="page-reports" class="hidden">
     <div class="section-hd" style="margin-bottom:20px">
       <div>
-        <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:4px">📋 Бүх акаунт</h2>
-        <p style="color:var(--text2);font-size:13px">Нийт <b id="reports-count" style="color:var(--text)">0</b> акаунт · хохирлоор эрэмбэлэгдсэн</p>
+        <h2 style="font-size:28px;font-weight:700;letter-spacing:-1px;margin-bottom:4px">📋 Бүх account</h2>
+        <p style="color:var(--text2);font-size:13px">Нийт <b id="reports-count" style="color:var(--text)">0</b> account · хохирлоор эрэмбэлэгдсэн</p>
       </div>
       <button class="btn-primary" onclick="onAddReport()">+ Гомдол нэмэх</button>
     </div>
@@ -1110,10 +1117,10 @@ function analyzeDescPattern(){
   }
 
   alertHTML += `<span>📝 ${matches.length} гомдолтой ижил үг хэллэг, бичлэгийн хэв маяг илэрлээ.</span><br>
-    <span style="color:#d8b4fe">👤 Холбогдох акаунтууд: <b>${names.slice(0,3).join(', ')}</b>${names.length>3?' болон бусад':''}</span>`;
+    <span style="color:#d8b4fe">👤 Холбогдох account: <b>${names.slice(0,3).join(', ')}</b>${names.length>3?' болон бусад':''}</span>`;
 
   if(phones.length > 0 && matches.some(r=>r.reporterPhone===matches[0].reporterPhone && matches.filter(x=>x.reporterPhone===r.reporterPhone).length > 1)){
-    alertHTML += `<br><span style="color:#fca5a5">🔗 Нэг хэрэглэгч олон акаунт дээр гомдол гаргасан байж магадгүй.</span>`;
+    alertHTML += `<br><span style="color:#fca5a5">🔗 Нэг хэрэглэгч олон account дээр гомдол гаргасан байж магадгүй.</span>`;
   }
 
   alertHTML += `</div></div>`;
@@ -1322,7 +1329,7 @@ async function submitReport(){
         window._pendingImageHashes=[];
         await loadReportsFromFirebase();
         if(existing.length>0)
-          notify('⚠️ Энэ акаунт өмнө нь '+existing.length+' удаа мэдүүлэгдсэн байна!','warning');
+          notify('⚠️ Энэ account өмнө нь '+existing.length+' удаа мэдүүлэгдсэн байна!','warning');
         else
           notify('✅ Гомдол амжилттай бүртгэгдлээ!','success');
         return;
@@ -1405,7 +1412,7 @@ function checkLinkRealtime(){
   if(found.length){
     const total = found.reduce((s,r)=>s+(r.amount||0),0);
     warn.style.display='block';
-    warn.textContent = `⚠️ Анхааруулга! Энэ акаунт дээр ${found.length} гомдол байна. Нийт ${total.toLocaleString()}₮ хохирол бүртгэгдсэн.`;
+    warn.textContent = `⚠️ Анхааруулга! Энэ account дээр ${found.length} гомдол байна. Нийт ${total.toLocaleString()}₮ хохирол бүртгэгдсэн.`;
   } else {
     warn.style.display='none';
   }
@@ -1485,7 +1492,7 @@ function renderTopScammers(){
     map[key].likes += r.likes||0;
   });
   const sorted = Object.values(map).sort((a,b)=>b.totalAmount-a.totalAmount).slice(0,5);
-  if(!sorted.length){ el.innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-icon" style="font-size:32px">📭</div><p>Бүртгэлтэй акаунт байхгүй</p></div>'; return; }
+  if(!sorted.length){ el.innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-icon" style="font-size:32px">📭</div><p>Бүртгэлтэй account байхгүй</p></div>'; return; }
   el.innerHTML = sorted.map((s,i)=>{
     const rankClass = i<3?`rank-${i+1}`:'rank-n';
     const rankLabel = i<3?['🥇','🥈','🥉'][i]:`${i+1}`;
@@ -1951,9 +1958,9 @@ function doSearch(){
       <div class="search-warning">
         <div class="search-warning-icon">⚠️</div>
         <div>
-          <div class="search-warning-title">Анхааруулга! Энэ акаунт дээр гомдол байна!</div>
+          <div class="search-warning-title">Анхааруулга! Энэ account дээр гомдол байна!</div>
           <div class="search-warning-sub">
-            "<b>${esc(q)}</b>" — <b>${found.length}</b> гомдол, <b>${uniqueAccs}</b> акаунт илэрлээ.<br>
+            "<b>${esc(q)}</b>" — <b>${found.length}</b> гомдол, <b>${uniqueAccs}</b> account илэрлээ.<br>
             Нийт хохирол: <b style="color:#ff6666">${totalLoss.toLocaleString()}₮</b>
           </div>
         </div>
@@ -2096,7 +2103,7 @@ function setupBookmarklet(){
   var anchor = document.getElementById('bookmarklet-anchor');
   if(!anchor) return;
   // Build the href
-  var code = 'javascript:(function(){ var SD_KEY=\'sd_reports\'; function esc(s){return String(s||\'\').replace(/&/g,\'&amp;\').replace(/</g,\'&lt;\').replace(/>/g,\'&gt;\');} function extractUsername(link){  try{   var url=link.includes(\'://\')?new URL(link):new URL(\'https://\'+link);   var parts=url.pathname.replace(/\\/+$/,\'\').split(\'/\').filter(Boolean);   var skip=[\'profile.php\',\'p\',\'reel\',\'stories\',\'groups\',\'pages\',\'watch\',\'share\',\'posts\'];   if(url.searchParams.get(\'id\')) return \'id:\'+url.searchParams.get(\'id\');   var name=parts.filter(function(p){return skip.indexOf(p)<0;}).pop();   return name||parts.pop()||\'\';  }catch(e){return link.trim().replace(/^@/,\'\')||\'\';} } function calcScore(reports){  var total=reports.length;  var loss=reports.reduce(function(s,r){return s+(r.amount||0);},0);  var likes=reports.reduce(function(s,r){return s+(r.likes||0);},0);  var hasProof=reports.some(function(r){return r.proof&&r.proof.length>10;});  var score=0;  score+=Math.min(total*15,40);  score+=Math.min(loss/50000,30);  score+=Math.min(likes*2,20);  if(hasProof)score+=10;  return Math.min(Math.round(score),100); } var reports=[]; try{reports=JSON.parse(localStorage.getItem(SD_KEY)||\'[]\');}catch(e){} var url=window.location.href; var uname=extractUsername(url).toLowerCase(); var matched=reports.filter(function(r){  var rLink=(r.scammerLink||\'\').toLowerCase();  var rName=(r.scammerName||\'\').toLowerCase();  var rU=extractUsername(r.scammerLink||\'\').toLowerCase();  return rLink.includes(uname)||rName.includes(uname)||rU===uname||url.toLowerCase().includes(rU); }); var score=calcScore(matched); var total=matched.length; var loss=matched.reduce(function(s,r){return s+(r.amount||0);},0); var status,color,bg,icon; if(total===0){status=\'Тайлан байхгүй\';color=\'#00e87a\';bg=\'#001a0d\';icon=\'🟢\';} else if(score>=70){status=\'СКАМ — Болгоомжил!\';color=\'#ff4444\';bg=\'#200000\';icon=\'🔴\';} else if(score>=35){status=\'Сэжигтэй\';color=\'#ff8833\';bg=\'#1a0d00\';icon=\'⚠️\';} else{status=\'Бага эрсдэл\';color=\'#ffcc00\';bg=\'#1a1500\';icon=\'🟡\';} var old=document.getElementById(\'__sd_overlay\'); if(old)old.remove(); var bar=score>=70?\'#ff4444\':score>=35?\'#ff8833\':score>=15?\'#ffcc00\':\'#00e87a\'; var reports_html=matched.slice(0,3).map(function(r){  return \'<div style="background:#ffffff08;border-left:3px solid #ff2d2d;border-radius:8px;padding:10px 12px;margin-bottom:8px">\'+   \'<div style="font-weight:700;font-size:13px;margin-bottom:4px">\'+esc(r.scammerName||uname)+\'</div>\'+   \'<div style="font-size:11px;color:#888;margin-bottom:4px">💸 \'+(r.amount||0).toLocaleString()+\'₮ · 👤 \'+esc(r.reporterName||\'\')+\'</div>\'+   \'<div style="font-size:12px;color:#aaa">\'+esc((r.desc||\'\').slice(0,80))+(r.desc&&r.desc.length>80?\'...\':\'\')+\'</div>\'+  \'</div>\'; }).join(\'\'); var d=document.createElement(\'div\'); d.id=\'__sd_overlay\'; d.style.cssText=\'position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;padding:16px;font-family:-apple-system,sans-serif;backdrop-filter:blur(6px)\'; d.innerHTML=\'<div style="background:#0d0d14;border:1px solid #ffffff1a;border-radius:20px;padding:22px;width:100%;max-width:340px;max-height:90vh;overflow-y:auto;color:#f0ecff">\'+  \'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">\'+   \'<div style="font-size:15px;font-weight:700">🛡️ Safe<span style=color:#ff5533>Deal</span></div>\'+   \'<button onclick="document.getElementById(\'__sd_overlay\').remove()" style="background:#ffffff12;border:1px solid #ffffff22;color:#aaa;width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:13px">✕</button>\'+  \'</div>\'+  \'<div style="background:\'+bg+\';border:1px solid \'+color+\'44;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:14px">\'+   \'<div style="font-size:28px">\'+icon+\'</div>\'+   \'<div><div style="color:\'+color+\';font-weight:700;font-size:15px">\'+status+\'</div>\'+   \'<div style="font-size:12px;color:#5a5680;font-family:monospace">@\'+esc(uname)+\'</div></div>\'+  \'</div>\'+  (total>0?   \'<div style="margin-bottom:14px">\'+    \'<div style="display:flex;justify-content:space-between;font-size:12px;color:#a09cc0;margin-bottom:6px"><span>Эрсдэлийн оноо</span><span style=color:\'+bar+\';font-weight:700>\'+score+\'/100</span></div>\'+    \'<div style="height:6px;background:#ffffff0d;border-radius:3px;overflow:hidden"><div style="height:100%;width:\'+score+\'%;background:\'+bar+\';border-radius:3px"></div></div>\'+   \'</div>\'+   \'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">\'+    \'<div style="background:#ffffff06;border:1px solid #ffffff0d;border-radius:10px;padding:10px;text-align:center">\'+     \'<div style="font-size:18px;font-weight:700;color:#ff6666;font-family:monospace">\'+total+\'</div>\'+     \'<div style="font-size:11px;color:#5a5680">Мэдүүлэг</div></div>\'+    \'<div style="background:#ffffff06;border:1px solid #ffffff0d;border-radius:10px;padding:10px;text-align:center">\'+     \'<div style="font-size:14px;font-weight:700;color:#ff8833;font-family:monospace">\'+(loss>=1000000?(loss/1000000).toFixed(1)+\'сая\':loss.toLocaleString())+\'₮</div>\'+     \'<div style="font-size:11px;color:#5a5680">Нийт хохирол</div></div>\'+   \'</div>\'+   (reports_html?\'<div style="font-size:11px;color:#5a5680;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 Мэдүүлгүүд</div>\'+reports_html:\'\')  :   \'<div style="background:#00e87a0d;border:1px solid #00e87a33;border-radius:10px;padding:14px;font-size:13px;color:#a09cc0;line-height:1.65;text-align:center">✅ Энэ акаунт дээр мэдүүлэг бүртгэгдээгүй байна.<br>Гэсэн ч болгоомжтой байгаарай!</div>\')+  \'<div style="text-align:center;padding-top:12px;border-top:1px solid #ffffff0d;margin-top:12px">\'+   \'<div style="font-size:11px;color:#5a5680">SafelyDeal — Монголын луйваас хамгаалах платформ</div>\'+  \'</div>\'+ \'</div>\'; document.body.appendChild(d); d.addEventListener(\'click\',function(e){if(e.target===d)d.remove();});})();';
+  var code = 'javascript:(function(){ var SD_KEY=\'sd_reports\'; function esc(s){return String(s||\'\').replace(/&/g,\'&amp;\').replace(/</g,\'&lt;\').replace(/>/g,\'&gt;\');} function extractUsername(link){  try{   var url=link.includes(\'://\')?new URL(link):new URL(\'https://\'+link);   var parts=url.pathname.replace(/\\/+$/,\'\').split(\'/\').filter(Boolean);   var skip=[\'profile.php\',\'p\',\'reel\',\'stories\',\'groups\',\'pages\',\'watch\',\'share\',\'posts\'];   if(url.searchParams.get(\'id\')) return \'id:\'+url.searchParams.get(\'id\');   var name=parts.filter(function(p){return skip.indexOf(p)<0;}).pop();   return name||parts.pop()||\'\';  }catch(e){return link.trim().replace(/^@/,\'\')||\'\';} } function calcScore(reports){  var total=reports.length;  var loss=reports.reduce(function(s,r){return s+(r.amount||0);},0);  var likes=reports.reduce(function(s,r){return s+(r.likes||0);},0);  var hasProof=reports.some(function(r){return r.proof&&r.proof.length>10;});  var score=0;  score+=Math.min(total*15,40);  score+=Math.min(loss/50000,30);  score+=Math.min(likes*2,20);  if(hasProof)score+=10;  return Math.min(Math.round(score),100); } var reports=[]; try{reports=JSON.parse(localStorage.getItem(SD_KEY)||\'[]\');}catch(e){} var url=window.location.href; var uname=extractUsername(url).toLowerCase(); var matched=reports.filter(function(r){  var rLink=(r.scammerLink||\'\').toLowerCase();  var rName=(r.scammerName||\'\').toLowerCase();  var rU=extractUsername(r.scammerLink||\'\').toLowerCase();  return rLink.includes(uname)||rName.includes(uname)||rU===uname||url.toLowerCase().includes(rU); }); var score=calcScore(matched); var total=matched.length; var loss=matched.reduce(function(s,r){return s+(r.amount||0);},0); var status,color,bg,icon; if(total===0){status=\'Тайлан байхгүй\';color=\'#00e87a\';bg=\'#001a0d\';icon=\'🟢\';} else if(score>=70){status=\'СКАМ — Болгоомжил!\';color=\'#ff4444\';bg=\'#200000\';icon=\'🔴\';} else if(score>=35){status=\'Сэжигтэй\';color=\'#ff8833\';bg=\'#1a0d00\';icon=\'⚠️\';} else{status=\'Бага эрсдэл\';color=\'#ffcc00\';bg=\'#1a1500\';icon=\'🟡\';} var old=document.getElementById(\'__sd_overlay\'); if(old)old.remove(); var bar=score>=70?\'#ff4444\':score>=35?\'#ff8833\':score>=15?\'#ffcc00\':\'#00e87a\'; var reports_html=matched.slice(0,3).map(function(r){  return \'<div style="background:#ffffff08;border-left:3px solid #ff2d2d;border-radius:8px;padding:10px 12px;margin-bottom:8px">\'+   \'<div style="font-weight:700;font-size:13px;margin-bottom:4px">\'+esc(r.scammerName||uname)+\'</div>\'+   \'<div style="font-size:11px;color:#888;margin-bottom:4px">💸 \'+(r.amount||0).toLocaleString()+\'₮ · 👤 \'+esc(r.reporterName||\'\')+\'</div>\'+   \'<div style="font-size:12px;color:#aaa">\'+esc((r.desc||\'\').slice(0,80))+(r.desc&&r.desc.length>80?\'...\':\'\')+\'</div>\'+  \'</div>\'; }).join(\'\'); var d=document.createElement(\'div\'); d.id=\'__sd_overlay\'; d.style.cssText=\'position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;padding:16px;font-family:-apple-system,sans-serif;backdrop-filter:blur(6px)\'; d.innerHTML=\'<div style="background:#0d0d14;border:1px solid #ffffff1a;border-radius:20px;padding:22px;width:100%;max-width:340px;max-height:90vh;overflow-y:auto;color:#f0ecff">\'+  \'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">\'+   \'<div style="font-size:15px;font-weight:700">🛡️ Safe<span style=color:#ff5533>Deal</span></div>\'+   \'<button onclick="document.getElementById(\'__sd_overlay\').remove()" style="background:#ffffff12;border:1px solid #ffffff22;color:#aaa;width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:13px">✕</button>\'+  \'</div>\'+  \'<div style="background:\'+bg+\';border:1px solid \'+color+\'44;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:14px">\'+   \'<div style="font-size:28px">\'+icon+\'</div>\'+   \'<div><div style="color:\'+color+\';font-weight:700;font-size:15px">\'+status+\'</div>\'+   \'<div style="font-size:12px;color:#5a5680;font-family:monospace">@\'+esc(uname)+\'</div></div>\'+  \'</div>\'+  (total>0?   \'<div style="margin-bottom:14px">\'+    \'<div style="display:flex;justify-content:space-between;font-size:12px;color:#a09cc0;margin-bottom:6px"><span>Эрсдэлийн оноо</span><span style=color:\'+bar+\';font-weight:700>\'+score+\'/100</span></div>\'+    \'<div style="height:6px;background:#ffffff0d;border-radius:3px;overflow:hidden"><div style="height:100%;width:\'+score+\'%;background:\'+bar+\';border-radius:3px"></div></div>\'+   \'</div>\'+   \'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">\'+    \'<div style="background:#ffffff06;border:1px solid #ffffff0d;border-radius:10px;padding:10px;text-align:center">\'+     \'<div style="font-size:18px;font-weight:700;color:#ff6666;font-family:monospace">\'+total+\'</div>\'+     \'<div style="font-size:11px;color:#5a5680">Мэдүүлэг</div></div>\'+    \'<div style="background:#ffffff06;border:1px solid #ffffff0d;border-radius:10px;padding:10px;text-align:center">\'+     \'<div style="font-size:14px;font-weight:700;color:#ff8833;font-family:monospace">\'+(loss>=1000000?(loss/1000000).toFixed(1)+\'сая\':loss.toLocaleString())+\'₮</div>\'+     \'<div style="font-size:11px;color:#5a5680">Нийт хохирол</div></div>\'+   \'</div>\'+   (reports_html?\'<div style="font-size:11px;color:#5a5680;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 Мэдүүлгүүд</div>\'+reports_html:\'\')  :   \'<div style="background:#00e87a0d;border:1px solid #00e87a33;border-radius:10px;padding:14px;font-size:13px;color:#a09cc0;line-height:1.65;text-align:center">✅ Энэ account дээр мэдүүлэг бүртгэгдээгүй байна.<br>Гэсэн ч болгоомжтой байгаарай!</div>\')+  \'<div style="text-align:center;padding-top:12px;border-top:1px solid #ffffff0d;margin-top:12px">\'+   \'<div style="font-size:11px;color:#5a5680">SafelyDeal — Монголын луйваас хамгаалах платформ</div>\'+  \'</div>\'+ \'</div>\'; document.body.appendChild(d); d.addEventListener(\'click\',function(e){if(e.target===d)d.remove();});})();';
   anchor.href = code;
 }
 window.setupBookmarklet = setupBookmarklet;
