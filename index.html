@@ -1,4 +1,4 @@
-]<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="mn">
 <head>
 <meta charset="UTF-8"/>
@@ -421,7 +421,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
       <div class="hero-content">
         <div class="hero-badge"><span class="hero-badge-dot"></span>Монгол дахь луйвраас хамгаалах платформ</div>
         <h1>Луйварчдыг<br><em>олон нийтэд</em> мэдээлэл</h1>
-        <p class="hero-sub">Facebook, Instagram дээрх зөрчилтэй account бүртгэж бусдыг хамгаал.</p>
+        <p class="hero-sub">Facebook, Instagram дээрх зөрчилтэй account-уудыг бүртгэж бусдыг хамгаал.</p>
         <div class="hero-btns">
           <button class="btn-primary" onclick="onAddReport()">+ Гомдол нэмэх</button>
           <button class="btn-outline" onclick="showPage('search')">🔍 Хайж шалгах</button>
@@ -454,7 +454,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 
     <!-- TOP SCAMMERS -->
     <div class="section-hd" style="margin-bottom:14px">
-      <div class="section-title"><span class="dot" style="background:#ff8833"></span>🏴 Хамгийн их гомдол гарсан account</div>
+      <div class="section-title"><span class="dot" style="background:#ff8833"></span>🏴 Хамгийн их гомдол гарсан accounts</div>
       <button class="btn-ghost" onclick="showPage('search')">Бүгдийг харах →</button>
     </div>
     <div id="top-scammers-list" style="margin-bottom:32px"></div>
@@ -491,7 +491,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     <div id="search-empty">
       <div style="background:#ff2d2d0a;border:1px solid #ff2d2d22;border-radius:var(--r);padding:20px;margin-bottom:20px">
         <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:14px;display:flex;align-items:center;gap:8px">
-          🏴 Хамгийн их гомдол гарсан account
+          🏴 Хамгийн их гомдол гарсан accounts
         </div>
         <div id="search-top-list"></div>
       </div>
@@ -886,7 +886,7 @@ function doRegister(){
   if(!name||!phone){ notify('Нэр болон утасны дугаараа оруулна уу!','error'); return; }
   if(!/^\d{8}$/.test(phone)){ notify('Утасны дугаар 8 оронтой байх ёстой!','error'); return; }
 
-  // Device fingerprint check — нэг device = нэг аккаунт
+  // Device fingerprint check — нэг device = нэг account
   const fp = getDeviceFingerprint();
   const existingFp = localStorage.getItem('device_fp');
   const existingUser = localStorage.getItem('ls_user');
@@ -894,7 +894,7 @@ function doRegister(){
     try{
       const eu = JSON.parse(existingUser);
       if(eu.phone !== phone){
-        notify(`⛔ Энэ төхөөрөмж дээр "${eu.name}" аккаунт аль хэдийн бүртгэлтэй байна. Нэг device-аас зөвхөн нэг аккаунт нээх боломжтой.`, 'error');
+        notify(`⛔ Энэ төхөөрөмж дээр "${eu.name}" account аль хэдийн бүртгэлтэй байна. Нэг device-аас зөвхөн нэг account нээх боломжтой.`, 'error');
         return;
       }
     } catch(e){}
@@ -912,9 +912,19 @@ window.doRegister = doRegister;
 function updateHeaderUser(){
   if(!currentUser) return;
   document.getElementById('header-right').innerHTML =
-    `<span style="font-size:12px;color:var(--text2);margin-right:10px">👤 <b style="color:var(--text)">${esc(currentUser.name)}</b></span>
-     <button class="btn-primary" onclick="onAddReport()">+ Гомдол</button>`;
+    `<span style="font-size:12px;color:var(--text2);margin-right:8px">👤 <b style="color:var(--text)">${esc(currentUser.name)}</b></span>
+     <button class="btn-primary" onclick="onAddReport()" style="margin-right:6px">+ Гомдол</button>
+     <button class="btn-outline" onclick="doLogout()" style="padding:8px 14px;font-size:12px">Гарах</button>`;
 }
+
+function doLogout(){
+  currentUser = null;
+  localStorage.removeItem('ls_user');
+  document.getElementById('header-right').innerHTML =
+    `<button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>`;
+  notify('Амжилттай гарлаа','success');
+}
+window.doLogout = doLogout;
 
 function onAddReport(){
   openModal('report-modal');
@@ -1117,7 +1127,7 @@ function analyzeDescPattern(){
   }
 
   alertHTML += `<span>📝 ${matches.length} гомдолтой ижил үг хэллэг, бичлэгийн хэв маяг илэрлээ.</span><br>
-    <span style="color:#d8b4fe">👤 Холбогдох account: <b>${names.slice(0,3).join(', ')}</b>${names.length>3?' болон бусад':''}</span>`;
+    <span style="color:#d8b4fe">👤 Холбогдох accounts: <b>${names.slice(0,3).join(', ')}</b>${names.length>3?' болон бусад':''}</span>`;
 
   if(phones.length > 0 && matches.some(r=>r.reporterPhone===matches[0].reporterPhone && matches.filter(x=>x.reporterPhone===r.reporterPhone).length > 1)){
     alertHTML += `<br><span style="color:#fca5a5">🔗 Нэг хэрэглэгч олон account дээр гомдол гаргасан байж магадгүй.</span>`;
@@ -2234,7 +2244,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const regModal = document.getElementById('register-modal');
       if(regModal){
         const infoBox = regModal.querySelector('.info-box');
-        if(infoBox) infoBox.innerHTML += `<br>📱 <b>Device lock:</b> Энэ төхөөрөмж дээр "${eu.name}" аккаунт бүртгэлтэй байна.`;
+        if(infoBox) infoBox.innerHTML += `<br>📱 <b>Device lock:</b> Энэ төхөөрөмж дээр "${eu.name}" account бүртгэлтэй байна.`;
       }
     } catch(e){}
   }
@@ -2262,6 +2272,12 @@ window.handleShareIntent = handleShareIntent;
 // ─── CLIPBOARD AUTO CHECK ───
 async function checkClipboard(){
   try {
+    // Permission-г эхлээд шалга — хэрэв granted биш бол хүсэхгүй
+    if(navigator.permissions){
+      const perm = await navigator.permissions.query({name:'clipboard-read'}).catch(()=>null);
+      if(!perm || perm.state === 'denied') return;
+      if(perm.state === 'prompt') return; // Дангаар нь хүсэхгүй
+    }
     const text = await navigator.clipboard.readText();
     if(!text) return;
     const t = text.trim();
