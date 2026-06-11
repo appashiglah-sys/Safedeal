@@ -972,7 +972,7 @@ function doLogin(){
 }
 window.doLogin = doLogin;
 
-
+function doLogout(){
   currentUser = null;
   localStorage.removeItem('ls_user');
   document.getElementById('header-right').innerHTML =
@@ -1030,11 +1030,30 @@ function findLinkedAccounts(r, allR){
 // ─── LOAD REPORTS (localStorage) ───
 // ─── LOAD FROM FIREBASE ───
 async function loadReportsFromFirebase(){
+  // Firebase module бэлэн болтол хүлээх (max 5 секунд)
+  let waited = 0;
+  while(!window._firebaseReady && waited < 5000){
+    await new Promise(r=>setTimeout(r,100));
+    waited += 100;
+  }
+  if(!window._firebaseReady || !window._db){
+    console.warn('Firebase not ready, using localStorage');
+    loadReports();
+    return;
+  }
   try {
     const db = window._db;
     const { collection, getDocs, query, orderBy } = window._fsOps;
-    const q = query(collection(db,'reports'), orderBy('likes','desc'));
-    const snap = await getDocs(q);
+    let snap;
+    try {
+      // likes индекс байгаа эсэхийг шалгаж orderBy ашиглана
+      const q = query(collection(db,'reports'), orderBy('likes','desc'));
+      snap = await getDocs(q);
+    } catch(idxErr){
+      // Index байхгүй бол orderBy-гүй авна
+      console.warn('Index error, fetching without orderBy:', idxErr);
+      snap = await getDocs(collection(db,'reports'));
+    }
     const fbReports = snap.docs.map(d=>({id:d.id,...d.data()}));
     // Merge with localStorage (local-only reports)
     const localRaw = localStorage.getItem('sd_reports_local');
@@ -1043,12 +1062,15 @@ async function loadReportsFromFirebase(){
     const fbIds = new Set(fbReports.map(r=>r.id));
     const onlyLocal = localReports.filter(r=>!fbIds.has(r.id));
     allReports = [...fbReports, ...onlyLocal];
+    // Sort by likes client-side
+    allReports.sort((a,b)=>(b.likes||0)-(a.likes||0));
     // Cache in localStorage
     localStorage.setItem('sd_reports', JSON.stringify(allReports));
     renderHome();
     const rPage = document.getElementById('page-reports');
     if(rPage && !rPage.classList.contains('hidden'))
       renderReports('all-reports', allReports);
+    console.log(`✅ Firebase-аас ${fbReports.length} гомдол татлаа`);
   } catch(e){
     console.warn('Firebase error, using localStorage:', e);
     loadReports();
@@ -2305,9 +2327,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-loadReports();
+loadReports(); // localStorage cache-аас тэр даруй харуулна
+// Firebase-аас шинэ өгөгдөл ачаалах — module script бэлэн болохоор дуудагдана
+// (window.loadReportsFromFirebase нь Firebase script-аас дуудагддаг)
 handleShareIntent();
 setTimeout(checkClipboard, 1000);
+checkFirstVisit();
 
 
 // ─── SHARE INTENT HANDLER ───
@@ -2440,8 +2465,15 @@ window._db = db;
 window._fsOps = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
 window._firebaseReady = true;
 
-// Firebase бэлэн болмогц татна
-window.loadReportsFromFirebase();
+// Firebase бэлэн болмогц татна — main script бэлэн болоход хүлээнэ
+function tryLoad(){
+  if(typeof window.loadReportsFromFirebase === 'function'){
+    window.loadReportsFromFirebase();
+  } else {
+    setTimeout(tryLoad, 100);
+  }
+}
+tryLoad();
 </script>
 
 </body>
