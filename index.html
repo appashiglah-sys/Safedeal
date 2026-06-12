@@ -669,13 +669,17 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     <div class="modal-header">
       <div>
         <div class="modal-title">🔑 Нэвтрэх</div>
-        <div class="modal-sub">Бүртгүүлсэн утасны дугаараараа нэвтэрнэ үү.</div>
+        <div class="modal-sub">Бүртгүүлсэн утасны дугаар болон нууц үгээрээ нэвтэрнэ үү.</div>
       </div>
       <button class="modal-close" onclick="closeModal('login-modal')">✕</button>
     </div>
     <div class="field">
       <label>Утасны дугаар <span class="required-star">*</span></label>
       <input class="input" id="login-phone" placeholder="9900XXXX" maxlength="8" type="tel"/>
+    </div>
+    <div class="field">
+      <label>Нууц үг <span class="required-star">*</span></label>
+      <input class="input" id="login-pass" placeholder="Нууц үг" type="password"/>
     </div>
     <div id="login-error" style="display:none;background:#200a0a;border:1px solid #ff2d2d44;border-radius:var(--r3);padding:10px 14px;font-size:13px;color:#ff9999;margin-bottom:14px"></div>
     <div class="modal-btns">
@@ -701,6 +705,8 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     </div>
     <div class="field"><label>Бүтэн нэр <span class="required-star">*</span></label><input class="input" id="reg-name" placeholder="Жишээ: Б. Мөнхбаяр"/></div>
     <div class="field"><label>Утасны дугаар <span class="required-star">*</span> (8 оронтой)</label><input class="input" id="reg-phone" placeholder="9900XXXX" maxlength="8" type="tel"/></div>
+    <div class="field"><label>Нууц үг <span class="required-star">*</span></label><input class="input" id="reg-pass" placeholder="Дор хаяж 6 тэмдэгт" type="password" minlength="6"/></div>
+    <div class="field"><label>Нууц үг давтах <span class="required-star">*</span></label><input class="input" id="reg-pass2" placeholder="Нууц үгийг давтана уу" type="password"/></div>
     <div class="info-box">🔒 Таны хувийн мэдээлэл нийтэд харагдахгүй. Зөвхөн тайлангийн үнэн зөвийг баталгаажуулахад ашиглана.</div>
     <div class="modal-btns">
       <button class="btn-outline" onclick="closeModal('register-modal')">Болих</button>
@@ -813,6 +819,89 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
   <div class="modal" id="detail-modal-content" style="max-width:580px"></div>
 </div>
 
+<!-- ══ ACCOUNT SETTINGS MODAL ══ -->
+<div id="account-settings-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('account-settings-modal')">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">⚙️ Аккаунт тохиргоо</div>
+        <div class="modal-sub" id="acc-set-sub">Хувийн мэдээллээ засварлана уу</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('account-settings-modal')">✕</button>
+    </div>
+
+    <!-- Tab row -->
+    <div class="tab-row" style="margin-bottom:20px">
+      <button class="tab-btn active" id="acc-tab-profile" onclick="switchAccTab('profile')">👤 Профайл</button>
+      <button class="tab-btn" id="acc-tab-password" onclick="switchAccTab('password')">🔑 Нууц үг</button>
+      <button class="tab-btn" id="acc-tab-danger" onclick="switchAccTab('danger')" style="color:#ff6666">🗑️ Устгах</button>
+    </div>
+
+    <!-- Profile tab -->
+    <div id="acc-panel-profile">
+      <div class="field">
+        <label>Нэвтрэх нэр (бүтэн нэр) <span class="required-star">*</span></label>
+        <input class="input" id="acc-name" placeholder="Жишээ: Б. Мөнхбаяр"/>
+      </div>
+      <div class="field">
+        <label>Утасны дугаар <span class="required-star">*</span></label>
+        <input class="input" id="acc-phone" placeholder="9900XXXX" maxlength="8" type="tel"/>
+      </div>
+      <div class="field">
+        <label>Одоогийн нууц үг (баталгаажуулахад) <span class="required-star">*</span></label>
+        <input class="input" id="acc-cur-pass-profile" placeholder="Одоогийн нууц үг" type="password"/>
+      </div>
+      <div id="acc-profile-error" style="display:none;background:#200a0a;border:1px solid #ff2d2d44;border-radius:var(--r3);padding:10px 14px;font-size:13px;color:#ff9999;margin-bottom:14px"></div>
+      <div class="modal-btns">
+        <button class="btn-outline" onclick="closeModal('account-settings-modal')">Болих</button>
+        <button class="btn-primary" onclick="saveProfileSettings()">✓ Хадгалах</button>
+      </div>
+    </div>
+
+    <!-- Password tab -->
+    <div id="acc-panel-password" class="hidden">
+      <div class="field">
+        <label>Одоогийн нууц үг <span class="required-star">*</span></label>
+        <input class="input" id="acc-cur-pass" placeholder="Одоогийн нууц үг" type="password"/>
+      </div>
+      <div class="field">
+        <label>Шинэ нууц үг <span class="required-star">*</span></label>
+        <input class="input" id="acc-new-pass" placeholder="Дор хаяж 6 тэмдэгт" type="password"/>
+      </div>
+      <div class="field">
+        <label>Шинэ нууц үг давтах <span class="required-star">*</span></label>
+        <input class="input" id="acc-new-pass2" placeholder="Шинэ нууц үгийг давтана уу" type="password"/>
+      </div>
+      <div id="acc-pass-error" style="display:none;background:#200a0a;border:1px solid #ff2d2d44;border-radius:var(--r3);padding:10px 14px;font-size:13px;color:#ff9999;margin-bottom:14px"></div>
+      <div class="modal-btns">
+        <button class="btn-outline" onclick="closeModal('account-settings-modal')">Болих</button>
+        <button class="btn-primary" onclick="savePasswordSettings()">🔑 Нууц үг солих</button>
+      </div>
+    </div>
+
+    <!-- Danger zone tab -->
+    <div id="acc-panel-danger" class="hidden">
+      <div style="background:#1a0000;border:1px solid #ff2d2d44;border-radius:var(--r);padding:16px 18px;margin-bottom:20px">
+        <div style="font-size:15px;font-weight:700;color:#ff6666;margin-bottom:8px">⚠️ Аккаунт устгах</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7">Аккаунтаа устгасан тохиолдолд таны бүртгэл бүрмөсөн устана. Энэ үйлдлийг буцаах боломжгүй!</div>
+      </div>
+      <div class="field">
+        <label>Нууц үгээ оруулж баталгаажуулна уу <span class="required-star">*</span></label>
+        <input class="input" id="acc-del-pass" placeholder="Нууц үг" type="password"/>
+      </div>
+      <div class="field">
+        <label>Баталгаажуулахын тулд <b style="color:#ff6666">"УСТГАХ"</b> гэж бичнэ үү</label>
+        <input class="input" id="acc-del-confirm" placeholder="УСТГАХ"/>
+      </div>
+      <div id="acc-del-error" style="display:none;background:#200a0a;border:1px solid #ff2d2d44;border-radius:var(--r3);padding:10px 14px;font-size:13px;color:#ff9999;margin-bottom:14px"></div>
+      <div class="modal-btns">
+        <button class="btn-outline" onclick="closeModal('account-settings-modal')">Болих</button>
+        <button style="flex:1;background:linear-gradient(135deg,#aa0000,#ff2d2d);border:none;color:#fff;padding:10px;border-radius:var(--r2);cursor:pointer;font-weight:700;font-family:'Geologica',sans-serif;font-size:13px" onclick="deleteAccount()">🗑️ Аккаунт устгах</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>🛡️ SafeDeal — Монгол дахь луйвраас хамгаалах платформ</footer>
 
 <!-- ══ FIREBASE + APP ══ -->
@@ -913,8 +1002,12 @@ function checkDeviceAccount(){
 function doRegister(){
   const name = document.getElementById('reg-name').value.trim();
   const phone = document.getElementById('reg-phone').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
   if(!name||!phone){ notify('Нэр болон утасны дугаараа оруулна уу!','error'); return; }
   if(!/^\d{8}$/.test(phone)){ notify('Утасны дугаар 8 оронтой байх ёстой!','error'); return; }
+  if(!pass || pass.length < 6){ notify('Нууц үг дор хаяж 6 тэмдэгт байх ёстой!','error'); return; }
+  if(pass !== pass2){ notify('Нууц үг таарахгүй байна!','error'); return; }
 
   // Device fingerprint check — нэг device = нэг account
   const fp = getDeviceFingerprint();
@@ -930,11 +1023,13 @@ function doRegister(){
     } catch(e){}
   }
 
-  currentUser = {name, phone, fp};
+  currentUser = {name, phone, pass, fp};
   localStorage.setItem('ls_user', JSON.stringify(currentUser));
   localStorage.setItem('device_fp', fp);
   updateHeaderUser();
   closeModal('register-modal');
+  document.getElementById('reg-pass').value = '';
+  document.getElementById('reg-pass2').value = '';
   notify(`✅ Тавтай морил, ${name}! 📱 Энэ device бүртгэгдлээ.`, 'success');
 }
 window.doRegister = doRegister;
@@ -944,26 +1039,37 @@ function updateHeaderUser(){
   document.getElementById('header-right').innerHTML =
     `<span style="font-size:12px;color:var(--text2);margin-right:8px">👤 <b style="color:var(--text)">${esc(currentUser.name)}</b></span>
      <button class="btn-primary" onclick="onAddReport()" style="margin-right:6px">+ Гомдол</button>
+     <button class="btn-outline" onclick="openAccountSettings()" style="margin-right:6px;padding:8px 14px;font-size:12px">⚙️</button>
      <button class="btn-outline" onclick="doLogout()" style="padding:8px 14px;font-size:12px">Гарах</button>`;
 }
 
 function doLogin(){
   const phone = document.getElementById('login-phone').value.trim();
+  const pass = document.getElementById('login-pass').value;
   const errEl = document.getElementById('login-error');
   errEl.style.display = 'none';
   if(!phone){ errEl.textContent='Утасны дугаараа оруулна уу!'; errEl.style.display='block'; return; }
   if(!/^\d{8}$/.test(phone)){ errEl.textContent='Утасны дугаар 8 оронтой байх ёстой!'; errEl.style.display='block'; return; }
+  if(!pass){ errEl.textContent='Нууц үгээ оруулна уу!'; errEl.style.display='block'; return; }
   const storedUser = localStorage.getItem('ls_user');
   if(storedUser){
     try{
       const u = JSON.parse(storedUser);
       if(u.phone === phone){
-        currentUser = u;
-        updateHeaderUser();
-        closeModal('login-modal');
-        document.getElementById('login-phone').value = '';
-        notify(`✅ Тавтай морил, ${u.name}!`, 'success');
-        return;
+        // Хуучин бүртгэл (нууц үггүй) — нууц үг шаардахгүй
+        if(!u.pass || u.pass === pass){
+          currentUser = u;
+          updateHeaderUser();
+          closeModal('login-modal');
+          document.getElementById('login-phone').value = '';
+          document.getElementById('login-pass').value = '';
+          notify(`✅ Тавтай морил, ${u.name}!`, 'success');
+          return;
+        } else {
+          errEl.textContent = '❌ Нууц үг буруу байна.';
+          errEl.style.display = 'block';
+          return;
+        }
       }
     } catch(e){}
   }
@@ -980,6 +1086,85 @@ function doLogout(){
   notify('Амжилттай гарлаа','success');
 }
 window.doLogout = doLogout;
+
+// ─── ACCOUNT SETTINGS ───
+function openAccountSettings(){
+  if(!currentUser){ notify('Эхлээд нэвтэрнэ үү!','error'); return; }
+  document.getElementById('acc-name').value = currentUser.name || '';
+  document.getElementById('acc-phone').value = currentUser.phone || '';
+  document.getElementById('acc-cur-pass-profile').value = '';
+  document.getElementById('acc-cur-pass').value = '';
+  document.getElementById('acc-new-pass').value = '';
+  document.getElementById('acc-new-pass2').value = '';
+  document.getElementById('acc-del-pass').value = '';
+  document.getElementById('acc-del-confirm').value = '';
+  document.getElementById('acc-profile-error').style.display='none';
+  document.getElementById('acc-pass-error').style.display='none';
+  document.getElementById('acc-del-error').style.display='none';
+  switchAccTab('profile');
+  openModal('account-settings-modal');
+}
+window.openAccountSettings = openAccountSettings;
+
+function switchAccTab(tab){
+  ['profile','password','danger'].forEach(t=>{
+    document.getElementById('acc-panel-'+t).classList.toggle('hidden', t!==tab);
+    document.getElementById('acc-tab-'+t).classList.toggle('active', t===tab);
+  });
+}
+window.switchAccTab = switchAccTab;
+
+function saveProfileSettings(){
+  const name = document.getElementById('acc-name').value.trim();
+  const phone = document.getElementById('acc-phone').value.trim();
+  const curPass = document.getElementById('acc-cur-pass-profile').value;
+  const errEl = document.getElementById('acc-profile-error');
+  errEl.style.display='none';
+  if(!name){ errEl.textContent='Нэрээ оруулна уу!'; errEl.style.display='block'; return; }
+  if(!/^\d{8}$/.test(phone)){ errEl.textContent='Утасны дугаар 8 оронтой байх ёстой!'; errEl.style.display='block'; return; }
+  if(currentUser.pass && curPass !== currentUser.pass){ errEl.textContent='Одоогийн нууц үг буруу!'; errEl.style.display='block'; return; }
+  currentUser.name = name;
+  currentUser.phone = phone;
+  localStorage.setItem('ls_user', JSON.stringify(currentUser));
+  updateHeaderUser();
+  closeModal('account-settings-modal');
+  notify('✅ Профайл амжилттай шинэчлэгдлээ!','success');
+}
+window.saveProfileSettings = saveProfileSettings;
+
+function savePasswordSettings(){
+  const curPass = document.getElementById('acc-cur-pass').value;
+  const newPass = document.getElementById('acc-new-pass').value;
+  const newPass2 = document.getElementById('acc-new-pass2').value;
+  const errEl = document.getElementById('acc-pass-error');
+  errEl.style.display='none';
+  if(currentUser.pass && curPass !== currentUser.pass){ errEl.textContent='Одоогийн нууц үг буруу!'; errEl.style.display='block'; return; }
+  if(!newPass || newPass.length < 6){ errEl.textContent='Шинэ нууц үг дор хаяж 6 тэмдэгт байх ёстой!'; errEl.style.display='block'; return; }
+  if(newPass !== newPass2){ errEl.textContent='Шинэ нууц үг таарахгүй байна!'; errEl.style.display='block'; return; }
+  currentUser.pass = newPass;
+  localStorage.setItem('ls_user', JSON.stringify(currentUser));
+  closeModal('account-settings-modal');
+  notify('✅ Нууц үг амжилттай солигдлоо!','success');
+}
+window.savePasswordSettings = savePasswordSettings;
+
+function deleteAccount(){
+  const pass = document.getElementById('acc-del-pass').value;
+  const confirm = document.getElementById('acc-del-confirm').value.trim();
+  const errEl = document.getElementById('acc-del-error');
+  errEl.style.display='none';
+  if(currentUser.pass && pass !== currentUser.pass){ errEl.textContent='Нууц үг буруу!'; errEl.style.display='block'; return; }
+  if(confirm !== 'УСТГАХ'){ errEl.textContent='"УСТГАХ" гэж яг бичнэ үү!'; errEl.style.display='block'; return; }
+  // Устгах
+  localStorage.removeItem('ls_user');
+  localStorage.removeItem('device_fp');
+  currentUser = null;
+  document.getElementById('header-right').innerHTML =
+    `<button class="btn-outline" onclick="openModal('login-modal')" style="margin-right:6px">Нэвтрэх</button><button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>`;
+  closeModal('account-settings-modal');
+  notify('Аккаунт устгагдлаа.','warning');
+}
+window.deleteAccount = deleteAccount;
 
 function onAddReport(){
   openModal('report-modal');
@@ -2327,12 +2512,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-loadReports(); // localStorage cache-аас тэр даруй харуулна
-// Firebase-аас шинэ өгөгдөл ачаалах — module script бэлэн болохоор дуудагдана
-// (window.loadReportsFromFirebase нь Firebase script-аас дуудагддаг)
+loadReports();
 handleShareIntent();
 setTimeout(checkClipboard, 1000);
-checkFirstVisit();
 
 
 // ─── SHARE INTENT HANDLER ───
@@ -2465,15 +2647,8 @@ window._db = db;
 window._fsOps = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
 window._firebaseReady = true;
 
-// Firebase бэлэн болмогц татна — main script бэлэн болоход хүлээнэ
-function tryLoad(){
-  if(typeof window.loadReportsFromFirebase === 'function'){
-    window.loadReportsFromFirebase();
-  } else {
-    setTimeout(tryLoad, 100);
-  }
-}
-tryLoad();
+// Firebase бэлэн болмогц татна
+window.loadReportsFromFirebase();
 </script>
 
 </body>
