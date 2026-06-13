@@ -31,12 +31,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── HEADER ── */
 header{position:sticky;top:0;z-index:50;background:#060608ee;backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:0;padding:0 24px}
-.nav-top{width:100%;display:flex;align-items:center;justify-content:center;padding:12px 0 6px}
-.nav-bottom{width:100%;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 0 10px;flex-wrap:wrap}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:8px}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none;user-select:none}
-.logo-shield{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 20px #ff2d2d44,inset 0 1px 0 #ffffff22}
-.logo-text{font-weight:700;font-size:18px;letter-spacing:-0.5px}
+.logo-shield{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 20px #ff2d2d44,inset 0 1px 0 #ffffff22}
+.logo-text{font-weight:700;font-size:20px;letter-spacing:-0.5px}
 .logo-text b{color:var(--red)}
 nav{display:flex;gap:2px}
 .nav-btn{background:none;border:none;cursor:pointer;padding:8px 14px;border-radius:var(--r3);font-family:'Geologica',sans-serif;font-size:13px;font-weight:500;color:var(--text3);transition:all .2s;display:flex;align-items:center;gap:6px}
@@ -44,6 +42,16 @@ nav{display:flex;gap:2px}
 .nav-btn.active{background:#ff2d2d18;color:#ff6666}
 .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--red);display:none}
 .nav-btn.active .nav-dot{display:block}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:50;background:#060608f5;backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;align-items:stretch;justify-content:space-around;padding:0 0 env(safe-area-inset-bottom,0)}
+.bottom-nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 4px 10px;border:none;background:none;cursor:pointer;color:var(--text3);font-family:'Geologica',sans-serif;font-size:11px;font-weight:500;transition:color .2s;-webkit-tap-highlight-color:rgba(255,45,45,0.15)}
+.bottom-nav-btn:active{background:#ff2d2d08}
+.bottom-nav-btn .bn-icon{font-size:20px;line-height:1;transition:transform .15s;display:flex;align-items:center;justify-content:center;height:24px}.bottom-nav-btn .bn-icon svg{display:block}.bn-home-icon{color:var(--text3)}.bottom-nav-btn.active .bn-home-icon{color:var(--red)}
+.bottom-nav-btn.active{color:var(--red)}
+.bottom-nav-btn.active .bn-icon{transform:scale(1.15)}
+.bottom-nav-footer{text-align:center;font-size:10px;color:var(--text3);padding:4px 0 8px;border-top:1px solid var(--border)}
+.page-footer{text-align:center;font-size:10px;color:var(--text3);padding:8px 0 88px;background:var(--bg)}
 .btn-primary{background:linear-gradient(135deg,var(--red),var(--red2));border:none;color:#fff;padding:9px 20px;border-radius:var(--r2);cursor:pointer;font-weight:600;font-family:'Geologica',sans-serif;font-size:13px;transition:all .2s;box-shadow:0 2px 12px #ff2d2d33}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 24px #ff2d2d44}
 .btn-primary:active{transform:translateY(0)}
@@ -53,7 +61,7 @@ nav{display:flex;gap:2px}
 .btn-ghost:hover{color:var(--text2);background:#ffffff08}
 
 /* ── MAIN ── */
-main{max-width:1100px;margin:0 auto;padding:32px 24px}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 90px}
 
 /* ── HERO ── */
 .hero{position:relative;padding:56px 32px 48px;text-align:center;overflow:hidden;border-radius:24px;border:1px solid var(--border);background:var(--bg2);margin-bottom:40px}
@@ -391,22 +399,12 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
 <!-- ══ HEADER ══ -->
 <header>
   <div class="nav-inner">
-    <div class="nav-top">
-      <a class="logo" onclick="showPage('home')">
-        <div class="logo-shield">🛡️</div>
-        <span class="logo-text">Safe<b>Deal</b></span>
-      </a>
-    </div>
-    <div class="nav-bottom">
-      <nav>
-        <button class="nav-btn active" id="nav-home" onclick="showPage('home')"><span class="nav-dot"></span>Нүүр</button>
-        <button class="nav-btn" id="nav-search" onclick="showPage('search')"><span class="nav-dot"></span>Хайх</button>
-        <button class="nav-btn" id="nav-reports" onclick="showPage('reports')"><span class="nav-dot"></span>Гомдол</button>
-        <button class="nav-btn" id="nav-feedback" onclick="showPage('feedback')"><span class="nav-dot"></span>Санал</button>
-      </nav>
-      <div id="header-right">
-        <button class="btn-outline" onclick="openModal('login-modal')" style="margin-right:6px">Нэвтрэх</button><button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
-      </div>
+    <a class="logo" onclick="showPage('home')">
+      <div class="logo-shield">🛡️</div>
+      <span class="logo-text">Safe<b>Deal</b></span>
+    </a>
+    <div id="header-right">
+      <button class="btn-outline" onclick="openModal('login-modal')" style="margin-right:6px">Нэвтрэх</button><button class="btn-primary" onclick="openModal('register-modal')">Бүртгүүлэх</button>
     </div>
   </div>
 </header>
@@ -626,7 +624,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
       <div style="display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:12px">
         <div style="font-size:22px;flex-shrink:0">🔍</div>
         <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:3px">Луйварч хайх</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:3px">Луйварчин хайх</div>
           <div style="font-size:12px;color:var(--text2);line-height:1.5">Facebook/Instagram холбоос эсвэл нэрээр хайж шалгана. Бүртгэлтэй байвал шууд анхааруулна.</div>
         </div>
       </div>
@@ -634,7 +632,7 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
         <div style="font-size:22px;flex-shrink:0">📋</div>
         <div>
           <div style="font-weight:700;font-size:13px;margin-bottom:3px">Гомдол нэмэх</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5">Луйварчны холбоос, нэр, хохирлын дүн, тайлбараа оруулна. Бүртгэлгүйгээр зочноор гомдол гаргаж болно.</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5">Луйварчингийн холбоос, нэр, хохирлын дүн, тайлбараа оруулна. Бүртгэлгүйгээр зочноор гомдол гаргаж болно.</div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;background:var(--bg3);border-radius:10px;padding:12px">
@@ -731,13 +729,13 @@ footer{border-top:1px solid var(--border);padding:24px;text-align:center;color:v
     </div>
 
     <div class="field">
-      <label>Луйварчны холбоос <span class="required-star">*</span></label>
+      <label>Луйварчингийн холбоос <span class="required-star">*</span></label>
       <input class="input" id="rep-link" placeholder="https://facebook.com/username" oninput="checkLinkRealtime()"/>
       <div class="inline-warn" id="rep-link-warn"></div>
     </div>
 
     <div class="field">
-      <label>Луйварчны нэр <span class="required-star">*</span> <span style="color:var(--text3);font-weight:400">(профайлд харагдах бодит нэр)</span></label>
+      <label>Луйварчингийн нэр <span class="required-star">*</span> <span style="color:var(--text3);font-weight:400">(профайлд харагдах бодит нэр)</span></label>
       <input class="input" id="rep-displayname" placeholder="Жишээ: Мөнх Дэлгэр, Б. Батбаяр..."/>
     </div>
 
@@ -999,7 +997,7 @@ function checkDeviceAccount(){
 }
 
 // ─── REGISTER ───
-function doRegister(){
+async function doRegister(){
   const name = document.getElementById('reg-name').value.trim();
   const phone = document.getElementById('reg-phone').value.trim();
   const pass = document.getElementById('reg-pass').value;
@@ -1009,38 +1007,55 @@ function doRegister(){
   if(!pass || pass.length < 6){ notify('Нууц үг дор хаяж 6 тэмдэгт байх ёстой!','error'); return; }
   if(pass !== pass2){ notify('Нууц үг таарахгүй байна!','error'); return; }
 
-  // Device fingerprint check — нэг device = нэг account
   const fp = getDeviceFingerprint();
-  const existingFp = localStorage.getItem('device_fp');
-  const existingUser = localStorage.getItem('ls_user');
-  if(existingFp && existingUser){
+
+  // Firebase дээр тухайн утасны дугаар бүртгэлтэй эсэх шалгах
+  if(window._firebaseReady){
     try{
-      const eu = JSON.parse(existingUser);
-      if(eu.phone !== phone){
-        notify(`⛔ Энэ төхөөрөмж дээр "${eu.name}" account аль хэдийн бүртгэлтэй байна. Нэг device-аас зөвхөн нэг account нээх боломжтой.`, 'error');
-        return;
+      const {collection, getDocs, query} = window._fsOps;
+      const db = window._db;
+      const snap = await getDocs(collection(db,'users'));
+      for(const d of snap.docs){
+        const u = d.data();
+        if(u.phone === phone){
+          notify('⛔ Энэ утасны дугаар аль хэдийн бүртгэлтэй байна!','error');
+          return;
+        }
       }
-    } catch(e){}
+      // Шинэ хэрэглэгч Firebase-д хадгалах
+      const {addDoc, serverTimestamp} = window._fsOps;
+      const docRef = await addDoc(collection(db,'users'),{
+        name, phone, pass, fp, createdAt: serverTimestamp()
+      });
+      currentUser = {id: docRef.id, name, phone, pass, fp};
+    } catch(e){
+      console.error('Firebase бүртгэл алдаа:',e);
+      notify('Бүртгэл хадгалахад алдаа гарлаа. Дахин оролдоно уу.','error');
+      return;
+    }
+  } else {
+    currentUser = {name, phone, pass, fp};
   }
 
-  currentUser = {name, phone, pass, fp};
   localStorage.setItem('ls_user', JSON.stringify(currentUser));
   localStorage.setItem('device_fp', fp);
   updateHeaderUser();
   closeModal('register-modal');
   document.getElementById('reg-pass').value = '';
   document.getElementById('reg-pass2').value = '';
-  notify(`✅ Тавтай морил, ${name}! 📱 Энэ device бүртгэгдлээ.`, 'success');
+  notify(`✅ Тавтай морил, ${name}! 📱 Бүртгэл амжилттай үүслээ.`, 'success');
 }
 window.doRegister = doRegister;
 
 function updateHeaderUser(){
   if(!currentUser) return;
   document.getElementById('header-right').innerHTML =
-    `<span style="font-size:12px;color:var(--text2);margin-right:8px">👤 <b style="color:var(--text)">${esc(currentUser.name)}</b></span>
-     <button class="btn-primary" onclick="onAddReport()" style="margin-right:6px">+ Гомдол</button>
-     <button class="btn-outline" onclick="openAccountSettings()" style="margin-right:6px;padding:8px 14px;font-size:12px">⚙️</button>
-     <button class="btn-outline" onclick="doLogout()" style="padding:8px 14px;font-size:12px">Гарах</button>`;
+    `<div style="display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r2);padding:6px 10px">
+      <span style="font-size:13px;color:var(--text2)">👤 <b style="color:var(--text)">${esc(currentUser.name)}</b></span>
+      <button class="btn-primary" onclick="onAddReport()" style="padding:6px 14px;font-size:12px">+ Гомдол</button>
+      <button class="btn-outline" onclick="openAccountSettings()" style="padding:6px 10px;font-size:12px">⚙️</button>
+      <button class="btn-outline" onclick="doLogout()" style="padding:6px 10px;font-size:12px">Гарах</button>
+    </div>`;
 }
 
 function doLogin(){
@@ -1051,30 +1066,64 @@ function doLogin(){
   if(!phone){ errEl.textContent='Утасны дугаараа оруулна уу!'; errEl.style.display='block'; return; }
   if(!/^\d{8}$/.test(phone)){ errEl.textContent='Утасны дугаар 8 оронтой байх ёстой!'; errEl.style.display='block'; return; }
   if(!pass){ errEl.textContent='Нууц үгээ оруулна уу!'; errEl.style.display='block'; return; }
+
+  // Firebase-с эхлээд хайх
+  if(window._firebaseReady){
+    const {collection, getDocs} = window._fsOps;
+    const db = window._db;
+    getDocs(collection(db,'users')).then(snap=>{
+      let found = null;
+      snap.forEach(d=>{ const u=d.data(); if(u.phone===phone) found={id:d.id,...u}; });
+      if(found){
+        if(found.pass === pass){
+          currentUser = found;
+          localStorage.setItem('ls_user', JSON.stringify(currentUser));
+          updateHeaderUser();
+          closeModal('login-modal');
+          document.getElementById('login-phone').value='';
+          document.getElementById('login-pass').value='';
+          notify(`✅ Тавтай морил, ${found.name}!`,'success');
+        } else {
+          errEl.textContent='❌ Нууц үг буруу байна.';
+          errEl.style.display='block';
+        }
+      } else {
+        errEl.textContent='❌ Энэ утасны дугаартай бүртгэл олдсонгүй. Эхлээд бүртгүүлнэ үү.';
+        errEl.style.display='block';
+      }
+    }).catch(()=>{
+      // Firebase алдаатай бол localStorage-с хайх
+      _loginFromLocalStorage(phone, pass, errEl);
+    });
+  } else {
+    _loginFromLocalStorage(phone, pass, errEl);
+  }
+}
+
+function _loginFromLocalStorage(phone, pass, errEl){
   const storedUser = localStorage.getItem('ls_user');
   if(storedUser){
     try{
       const u = JSON.parse(storedUser);
       if(u.phone === phone){
-        // Хуучин бүртгэл (нууц үггүй) — нууц үг шаардахгүй
         if(!u.pass || u.pass === pass){
           currentUser = u;
           updateHeaderUser();
           closeModal('login-modal');
-          document.getElementById('login-phone').value = '';
-          document.getElementById('login-pass').value = '';
-          notify(`✅ Тавтай морил, ${u.name}!`, 'success');
+          document.getElementById('login-phone').value='';
+          document.getElementById('login-pass').value='';
+          notify(`✅ Тавтай морил, ${u.name}!`,'success');
           return;
         } else {
-          errEl.textContent = '❌ Нууц үг буруу байна.';
-          errEl.style.display = 'block';
+          errEl.textContent='❌ Нууц үг буруу байна.';
+          errEl.style.display='block';
           return;
         }
       }
     } catch(e){}
   }
-  errEl.textContent = '❌ Энэ утасны дугаартай бүртгэл олдсонгүй. Эхлээд бүртгүүлнэ үү.';
-  errEl.style.display = 'block';
+  errEl.textContent='❌ Энэ утасны дугаартай бүртгэл олдсонгүй. Эхлээд бүртгүүлнэ үү.';
+  errEl.style.display='block';
 }
 window.doLogin = doLogin;
 
@@ -1126,6 +1175,11 @@ function saveProfileSettings(){
   currentUser.name = name;
   currentUser.phone = phone;
   localStorage.setItem('ls_user', JSON.stringify(currentUser));
+  // Firestore sync
+  if(window._firebaseReady && currentUser.id){
+    const {doc, updateDoc} = window._fsOps;
+    updateDoc(doc(window._db,'users',currentUser.id),{name, phone}).catch(e=>console.warn('Firestore update:',e));
+  }
   updateHeaderUser();
   closeModal('account-settings-modal');
   notify('✅ Профайл амжилттай шинэчлэгдлээ!','success');
@@ -1143,6 +1197,11 @@ function savePasswordSettings(){
   if(newPass !== newPass2){ errEl.textContent='Шинэ нууц үг таарахгүй байна!'; errEl.style.display='block'; return; }
   currentUser.pass = newPass;
   localStorage.setItem('ls_user', JSON.stringify(currentUser));
+  // Firestore sync
+  if(window._firebaseReady && currentUser.id){
+    const {doc, updateDoc} = window._fsOps;
+    updateDoc(doc(window._db,'users',currentUser.id),{pass: newPass}).catch(e=>console.warn('Firestore update:',e));
+  }
   closeModal('account-settings-modal');
   notify('✅ Нууц үг амжилттай солигдлоо!','success');
 }
@@ -1155,7 +1214,13 @@ function deleteAccount(){
   errEl.style.display='none';
   if(currentUser.pass && pass !== currentUser.pass){ errEl.textContent='Нууц үг буруу!'; errEl.style.display='block'; return; }
   if(confirm !== 'УСТГАХ'){ errEl.textContent='"УСТГАХ" гэж яг бичнэ үү!'; errEl.style.display='block'; return; }
-  // Устгах
+  // Firestore-с устгах
+  if(window._firebaseReady && currentUser.id){
+    const {doc} = window._fsOps;
+    // deleteDoc байхгүй тул updateDoc-оор идэвхгүй болгох
+    const {updateDoc} = window._fsOps;
+    updateDoc(doc(window._db,'users',currentUser.id),{deleted:true}).catch(e=>console.warn(e));
+  }
   localStorage.removeItem('ls_user');
   localStorage.removeItem('device_fp');
   currentUser = null;
@@ -1763,7 +1828,7 @@ function renderTopScammers(){
     map[key].reportCount++;
     map[key].likes += r.likes||0;
   });
-  const sorted = Object.values(map).sort((a,b)=>b.totalAmount-a.totalAmount).slice(0,5);
+  const sorted = Object.values(map).sort((a,b)=>b.reportCount-a.reportCount).slice(0,5);
   if(!sorted.length){ el.innerHTML='<div class="empty-state" style="padding:24px"><div class="empty-icon" style="font-size:32px">📭</div><p>Бүртгэлтэй account байхгүй</p></div>'; return; }
   el.innerHTML = sorted.map((s,i)=>{
     const rankClass = i<3?`rank-${i+1}`:'rank-n';
@@ -2630,7 +2695,7 @@ document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) checkCl
 <!-- ══ FIREBASE — өгөгдөл унших ══ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, increment, arrayUnion, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const cfg = {
   apiKey:"AIzaSyDfDcqyeOS6Cj3gFdy1A0YJT5wBbJpX7PI",
@@ -2644,12 +2709,61 @@ const cfg = {
 const app = initializeApp(cfg);
 const db = getFirestore(app);
 window._db = db;
-window._fsOps = { collection, addDoc, getDocs, doc, updateDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
+window._fsOps = { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, increment, arrayUnion, query, orderBy, serverTimestamp };
 window._firebaseReady = true;
+
+// Auto-login: localStorage-д хадгалсан хэрэглэгчийг Firebase-с баталгаажуулах
+const stored = localStorage.getItem('ls_user');
+if(stored){
+  try{
+    const u = JSON.parse(stored);
+    if(u.phone && u.pass){
+      const snap = await getDocs(collection(db,'users'));
+      let found = null;
+      snap.forEach(d=>{ const x=d.data(); if(x.phone===u.phone && x.pass===u.pass && !x.deleted) found={id:d.id,...x}; });
+      if(found){
+        window.currentUser = found;
+        localStorage.setItem('ls_user', JSON.stringify(found));
+        if(window.updateHeaderUser) window.updateHeaderUser();
+      } else {
+        // Firebase-д байхгүй бол localStorage цэвэрлэх
+        localStorage.removeItem('ls_user');
+      }
+    }
+  } catch(e){ console.warn('Auto-login алдаа:',e); }
+}
 
 // Firebase бэлэн болмогц татна
 window.loadReportsFromFirebase();
 </script>
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav">
+  <button class="bottom-nav-btn active" id="nav-home" onclick="showPage('home')">
+    <span class="bn-icon bn-home-icon">
+      <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="currentColor"/></svg>
+    </span>
+    <span>Нүүр</span>
+  </button>
+  <button class="bottom-nav-btn" id="nav-search" onclick="showPage('search')">
+    <span class="bn-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </span>
+    <span>Хайх</span>
+  </button>
+  <button class="bottom-nav-btn" id="nav-reports" onclick="showPage('reports')">
+    <span class="bn-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    </span>
+    <span>Гомдол</span>
+  </button>
+  <button class="bottom-nav-btn" id="nav-feedback" onclick="showPage('feedback')">
+    <span class="bn-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </span>
+    <span>Санал</span>
+  </button>
+</nav>
+<div class="page-footer">© 2025 SafeDeal. Бүх эрх хуулиар хамгаалагдсан.</div>
 
 </body>
 </html>
